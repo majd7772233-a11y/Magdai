@@ -8,25 +8,7 @@
 
 Chat with language models, give them a voice, and let them use tools — all on-device. No account, no cloud, no internet required.
 
-<a href="https://pocketpal.dev/"><strong>pocketpal.dev</strong></a> ·
-<a href="#get-the-app">Get the app</a> ·
-<a href="https://pocketpal.dev/leaderboard">Leaderboard</a> ·
-<a href="https://palshub.ai/">PalsHub</a> ·
-<a href="https://github.com/a-ghorbani/pocketpal-ai/discussions">Discussions</a>
-
 <br/>
-
-[![App Store](https://img.shields.io/badge/App_Store-Download-0D96F6?logo=apple&logoColor=white)](https://apps.apple.com/us/app/pocketpal-ai/id6502579498)
-[![Google Play](https://img.shields.io/badge/Google_Play-Get_it-414141?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.pocketpalai)
-
-[![Latest release](https://img.shields.io/github/v/release/a-ghorbani/pocketpal-ai?sort=semver)](https://github.com/a-ghorbani/pocketpal-ai/releases)
-[![License: MIT](https://img.shields.io/github/license/a-ghorbani/pocketpal-ai)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/a-ghorbani/pocketpal-ai)](https://github.com/a-ghorbani/pocketpal-ai/stargazers)
-[![Open issues](https://img.shields.io/github/issues/a-ghorbani/pocketpal-ai)](https://github.com/a-ghorbani/pocketpal-ai/issues)
-[![Sponsor](https://img.shields.io/github/sponsors/a-ghorbani?logo=githubsponsors)](https://github.com/sponsors/a-ghorbani)
-
-</div>
-
 ---
 
 ## Why PocketPal AI?
@@ -90,7 +72,7 @@ PocketPal is a four-layer stack, from the silicon up to the chat UI. Each layer 
 | Layer | What runs here |
 | --- | --- |
 | **UI & Tool Use** | The React Native app (UI via React Native Paper, state via MobX, chat history in WatermelonDB). The **`AgentRunner`** drives each chat turn — streaming tokens, dispatching **Talents** (tools) when the model calls them, and feeding results back for follow-up reasoning. **Pals** are configurable personas; **PalsHub** is the in-app marketplace for sharing and buying them. |
-| **Bridging** | Native modules that connect JavaScript to the engines. [`llama.rn`](https://github.com/mybigday/llama.rn) bridges LLM inference over JSI; [`react-native-speech`](https://github.com/a-ghorbani/react-native-speech) and `onnxruntime-react-native` bridge text-to-speech. |
+| **Bridging** | Native modules that connect JavaScript to the engines. [`llama.rn`](https://github.com/mybigday/llama.rn) bridges LLM inference over JSI;
 | **Engine** | The inference engines. **llama.cpp** runs language models in the quantized **GGUF** format. **ONNX Runtime** runs TTS voice models in the **ONNX** format. |
 | **Hardware** | Where the math actually happens. PocketPal targets **CPU** (universal fallback), **GPU** (Metal on iOS, OpenCL on Qualcomm Adreno for Android), and **NPU** (Qualcomm Hexagon) — falling back gracefully and offloading partial layers when a full backend isn't available. |
 
@@ -278,31 +260,6 @@ Good first contributions:
 
 </details>
 
-## Contributing
-
-Contributions are welcome — bug reports, fixes, features, translations, and docs all help.
-
-1. Fork and branch: `git checkout -b feature/your-feature-name`
-2. Make your changes; run on a device/emulator (`yarn ios` / `yarn android`). Re-run `pod install` + rebuild if you touched native code.
-3. Gate locally: `yarn lint && yarn typecheck && yarn test`
-4. Commit with [Conventional Commits](https://www.conventionalcommits.org/): `git commit -m "feat: add new talent"`
-5. Push and open a pull request.
-
-Please read the [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) first. Want to translate PocketPal into your language? Join us on [Weblate](https://hosted.weblate.org/projects/pocketpal-ai/).
-
-## Roadmap
-
-- **Tool use expansion** — grow the Talents catalog and deepen the agentic loop so Pals can do more, fully on-device.
-
-Have an idea or found a bug? [Open an issue](https://github.com/a-ghorbani/pocketpal-ai/issues/new/choose) or start a [discussion](https://github.com/a-ghorbani/pocketpal-ai/discussions).
-
-## Community & support
-
-- 💬 **Questions & ideas** — [GitHub Discussions](https://github.com/a-ghorbani/pocketpal-ai/discussions)
-- 🐛 **Bugs & requests** — [GitHub Issues](https://github.com/a-ghorbani/pocketpal-ai/issues/new/choose)
-- 🌐 **Website** — [pocketpal.dev](https://pocketpal.dev/)
-- ❤️ **Support development** — PocketPal is free and ad-free; [sponsoring](https://github.com/sponsors/a-ghorbani) helps keep it that way.
-
 ## License
 
 Licensed under the [MIT License](LICENSE).
@@ -313,7 +270,6 @@ PocketPal AI stands on the shoulders of the open-source community, including:
 
 - **[llama.cpp](https://github.com/ggerganov/llama.cpp)** — efficient on-device LLM inference.
 - **[llama.rn](https://github.com/mybigday/llama.rn)** — llama.cpp bindings for React Native.
-- **[react-native-speech](https://github.com/a-ghorbani/react-native-speech)** — React Native TTS bridge powering on-device voices.
 - **[ONNX Runtime](https://onnxruntime.ai/)** — cross-platform inference engine powering on-device TTS.
 - **[React Native](https://reactnative.dev/)**, **[MobX](https://mobx.js.org/)**, **[React Native Paper](https://callstack.github.io/react-native-paper/)**, **[React Navigation](https://reactnavigation.org/)**, **[WatermelonDB](https://github.com/Nozbe/WatermelonDB)**, and many other open-source libraries that make this project possible.
 
