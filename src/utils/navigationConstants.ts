@@ -1,7 +1,10 @@
 // Navigation route names
 export const ROUTES = {
   // Main app routes
+  HOME: 'Home',
   CHAT: 'Chat',
+  PROJECTS: 'Projects',
+  MEMORY: 'Memory',
   MODELS: 'Models',
   PALS: 'Pals (experimental)',
   BENCHMARK: 'Benchmark',

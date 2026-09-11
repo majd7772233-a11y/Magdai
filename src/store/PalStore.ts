@@ -758,33 +758,83 @@ class PalStore {
    */
   private async initializePipPal(): Promise<void> {
     try {
-      const existing = this.pals.find(
-        p => p.name === 'Pip' && p.source === 'local',
-      );
-      if (existing) {
-        return;
+      const defaultPersonas: Omit<Pal, 'id' | 'created_at' | 'updated_at'>[] = [
+        {
+          type: 'local',
+          name: '✨ MAGD AI ✨',
+          description:
+            'مساعدك الذكي الشخصي والمستقل (Local-First Personal AI Platform)',
+          systemPrompt:
+            'أنت ✨ MAGD AI ✨، منصة ومساعد ذكاء اصطناعي محلي شخصي. عند السؤال "من أنت؟" تجيب دائماً: ✨MAGD AI✨ وليس أي اسم آخر. تقدم إجابات احترافية، سريعة، ودقيقة.',
+          isSystemPromptChanged: false,
+          useAIPrompt: false,
+          defaultModel: undefined,
+          parameters: {},
+          parameterSchema: [],
+          capabilities: {},
+          color: ['#1A1F38', '#6366F1'],
+          source: 'local',
+        },
+        {
+          type: 'local',
+          name: '👨‍💻 MAGD Programmer',
+          description:
+            'خبير البرمجة والتطوير (كتابة الكود، تصحيح الأخطاء، شرح المنطق)',
+          systemPrompt:
+            'أنت المساعد البرمجي الخبير من ✨ MAGD AI ✨. تخصصك هو كتابة كود نظيف، شرح الأخطاء وحلها، ومساعدة المطورين في مجالات Android, React Native, Python, C++, Java. تجيب بإيجاز واحترافية عالية مع تنسيق الكود بـ Code Blocks.',
+          isSystemPromptChanged: false,
+          useAIPrompt: false,
+          defaultModel: undefined,
+          parameters: {},
+          parameterSchema: [],
+          capabilities: {},
+          color: ['#0F172A', '#3B82F6'],
+          source: 'local',
+        },
+        {
+          type: 'local',
+          name: '🔧 MAGD Electronics Expert',
+          description:
+            'خبير الإلكترونيات، الدوائر الكهربائية، و الميكروكنترولر',
+          systemPrompt:
+            'أنت خبير الإلكترونيات والأنظمة المدمجة من ✨ MAGD AI ✨. تشرح الدوائر الكهربائية، قانون أوم، المقاومات، المكثفات، ومخططات PCB، وتوفر نصائح عملية لمشاريع Arduino/ESP32.',
+          isSystemPromptChanged: false,
+          useAIPrompt: false,
+          defaultModel: undefined,
+          parameters: {},
+          parameterSchema: [],
+          capabilities: {},
+          color: ['#18181B', '#F59E0B'],
+          source: 'local',
+        },
+        {
+          type: 'local',
+          name: '👨‍🏫 MAGD Teacher',
+          description:
+            'المعلم الصبور الذي يشرح المفاهيم المعقدة بأسلوب تدريجي مبسط',
+          systemPrompt:
+            'أنت المعلم الخاص من ✨ MAGD AI ✨. تقوم بشرح المفاهيم المعقدة خطوة بخطوة وتبسيط الأفكار الأكاديمية والتقنية وإعطاء أمثلة تفاعلية ومبتكرة.',
+          isSystemPromptChanged: false,
+          useAIPrompt: false,
+          defaultModel: undefined,
+          parameters: {},
+          parameterSchema: [],
+          capabilities: {},
+          color: ['#064E3B', '#10B981'],
+          source: 'local',
+        },
+      ];
+
+      for (const persona of defaultPersonas) {
+        const existing = this.pals.find(
+          p => p.name === persona.name && p.source === 'local',
+        );
+        if (!existing) {
+          await this.addPal(persona);
+        }
       }
-
-      const palData: Omit<Pal, 'id' | 'created_at' | 'updated_at'> = {
-        type: 'local',
-        name: 'Pip',
-        description:
-          'A friendly general-purpose pal that runs entirely on your phone.',
-        systemPrompt:
-          'You are Pip, a friendly and helpful assistant who runs locally on the user’s phone. Keep replies concise and warm.',
-        isSystemPromptChanged: false,
-        useAIPrompt: false,
-        defaultModel: undefined,
-        parameters: {},
-        parameterSchema: [],
-        capabilities: {},
-        color: ['#0E0D0C', '#FAFAFA'],
-        source: 'local',
-      };
-
-      await this.addPal(palData);
     } catch (error) {
-      console.error('Error initializing Pip pal:', error);
+      console.error('Error initializing MAGD AI personas:', error);
     }
   }
 }

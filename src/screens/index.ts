@@ -1,3 +1,6 @@
+export * from './HomeScreen';
+export * from './MemoryScreen';
+export * from './ProjectsScreen';
 export * from './AboutScreen';
 export * from './BenchmarkScreen';
 export * from './ChatScreen';

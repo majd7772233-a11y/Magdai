@@ -1150,7 +1150,53 @@
       "step4": "• Switch to another pal for normal text chat"
     }
   },
+  "magd": {
+    "identityName": "✨ MAGD AI ✨",
+    "tagline": "Local-First Personal AI Platform",
+    "systemPrompt": "You are ✨ MAGD AI ✨, a powerful, local-first personal AI assistant.",
+    "status": {
+      "thinking": "Thinking...",
+      "processing": "Processing...",
+      "reading": "Reading...",
+      "searching": "Searching...",
+      "analyzing": "Analyzing...",
+      "generating": "Generating response..."
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "createNew": "Create New Project",
+    "projectName": "Project Name",
+    "description": "Description",
+    "noProjects": "No projects yet. Create your first project to organize chats, files, and smart context.",
+    "projectMemory": "Project Memory",
+    "projectFiles": "Project Files"
+  },
+  "home": {
+    "welcome": "Welcome to ✨ MAGD AI ✨",
+    "subtitle": "Local-First Personal AI Platform",
+    "greeting": "Good evening, Majd",
+    "greetingMorning": "Good morning, Majd",
+    "greetingAfternoon": "Good afternoon, Majd",
+    "whatBuilding": "What are we building today?",
+    "quickActions": "Quick Actions",
+    "chat": "Chat",
+    "code": "Code",
+    "vision": "Vision",
+    "files": "Files & Projects",
+    "electronics": "Electronics",
+    "math": "Math",
+    "activeModel": "Active Model",
+    "noModelLoaded": "Tap to select or download a GGUF model",
+    "recentChats": "Recent Chats",
+    "projects": "Projects",
+    "newProject": "New Project",
+    "memoryCenter": "Memory Center"
+  },
   "screenTitles": {
+    "home": "Home",
+    "projects": "Projects",
+    "memory": "Memory Center",
     "chat": "Chat",
     "models": "Models",
     "pals": "Pals (experimental)",

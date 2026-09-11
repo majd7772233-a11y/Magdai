@@ -36,9 +36,13 @@ const EXPECTED_SECTIONS = [
   'htmlPreview',
   'onboarding',
   'downloadBanner',
+  'home',
+  'magd',
+  'projects',
 ];
 
 const ALL_LANGUAGES: AvailableLanguage[] = [
+  'ar',
   'en',
   'fa',
   'he',
@@ -81,6 +85,7 @@ describe('l10n object', () => {
   });
 
   it.each([
+    'ar',
     'fa',
     'he',
     'id',
@@ -155,6 +160,7 @@ describe('l10n object', () => {
   });
 
   it('supports in operator for all languages', () => {
+    expect('ar' in l10n).toBe(true);
     expect('en' in l10n).toBe(true);
     expect('fa' in l10n).toBe(true);
     expect('he' in l10n).toBe(true);
@@ -287,6 +293,7 @@ describe('lazy loading', () => {
   });
 
   it.each([
+    'ar',
     'fa',
     'he',
     'id',
@@ -347,6 +354,7 @@ describe('type safety', () => {
   it('keyof typeof l10n resolves to literal union', () => {
     // At runtime we verify the keys match
     const keys: Array<keyof typeof l10n> = [
+      'ar',
       'en',
       'fa',
       'he',

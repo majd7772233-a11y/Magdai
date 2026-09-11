@@ -490,11 +490,32 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
         <View>
           <Drawer.Section showDivider={false}>
             <Drawer.Item
+              label={l10n.screenTitles?.home || 'الرئيسية'}
+              icon={() => <ChatIcon stroke={theme.colors.primary} />}
+              onPress={() => props.navigation.navigate(ROUTES.HOME)}
+              style={styles.menuDrawerItem}
+              testID="drawer-item-home"
+            />
+            <Drawer.Item
               label={l10n.components.sidebarContent.menuItems.chat}
               icon={() => <ChatIcon stroke={theme.colors.primary} />}
               onPress={() => props.navigation.navigate(ROUTES.CHAT)}
               style={styles.menuDrawerItem}
               testID="drawer-item-chat"
+            />
+            <Drawer.Item
+              label={l10n.screenTitles?.projects || 'المشاريع'}
+              icon={() => <ShareIcon stroke={theme.colors.primary} />}
+              onPress={() => props.navigation.navigate(ROUTES.PROJECTS)}
+              style={styles.menuDrawerItem}
+              testID="drawer-item-projects"
+            />
+            <Drawer.Item
+              label={l10n.screenTitles?.memory || 'الذاكرة'}
+              icon={() => <EditIcon stroke={theme.colors.primary} />}
+              onPress={() => props.navigation.navigate(ROUTES.MEMORY)}
+              style={styles.menuDrawerItem}
+              testID="drawer-item-memory"
             />
             <Drawer.Item
               label={l10n.components.sidebarContent.menuItems.pals}
