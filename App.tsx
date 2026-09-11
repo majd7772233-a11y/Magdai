@@ -37,6 +37,7 @@ import {MarkdownProvider} from './src/components/MarkdownView';
 import {AutomationBridge, BenchmarkRunnerScreen} from './src/__automation__';
 import {
   HomeScreen,
+  AgentsScreen,
   ToolsScreen,
   KnowledgeScreen,
   StudyScreen,
@@ -139,6 +140,14 @@ const App = observer(() => {
                             component={gestureHandlerRootHOC(HomeScreen)}
                             options={{
                               title: currentL10n.screenTitles?.home || 'الرئيسية',
+                            }}
+                          />
+                          <Drawer.Screen
+                            name={ROUTES.AGENTS}
+                            component={gestureHandlerRootHOC(AgentsScreen)}
+                            options={{
+                              headerStyle: styles.headerWithoutDivider,
+                              title: currentL10n.screenTitles?.agents || 'منظومة الوكلاء',
                             }}
                           />
                           <Drawer.Screen

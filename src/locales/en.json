@@ -1195,6 +1195,7 @@
   },
   "screenTitles": {
     "home": "Home",
+    "agents": "Agents & Workflows",
     "tools": "Tools",
     "knowledge": "Knowledge Base",
     "study": "Study Mode",

@@ -497,6 +497,13 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
               testID="drawer-item-home"
             />
             <Drawer.Item
+              label={l10n.screenTitles?.agents || 'منظومة الوكلاء'}
+              icon={() => <PalIcon stroke={theme.colors.primary} />}
+              onPress={() => props.navigation.navigate(ROUTES.AGENTS)}
+              style={styles.menuDrawerItem}
+              testID="drawer-item-agents"
+            />
+            <Drawer.Item
               label={l10n.screenTitles?.tools || 'الأدوات'}
               icon={() => <SettingsIcon stroke={theme.colors.primary} />}
               onPress={() => props.navigation.navigate(ROUTES.TOOLS)}
