@@ -36,6 +36,9 @@ import {
 import {MarkdownProvider} from './src/components/MarkdownView';
 import {AutomationBridge, BenchmarkRunnerScreen} from './src/__automation__';
 import {
+  HomeScreen,
+  MemoryScreen,
+  ProjectsScreen,
   ChatScreen,
   ModelsScreen,
   SettingsScreen,
@@ -128,10 +131,33 @@ const App = observer(() => {
                             <SidebarContent {...props} />
                           )}>
                           <Drawer.Screen
+                            name={ROUTES.HOME}
+                            component={gestureHandlerRootHOC(HomeScreen)}
+                            options={{
+                              title: currentL10n.screenTitles?.home || 'الرئيسية',
+                            }}
+                          />
+                          <Drawer.Screen
                             name={ROUTES.CHAT}
                             component={gestureHandlerRootHOC(ChatScreen)}
                             options={{
                               headerShown: false,
+                            }}
+                          />
+                          <Drawer.Screen
+                            name={ROUTES.PROJECTS}
+                            component={gestureHandlerRootHOC(ProjectsScreen)}
+                            options={{
+                              headerStyle: styles.headerWithoutDivider,
+                              title: currentL10n.screenTitles?.projects || 'المشاريع',
+                            }}
+                          />
+                          <Drawer.Screen
+                            name={ROUTES.MEMORY}
+                            component={gestureHandlerRootHOC(MemoryScreen)}
+                            options={{
+                              headerStyle: styles.headerWithoutDivider,
+                              title: currentL10n.screenTitles?.memory || 'الذاكرة',
                             }}
                           />
                           <Drawer.Screen

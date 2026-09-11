@@ -4,6 +4,9 @@
 export {Surface} from './Surface';
 export type {SurfaceProps} from './Surface';
 
+export {GlassCard} from './GlassCard';
+export type {GlassCardProps} from './GlassCard';
+
 export {Header} from './Header';
 export type {HeaderProps} from './Header';
 

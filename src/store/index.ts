@@ -10,3 +10,5 @@ export * from './ServerStore';
 export * from './TTSStore';
 export * from './CheckoutFlowStore';
 export * from './SearchProviderStore';
+export * from './MemoryStore';
+export * from './ProjectStore';
