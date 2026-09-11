@@ -37,6 +37,10 @@ import {MarkdownProvider} from './src/components/MarkdownView';
 import {AutomationBridge, BenchmarkRunnerScreen} from './src/__automation__';
 import {
   HomeScreen,
+  ToolsScreen,
+  KnowledgeScreen,
+  StudyScreen,
+  TranslationScreen,
   MemoryScreen,
   ProjectsScreen,
   ChatScreen,
@@ -135,6 +139,38 @@ const App = observer(() => {
                             component={gestureHandlerRootHOC(HomeScreen)}
                             options={{
                               title: currentL10n.screenTitles?.home || 'الرئيسية',
+                            }}
+                          />
+                          <Drawer.Screen
+                            name={ROUTES.TOOLS}
+                            component={gestureHandlerRootHOC(ToolsScreen)}
+                            options={{
+                              headerStyle: styles.headerWithoutDivider,
+                              title: currentL10n.screenTitles?.tools || 'الأدوات',
+                            }}
+                          />
+                          <Drawer.Screen
+                            name={ROUTES.KNOWLEDGE}
+                            component={gestureHandlerRootHOC(KnowledgeScreen)}
+                            options={{
+                              headerStyle: styles.headerWithoutDivider,
+                              title: currentL10n.screenTitles?.knowledge || 'قاعدة المعرفة',
+                            }}
+                          />
+                          <Drawer.Screen
+                            name={ROUTES.STUDY}
+                            component={gestureHandlerRootHOC(StudyScreen)}
+                            options={{
+                              headerStyle: styles.headerWithoutDivider,
+                              title: currentL10n.screenTitles?.study || 'وضع الدراسة',
+                            }}
+                          />
+                          <Drawer.Screen
+                            name={ROUTES.TRANSLATION}
+                            component={gestureHandlerRootHOC(TranslationScreen)}
+                            options={{
+                              headerStyle: styles.headerWithoutDivider,
+                              title: currentL10n.screenTitles?.translation || 'مركز الترجمة',
                             }}
                           />
                           <Drawer.Screen

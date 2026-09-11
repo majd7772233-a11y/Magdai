@@ -497,6 +497,34 @@ export const SidebarContent: React.FC<DrawerContentComponentProps> = observer(
               testID="drawer-item-home"
             />
             <Drawer.Item
+              label={l10n.screenTitles?.tools || 'الأدوات'}
+              icon={() => <SettingsIcon stroke={theme.colors.primary} />}
+              onPress={() => props.navigation.navigate(ROUTES.TOOLS)}
+              style={styles.menuDrawerItem}
+              testID="drawer-item-tools"
+            />
+            <Drawer.Item
+              label={l10n.screenTitles?.knowledge || 'قاعدة المعرفة'}
+              icon={() => <AppInfoIcon stroke={theme.colors.primary} />}
+              onPress={() => props.navigation.navigate(ROUTES.KNOWLEDGE)}
+              style={styles.menuDrawerItem}
+              testID="drawer-item-knowledge"
+            />
+            <Drawer.Item
+              label={l10n.screenTitles?.study || 'وضع الدراسة'}
+              icon={() => <PalIcon stroke={theme.colors.primary} />}
+              onPress={() => props.navigation.navigate(ROUTES.STUDY)}
+              style={styles.menuDrawerItem}
+              testID="drawer-item-study"
+            />
+            <Drawer.Item
+              label={l10n.screenTitles?.translation || 'مركز الترجمة'}
+              icon={() => <ShareIcon stroke={theme.colors.primary} />}
+              onPress={() => props.navigation.navigate(ROUTES.TRANSLATION)}
+              style={styles.menuDrawerItem}
+              testID="drawer-item-translation"
+            />
+            <Drawer.Item
               label={l10n.components.sidebarContent.menuItems.chat}
               icon={() => <ChatIcon stroke={theme.colors.primary} />}
               onPress={() => props.navigation.navigate(ROUTES.CHAT)}

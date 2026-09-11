@@ -1195,6 +1195,10 @@
   },
   "screenTitles": {
     "home": "Home",
+    "tools": "Tools",
+    "knowledge": "Knowledge Base",
+    "study": "Study Mode",
+    "translation": "Translation Center",
     "projects": "Projects",
     "memory": "Memory Center",
     "chat": "Chat",
