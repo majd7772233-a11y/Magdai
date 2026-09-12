@@ -1195,6 +1195,7 @@
   },
   "screenTitles": {
     "home": "Home",
+    "lab": "Experimental Lab",
     "agents": "Agents & Workflows",
     "tools": "Tools",
     "knowledge": "Knowledge Base",

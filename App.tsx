@@ -37,6 +37,7 @@ import {MarkdownProvider} from './src/components/MarkdownView';
 import {AutomationBridge, BenchmarkRunnerScreen} from './src/__automation__';
 import {
   HomeScreen,
+  ExperimentalLabScreen,
   AgentsScreen,
   ToolsScreen,
   KnowledgeScreen,
@@ -140,6 +141,14 @@ const App = observer(() => {
                             component={gestureHandlerRootHOC(HomeScreen)}
                             options={{
                               title: currentL10n.screenTitles?.home || 'الرئيسية',
+                            }}
+                          />
+                          <Drawer.Screen
+                            name={ROUTES.LAB}
+                            component={gestureHandlerRootHOC(ExperimentalLabScreen)}
+                            options={{
+                              headerStyle: styles.headerWithoutDivider,
+                              title: currentL10n.screenTitles?.lab || 'المختبر التجريبي',
                             }}
                           />
                           <Drawer.Screen

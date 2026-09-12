@@ -2,6 +2,7 @@
 export const ROUTES = {
   // Main app routes
   HOME: 'Home',
+  LAB: 'Lab',
   AGENTS: 'Agents',
   TOOLS: 'Tools',
   KNOWLEDGE: 'Knowledge',

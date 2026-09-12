@@ -1,4 +1,5 @@
 export * from './HomeScreen';
+export * from './ExperimentalLabScreen';
 export * from './AgentsScreen';
 export * from './ToolsScreen';
 export * from './KnowledgeScreen';

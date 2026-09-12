@@ -8,8 +8,18 @@ export interface SandboxExecutionResult {
 export class SandboxService {
   static executeJavaScript(code: string): SandboxExecutionResult {
     const startTime = Date.now();
+
+    // Prevent unsafe expressions
+    if (code.includes('process.') || code.includes('require(') || code.includes('import(')) {
+      return {
+        success: false,
+        output: '',
+        error: '⚠️ الكود يحتوي على عمليات غير مسموح بها داخل البيئة المعزولة.',
+        executionTimeMs: Date.now() - startTime,
+      };
+    }
+
     try {
-      // Safe isolated Function evaluation
       const safeFn = new Function(`
         'use strict';
         ${code}
@@ -18,7 +28,7 @@ export class SandboxService {
       const endTime = Date.now();
       return {
         success: true,
-        output: result !== undefined ? String(result) : 'تم التشغيل بنجاح دون مخرجات مباشرة.',
+        output: result !== undefined ? String(result) : 'تم التشغيل بنجاح داخل البيئة المعزولة.',
         executionTimeMs: endTime - startTime,
       };
     } catch (err: any) {
@@ -26,7 +36,7 @@ export class SandboxService {
       return {
         success: false,
         output: '',
-        error: err?.message || 'خطأ أثناء التشغيل آمن داخل Sandbox',
+        error: err?.message || 'خطأ أثناء التشغيل داخل Sandbox',
         executionTimeMs: endTime - startTime,
       };
     }
