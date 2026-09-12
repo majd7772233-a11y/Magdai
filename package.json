@@ -134,11 +134,11 @@
   },
   "packageManager": "yarn@1.22.22",
   "codegenConfig": {
-    "name": "PocketPalSpecs",
+    "name": "MAGDAISpecs",
     "type": "all",
     "jsSrcsDir": "src/specs",
     "android": {
-      "javaPackageName": "com.pocketpal.specs"
+      "javaPackageName": "com.magd.specs"
     }
   }
 }

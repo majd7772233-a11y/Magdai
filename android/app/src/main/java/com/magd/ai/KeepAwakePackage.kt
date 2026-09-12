@@ -1,16 +1,16 @@
-package com.pocketpal
+package com.magd.ai
 
 import com.facebook.react.TurboReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
-import com.pocketpal.specs.NativeStorefrontSpec
+import com.magd.ai.specs.NativeKeepAwakeSpec
 
-class StorefrontPackage : TurboReactPackage() {
+class KeepAwakePackage : TurboReactPackage() {
   override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
-    return if (name == NativeStorefrontSpec.NAME) {
-      StorefrontModule(reactContext)
+    return if (name == NativeKeepAwakeSpec.NAME) {
+      KeepAwakeModule(reactContext)
     } else {
       null
     }
@@ -19,9 +19,9 @@ class StorefrontPackage : TurboReactPackage() {
   override fun getReactModuleInfoProvider(): ReactModuleInfoProvider {
     return ReactModuleInfoProvider {
       mapOf(
-        NativeStorefrontSpec.NAME to ReactModuleInfo(
-          NativeStorefrontSpec.NAME,
-          NativeStorefrontSpec.NAME,
+        NativeKeepAwakeSpec.NAME to ReactModuleInfo(
+          NativeKeepAwakeSpec.NAME,
+          NativeKeepAwakeSpec.NAME,
           false, // canOverrideExistingModule
           false, // needsEagerInit
           false, // hasConstants
@@ -32,3 +32,4 @@ class StorefrontPackage : TurboReactPackage() {
     }
   }
 }
+

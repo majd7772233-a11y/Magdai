@@ -1,4 +1,4 @@
-package com.pocketpal.download
+package com.magd.ai.download
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

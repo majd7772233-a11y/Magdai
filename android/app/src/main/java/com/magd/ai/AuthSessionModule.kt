@@ -1,4 +1,4 @@
-package com.pocketpal
+package com.magd.ai
 
 import android.content.Intent
 import android.net.Uri
@@ -9,7 +9,7 @@ import com.facebook.react.bridge.LifecycleEventListener
 import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.annotations.ReactModule
-import com.pocketpal.specs.NativeAuthSessionSpec
+import com.magd.ai.specs.NativeAuthSessionSpec
 
 /**
  * Opens a web checkout flow in a Chrome Custom Tab and resolves with the
