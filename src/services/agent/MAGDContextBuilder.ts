@@ -23,8 +23,8 @@ export class MAGDContextBuilder {
 
     let systemAdditions = '';
 
-    // 1. Memory Store Grounding
-    const memories = memoryStore.memories || [];
+    // 1. Smart Memory Store Grounding (Retrieves only query-relevant memories)
+    const memories = memoryStore.searchRelevantMemories(userQuery);
     if (memories.length > 0) {
       const memoryLines = memories.map(m => `- [${m.title}]: ${m.content}`).join('\n');
       systemAdditions += `\n\n🧠 ✨ MAGD AI Persistent Memories & User Preferences ✨\n${memoryLines}`;

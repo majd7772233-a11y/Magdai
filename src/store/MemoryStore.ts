@@ -51,6 +51,17 @@ class MemoryStore {
   }
 
   addMemory(data: Omit<MemoryItem, 'id' | 'createdAt' | 'updatedAt'>) {
+    // Deduplication check
+    const existing = this.memories.find(
+      m => m.content.toLowerCase().trim() === data.content.toLowerCase().trim() ||
+           (m.title.toLowerCase().trim() === data.title.toLowerCase().trim() && m.title.length > 3)
+    );
+    if (existing) {
+      existing.content = data.content;
+      existing.updatedAt = new Date().toISOString();
+      return existing;
+    }
+
     const newItem: MemoryItem = {
       ...data,
       id: uuidv4(),
@@ -59,6 +70,32 @@ class MemoryStore {
     };
     this.memories.push(newItem);
     return newItem;
+  }
+
+  searchRelevantMemories(query?: string, maxLimit: number = 4): MemoryItem[] {
+    if (!query || !query.trim()) {
+      return this.memories.slice(0, maxLimit);
+    }
+
+    const qTokens = query.toLowerCase().split(/\s+/).filter(t => t.length > 2);
+    if (qTokens.length === 0) return this.memories.slice(0, maxLimit);
+
+    const scored = this.memories.map(m => {
+      let score = 0;
+      const combined = `${m.title} ${m.content}`.toLowerCase();
+      qTokens.forEach(token => {
+        if (combined.includes(token)) score += 1;
+      });
+      // Always prioritize preferences slightly
+      if (m.category === 'preference') score += 0.5;
+      return {m, score};
+    });
+
+    return scored
+      .filter(x => x.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .map(x => x.m)
+      .slice(0, maxLimit);
   }
 
   updateMemory(id: string, content: string, title?: string) {
