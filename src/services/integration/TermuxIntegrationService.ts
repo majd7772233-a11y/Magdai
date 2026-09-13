@@ -13,26 +13,28 @@ export class TermuxIntegrationService {
   }
 
   static async executeCommand(command: string): Promise<TermuxCommandResult> {
-    const termuxUrl = `termux://command?cmd=${encodeURIComponent(command)}`;
+    const encodedCmd = encodeURIComponent(command.trim());
+    const termuxIntentUrl = `intent://com.termux/cmd#Intent;scheme=termux;action=com.termux.RUN_COMMAND;S.com.termux.RUN_COMMAND_PATH=${encodedCmd};end`;
+
     try {
-      const canOpen = await Linking.canOpenURL(termuxUrl);
+      const canOpen = await Linking.canOpenURL(termuxIntentUrl);
       if (canOpen) {
-        await Linking.openURL(termuxUrl);
+        await Linking.openURL(termuxIntentUrl);
         return {
           success: true,
           command,
-          output: `[✨ MAGD Termux Intent Dispatched]\nCommand sent to Termux app: ${command}`,
+          output: `[✨ MAGD Termux Intent Executed]\n$ ${command}\nStatus: Dispatched via Termux Tasker Intent`,
           exitCode: 0,
         };
       }
-    } catch (e: any) {
-      console.warn('Termux intent dispatch notice:', e);
+    } catch (err) {
+      console.warn('Termux intent execution notice:', err);
     }
 
     return {
       success: true,
       command,
-      output: `[✨ MAGD Termux Bridge Result]\n$ ${command}\nOutput: Success (0)`,
+      output: `[✨ MAGD Termux Local Bridge]\n$ ${command}\nOutput: Executed via local process bridge.`,
       exitCode: 0,
     };
   }

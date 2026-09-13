@@ -13,6 +13,7 @@ import {useTheme} from 'react-native-paper';
 import {GlassCard} from '../../components/ui';
 import {agentWorkflowStore} from '../../store/AgentWorkflowStore';
 import {SandboxService} from '../../services/agent/SandboxService';
+import {CodingAgentService, CodeAnalysisResult} from '../../services/agent/CodingAgentService';
 
 export const AgentsScreen: React.FC = observer(() => {
   const theme = useTheme();
@@ -21,7 +22,28 @@ export const AgentsScreen: React.FC = observer(() => {
   const [sandboxCode, setSandboxCode] = useState('const a = 15; const b = 27; a + b;');
   const [sandboxResult, setSandboxResult] = useState('');
 
+  const [codeToAnalyze, setCodeToAnalyze] = useState('console.log("Analyzing file...");\nlet data: any = "test";');
+  const [analysisResult, setAnalysisResult] = useState<CodeAnalysisResult | null>(null);
+  const [patchStatus, setPatchStatus] = useState<string | null>(null);
+
   const activeWf = agentWorkflowStore.activeWorkflow;
+
+  const handleAnalyzeCode = () => {
+    const res = CodingAgentService.analyzeCode({
+      path: 'App.tsx',
+      content: codeToAnalyze,
+      language: 'typescript',
+    });
+    setAnalysisResult(res);
+    setPatchStatus(null);
+  };
+
+  const handleApprovePatch = () => {
+    if (analysisResult?.proposedFix) {
+      setCodeToAnalyze(analysisResult.proposedFix);
+      setPatchStatus('✓ تم تطبيق التعديل بنجاح على الملف');
+    }
+  };
 
   const handleRunSandbox = () => {
     const res = SandboxService.executeJavaScript(sandboxCode);
@@ -130,6 +152,64 @@ export const AgentsScreen: React.FC = observer(() => {
             {activeWf.isExecuting ? 'جاري تشغيل تسلسل الوكلاء...' : '▶ تشغيل التسلسل الذكي (Run Workflow)'}
           </Text>
         </TouchableOpacity>
+      </GlassCard>
+
+      {/* Coding Agent Diff & Patch Inspector */}
+      <GlassCard style={styles.workflowCard}>
+        <Text style={[styles.sectionTitle, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
+          💀 فحص الكود وتوليد الترقيع (Coding Agent Diff)
+        </Text>
+        <TextInput
+          style={[
+            styles.codeInput,
+            {backgroundColor: isDark ? '#0F172A' : '#1E293B', color: '#A7F3D0'},
+          ]}
+          multiline
+          numberOfLines={3}
+          value={codeToAnalyze}
+          onChangeText={setCodeToAnalyze}
+        />
+        <TouchableOpacity
+          style={[styles.runBtn, {backgroundColor: '#3B82F6'}]}
+          onPress={handleAnalyzeCode}>
+          <Text style={styles.runBtnText}>فحص الكود واستخراج Diff 🔍</Text>
+        </TouchableOpacity>
+
+        {analysisResult ? (
+          <View style={{marginTop: 10}}>
+            <Text style={{color: '#F59E0B', fontWeight: '700', marginBottom: 4}}>
+              الملاحظات والأخطاء ({analysisResult.issues.length}):
+            </Text>
+            {analysisResult.issues.map((iss, i) => (
+              <Text key={i} style={{color: isDark ? '#CBD5E1' : '#334155', fontSize: 13}}>
+                - السطر {iss.line}: {iss.message}
+              </Text>
+            ))}
+
+            {analysisResult.diff ? (
+              <View style={{marginTop: 8, padding: 8, borderRadius: 6, backgroundColor: isDark ? '#020617' : '#0F172A'}}>
+                <Text style={{color: '#38BDF8', fontWeight: '700', fontSize: 12, marginBottom: 4}}>
+                  فروقات Diff المعتمدة:
+                </Text>
+                <Text style={{fontFamily: 'monospace', color: '#E2E8F0', fontSize: 12}}>
+                  {analysisResult.diff}
+                </Text>
+              </View>
+            ) : null}
+
+            <TouchableOpacity
+              style={[styles.runBtn, {backgroundColor: '#10B981', marginTop: 10}]}
+              onPress={handleApprovePatch}>
+              <Text style={styles.runBtnText}>✓ موافقة وتطبيق الترقيع (Approve Patch)</Text>
+            </TouchableOpacity>
+          </View>
+        ) : null}
+
+        {patchStatus ? (
+          <Text style={{color: '#10B981', fontWeight: '700', marginTop: 8}}>
+            {patchStatus}
+          </Text>
+        ) : null}
       </GlassCard>
 
       {/* Code Sandbox */}
