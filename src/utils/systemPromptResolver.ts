@@ -1,6 +1,8 @@
 import type {Pal} from '../types/pal';
 import type {Model} from './types';
 import {generateFinalSystemPrompt} from './palshub-template-parser';
+import {memoryStore} from '../store/MemoryStore';
+import {projectStore} from '../store/ProjectStore';
 
 export interface SystemPromptDependencies {
   pal?: Pal | null;
@@ -18,23 +20,37 @@ export function resolveSystemPrompt(
 ): string {
   const {pal, model} = dependencies;
 
+  let basePrompt = '';
+
   // Priority 1: Pal's system prompt
   if (pal?.systemPrompt) {
-    // Check if the pal has parameters that need rendering
     if (pal.parameters && Object.keys(pal.parameters).length > 0) {
-      return generateFinalSystemPrompt(pal.systemPrompt, pal.parameters);
+      basePrompt = generateFinalSystemPrompt(pal.systemPrompt, pal.parameters);
     } else {
-      return pal.systemPrompt;
+      basePrompt = pal.systemPrompt;
     }
+  } else if (model?.chatTemplate?.systemPrompt) {
+    // Priority 2: Model's chat template system prompt
+    basePrompt = model.chatTemplate.systemPrompt;
   }
 
-  // Priority 2: Model's chat template system prompt
-  if (model?.chatTemplate?.systemPrompt) {
-    return model.chatTemplate.systemPrompt;
+  // Inject MAGD AI Memory Context
+  const memoryItems = memoryStore?.memories || [];
+  const activeProj = projectStore?.activeProject;
+
+  let memoryContextBlock = '';
+  if (memoryItems.length > 0) {
+    const memoryDetails = memoryItems
+      .map(m => `- [${m.title}]: ${m.content}`)
+      .join('\n');
+    memoryContextBlock += `\n\n🧠 ✨ MAGD AI Memory & Context ✨\n${memoryDetails}`;
   }
 
-  // Priority 3: Empty string
-  return '';
+  if (activeProj) {
+    memoryContextBlock += `\n\n🔗 Active Project Context:\nProject: ${activeProj.name}\nDescription: ${activeProj.description}`;
+  }
+
+  return basePrompt ? `${basePrompt}${memoryContextBlock}` : memoryContextBlock.trim();
 }
 
 type ChatMessage = {role: string; content?: unknown};

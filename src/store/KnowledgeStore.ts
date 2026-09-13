@@ -1,5 +1,6 @@
 import {makeAutoObservable} from 'mobx';
 import {v4 as uuidv4} from 'uuid';
+import {RAGEngineService, DocumentChunk} from '../services/rag/RAGEngineService';
 
 export interface DocumentItem {
   id: string;
@@ -9,6 +10,7 @@ export interface DocumentItem {
   chunksCount: number;
   isIndexed: boolean;
   addedAt: string;
+  chunks: DocumentChunk[];
 }
 
 export interface KnowledgeSpace {
@@ -33,19 +35,12 @@ class KnowledgeStore {
           name: 'Android_Architecture_Guide.pdf',
           type: 'pdf',
           sizeBytes: 2450000,
-          chunksCount: 42,
+          chunksCount: 3,
           isIndexed: true,
           addedAt: new Date().toISOString(),
+          chunks: RAGEngineService.chunkDocument('Android_Architecture_Guide.pdf', 'Android architecture components include ViewModel, LiveData, Room Database, and Repository pattern. ViewModel handles UI data lifecycle.'),
         },
       ],
-      createdAt: new Date().toISOString(),
-    },
-    {
-      id: 'ks-2',
-      title: '🔧 الإلكترونيات والميكروكنترولر',
-      description: 'معلومات الدوائر الكهربائية، حسّاسات Arduino، ودليل قطع ESP32',
-      icon: '🔧',
-      documents: [],
       createdAt: new Date().toISOString(),
     },
   ];
@@ -78,20 +73,27 @@ class KnowledgeStore {
     return space;
   }
 
-  addDocumentToSpace(spaceId: string, name: string, type: DocumentItem['type'], sizeBytes: number) {
+  addDocumentToSpace(spaceId: string, name: string, content: string, type: DocumentItem['type']) {
     const space = this.spaces.find(s => s.id === spaceId);
     if (space) {
+      const chunks = RAGEngineService.chunkDocument(name, content);
       const doc: DocumentItem = {
         id: uuidv4(),
         name,
         type,
-        sizeBytes,
-        chunksCount: Math.ceil(sizeBytes / 500),
+        sizeBytes: content.length,
+        chunksCount: chunks.length,
         isIndexed: true,
         addedAt: new Date().toISOString(),
+        chunks,
       };
       space.documents.push(doc);
     }
+  }
+
+  searchRAG(query: string): DocumentChunk[] {
+    const allChunks = this.spaces.flatMap(s => s.documents.flatMap(d => d.chunks));
+    return RAGEngineService.retrieveRelevantChunks(query, allChunks);
   }
 
   deleteSpace(spaceId: string) {

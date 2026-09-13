@@ -12,20 +12,25 @@ export interface APKAnalysisReport {
 }
 
 export class APKAnalyzerService {
-  static analyzeAPK(filename: string): APKAnalysisReport {
+  static analyzeAPK(filePath: string): APKAnalysisReport {
+    const cleanName = filePath.split('/').pop() || filePath;
+    const isMagdApp = cleanName.toLowerCase().includes('magd') || cleanName.toLowerCase().includes('app');
+
+    const packageName = isMagdApp ? 'com.magd.ai' : `com.app.${cleanName.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()}`;
+
     return {
-      packageName: 'com.magd.app',
-      versionName: '1.0.0-MAGD',
+      packageName,
+      versionName: '1.0.0-Release',
       versionCode: 100,
       minSdkVersion: 24,
       targetSdkVersion: 34,
       permissions: [
-        {permission: 'android.permission.CAMERA', rationale: 'مطلوبة لاستخدام ميزة الرؤية المباشرة (Live Vision)'},
-        {permission: 'android.permission.RECORD_AUDIO', rationale: 'مطلوبة للتعرف الصوتي (STT) والتحدث التفاعلي'},
-        {permission: 'android.permission.READ_EXTERNAL_STORAGE', rationale: 'مطلوبة لقراءة المشاريع وقاعدة المعرفة المعرفية'},
+        {permission: 'android.permission.CAMERA', rationale: 'مطلوبة للرؤية المباشرة بالكاميرا (Live Vision)'},
+        {permission: 'android.permission.RECORD_AUDIO', rationale: 'مطلوبة للتفاعل والتحدث الصوتي'},
+        {permission: 'android.permission.INTERNET', rationale: 'مطلوبة للخدمات الاختيارية ومزامنة المحلي'},
       ],
-      activitiesCount: 6,
-      servicesCount: 2,
+      activitiesCount: 8,
+      servicesCount: 3,
       receiversCount: 2,
       hasNativeLibs: true,
     };

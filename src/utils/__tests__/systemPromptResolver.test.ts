@@ -6,6 +6,18 @@ import {
 import type {Pal} from '../../types/pal';
 import type {Model} from '../types';
 
+jest.mock('../../store/MemoryStore', () => ({
+  memoryStore: {
+    memories: [],
+  },
+}));
+
+jest.mock('../../store/ProjectStore', () => ({
+  projectStore: {
+    activeProject: null,
+  },
+}));
+
 describe('systemPromptResolver', () => {
   describe('resolveSystemPrompt', () => {
     it('should return parametrized pal system prompt when pal has parameters', () => {

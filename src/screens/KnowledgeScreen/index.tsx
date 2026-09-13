@@ -42,7 +42,7 @@ export const KnowledgeScreen: React.FC = observer(() => {
       Alert.alert('خطأ', 'يرجى إدخال اسم المستند');
       return;
     }
-    knowledgeStore.addDocumentToSpace(spaceId, docName.trim(), 'pdf', 1200000);
+    knowledgeStore.addDocumentToSpace(spaceId, docName.trim(), 'محتوى الدليل والمعرفة المخصص لهذا المستند...', 'pdf');
     setDocName('');
     setSelectedSpaceForDoc(null);
   };
