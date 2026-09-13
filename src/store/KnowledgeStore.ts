@@ -1,6 +1,9 @@
 import {makeAutoObservable} from 'mobx';
+import {makePersistable} from 'mobx-persist-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {v4 as uuidv4} from 'uuid';
 import {RAGEngineService, DocumentChunk} from '../services/rag/RAGEngineService';
+import {DocumentParserService} from '../services/rag/DocumentParserService';
 
 export interface DocumentItem {
   id: string;
@@ -35,7 +38,7 @@ class KnowledgeStore {
           name: 'Android_Architecture_Guide.pdf',
           type: 'pdf',
           sizeBytes: 2450000,
-          chunksCount: 3,
+          chunksCount: 1,
           isIndexed: true,
           addedAt: new Date().toISOString(),
           chunks: RAGEngineService.chunkDocument('Android_Architecture_Guide.pdf', 'Android architecture components include ViewModel, LiveData, Room Database, and Repository pattern. ViewModel handles UI data lifecycle.'),
@@ -50,6 +53,13 @@ class KnowledgeStore {
 
   constructor() {
     makeAutoObservable(this);
+    makePersistable(this, {
+      name: 'MAGD_KnowledgeStore',
+      properties: ['spaces'],
+      storage: AsyncStorage,
+    }).catch(err => {
+      console.warn('KnowledgeStore persistence notice:', err);
+    });
   }
 
   setActiveSpace(id: string | null) {
@@ -73,15 +83,16 @@ class KnowledgeStore {
     return space;
   }
 
-  addDocumentToSpace(spaceId: string, name: string, content: string, type: DocumentItem['type']) {
+  addDocumentToSpace(spaceId: string, name: string, content: string, typeOverride?: DocumentItem['type']) {
     const space = this.spaces.find(s => s.id === spaceId);
     if (space) {
-      const chunks = RAGEngineService.chunkDocument(name, content);
+      const parsed = DocumentParserService.parseTextContent(name, content);
+      const chunks = RAGEngineService.chunkDocument(name, parsed.text);
       const doc: DocumentItem = {
         id: uuidv4(),
         name,
-        type,
-        sizeBytes: content.length,
+        type: typeOverride || parsed.type,
+        sizeBytes: parsed.sizeBytes,
         chunksCount: chunks.length,
         isIndexed: true,
         addedAt: new Date().toISOString(),

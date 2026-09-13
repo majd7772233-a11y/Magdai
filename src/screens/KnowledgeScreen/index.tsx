@@ -64,6 +64,43 @@ export const KnowledgeScreen: React.FC = observer(() => {
         </Text>
       </GlassCard>
 
+      {/* RAG Search Widget */}
+      <GlassCard style={{marginBottom: 16}}>
+        <Text style={[styles.formTitle, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
+          🔍 اختبار استرجاع RAG المباشر
+        </Text>
+        <TextInput
+          style={[
+            styles.input,
+            {
+              backgroundColor: isDark ? '#1E293B' : '#F1F5F9',
+              color: isDark ? '#FFFFFF' : '#000000',
+            },
+          ]}
+          placeholder="ابحث في مستندات قاعدة المعرفة (مثلاً: Android architecture)..."
+          placeholderTextColor="#94A3B8"
+          value={knowledgeStore.searchQuery}
+          onChangeText={q => knowledgeStore.setSearchQuery(q)}
+        />
+        {knowledgeStore.searchQuery.trim() ? (
+          <View style={{marginTop: 8}}>
+            <Text style={{color: '#818CF8', fontWeight: '700', marginBottom: 6}}>
+              المقاطع المسترجعة دلالياً:
+            </Text>
+            {knowledgeStore.searchRAG(knowledgeStore.searchQuery).map((chunk, idx) => (
+              <View key={idx} style={{marginBottom: 6, padding: 8, borderRadius: 6, backgroundColor: 'rgba(99, 102, 241, 0.1)'}}>
+                <Text style={{fontWeight: '700', color: isDark ? '#FFF' : '#000', fontSize: 12}}>
+                  📄 {chunk.docName}
+                </Text>
+                <Text style={{color: isDark ? '#CBD5E1' : '#334155', fontSize: 13, marginTop: 2}}>
+                  "{chunk.content}"
+                </Text>
+              </View>
+            ))}
+          </View>
+        ) : null}
+      </GlassCard>
+
       {/* Action */}
       <TouchableOpacity
         style={[styles.btn, {backgroundColor: '#6366F1', marginBottom: 16}]}
