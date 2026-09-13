@@ -46,6 +46,7 @@ import {
   runAgent,
   type AgentEvent,
   type AgentUiState,
+  MemoryExtractor,
 } from '../services/agent';
 // Helper function to prepare completion parameters using OpenAI-compatible
 // messages API. Creates the empty `assistant_turn` row up-front so the
@@ -556,9 +557,13 @@ export const useChatSession = (
       ? palStore.pals.find(p => p.id === activeSession.activePalId)
       : null;
 
+    // Automatic Memory Extraction Check
+    MemoryExtractor.inspectAndExtract(message.text);
+
     const systemMessages = resolveSystemMessages({
       pal,
       model: modelStore.activeModel,
+      userQuery: message.text,
     });
 
     const {cleanCompletionParams, messageInfo} = await prepareCompletion({

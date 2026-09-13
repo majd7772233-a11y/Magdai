@@ -1,4 +1,6 @@
 import {makeAutoObservable} from 'mobx';
+import {makePersistable} from 'mobx-persist-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {v4 as uuidv4} from 'uuid';
 
 export interface MemoryItem {
@@ -35,6 +37,13 @@ class MemoryStore {
 
   constructor() {
     makeAutoObservable(this);
+    makePersistable(this, {
+      name: 'MAGD_MemoryStore',
+      properties: ['memories'],
+      storage: AsyncStorage,
+    }).catch(err => {
+      console.warn('MemoryStore persistence notice:', err);
+    });
   }
 
   setSearchQuery(query: string) {

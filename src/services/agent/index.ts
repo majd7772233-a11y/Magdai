@@ -5,3 +5,5 @@ export * from './triggerMarkers';
 export * from './CodingAgentService';
 export * from './SandboxService';
 export * from './PermissionGuard';
+export * from './MAGDContextBuilder';
+export * from './MemoryExtractor';

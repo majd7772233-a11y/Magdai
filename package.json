@@ -138,7 +138,7 @@
     "type": "all",
     "jsSrcsDir": "src/specs",
     "android": {
-      "javaPackageName": "com.magd.specs"
+      "javaPackageName": "com.magd.ai.specs"
     }
   }
 }

@@ -1,12 +1,12 @@
 import type {Pal} from '../types/pal';
 import type {Model} from './types';
 import {generateFinalSystemPrompt} from './palshub-template-parser';
-import {memoryStore} from '../store/MemoryStore';
-import {projectStore} from '../store/ProjectStore';
+import {MAGDContextBuilder} from '../services/agent/MAGDContextBuilder';
 
 export interface SystemPromptDependencies {
   pal?: Pal | null;
   model?: Model | null;
+  userQuery?: string;
 }
 
 /**
@@ -34,21 +34,13 @@ export function resolveSystemPrompt(
     basePrompt = model.chatTemplate.systemPrompt;
   }
 
-  // Inject MAGD AI Memory Context
-  const memoryItems = memoryStore?.memories || [];
-  const activeProj = projectStore?.activeProject;
+  // Inject Central MAGD Context (Memory, Preferences, Active Project, RAG Grounding)
+  const unifiedContext = MAGDContextBuilder.buildContext({
+    userQuery: dependencies.userQuery,
+    palName: pal?.name,
+  });
 
-  let memoryContextBlock = '';
-  if (memoryItems.length > 0) {
-    const memoryDetails = memoryItems
-      .map(m => `- [${m.title}]: ${m.content}`)
-      .join('\n');
-    memoryContextBlock += `\n\n🧠 ✨ MAGD AI Memory & Context ✨\n${memoryDetails}`;
-  }
-
-  if (activeProj) {
-    memoryContextBlock += `\n\n🔗 Active Project Context:\nProject: ${activeProj.name}\nDescription: ${activeProj.description}`;
-  }
+  const memoryContextBlock = unifiedContext.systemPromptAdditions;
 
   return basePrompt ? `${basePrompt}${memoryContextBlock}` : memoryContextBlock.trim();
 }
