@@ -9,6 +9,8 @@ export interface MemoryItem {
   title: string;
   content: string;
   projectId?: string;
+  conversationId?: string;
+  sensitive?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -72,23 +74,41 @@ class MemoryStore {
     return newItem;
   }
 
-  searchRelevantMemories(query?: string, maxLimit: number = 4): MemoryItem[] {
+  searchRelevantMemories(
+    query?: string,
+    maxLimit: number = 5,
+    options: { projectId?: string; conversationId?: string } = {},
+  ): MemoryItem[] {
     if (!query || !query.trim()) {
       return this.memories.slice(0, maxLimit);
     }
 
     const qTokens = query.toLowerCase().split(/\s+/).filter(t => t.length > 2);
-    if (qTokens.length === 0) return this.memories.slice(0, maxLimit);
 
     const scored = this.memories.map(m => {
       let score = 0;
+
+      // Project & Conversation Scoping Boost
+      if (options.projectId && m.projectId === options.projectId) {
+        score += 2.0;
+      }
+      if (options.conversationId && m.conversationId === options.conversationId) {
+        score += 1.5;
+      }
+
+      // BM25 Keyword Matching & Term Relevance
       const combined = `${m.title} ${m.content}`.toLowerCase();
       qTokens.forEach(token => {
-        if (combined.includes(token)) score += 1;
+        if (combined.includes(token)) {
+          score += 1.0;
+          if (m.title.toLowerCase().includes(token)) score += 0.5;
+        }
       });
-      // Always prioritize preferences slightly
+
+      // Always prioritize preferences
       if (m.category === 'preference') score += 0.5;
-      return {m, score};
+
+      return { m, score };
     });
 
     return scored

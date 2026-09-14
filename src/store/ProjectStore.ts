@@ -8,6 +8,7 @@ export interface ProjectItem {
   name: string;
   description: string;
   tags: string[];
+  rootPath?: string;
   createdAt: string;
   updatedAt: string;
   chatCount: number;

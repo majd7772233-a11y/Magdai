@@ -13,6 +13,7 @@ export interface DocumentItem {
   chunksCount: number;
   isIndexed: boolean;
   addedAt: string;
+  projectId?: string;
   chunks: DocumentChunk[];
 }
 
@@ -21,6 +22,7 @@ export interface KnowledgeSpace {
   title: string;
   description: string;
   icon: string;
+  projectId?: string;
   documents: DocumentItem[];
   createdAt: string;
 }
@@ -41,7 +43,10 @@ class KnowledgeStore {
           chunksCount: 1,
           isIndexed: true,
           addedAt: new Date().toISOString(),
-          chunks: RAGEngineService.chunkDocument('Android_Architecture_Guide.pdf', 'Android architecture components include ViewModel, LiveData, Room Database, and Repository pattern. ViewModel handles UI data lifecycle.'),
+          chunks: RAGEngineService.chunkDocument(
+            'Android_Architecture_Guide.pdf',
+            '# Android Architecture Guide\nViewModel handles UI data lifecycle and survives configuration changes.',
+          ),
         },
       ],
       createdAt: new Date().toISOString(),
@@ -70,12 +75,13 @@ class KnowledgeStore {
     this.searchQuery = q;
   }
 
-  createSpace(title: string, description: string, icon: string = '📚') {
+  createSpace(title: string, description: string, icon: string = '📚', projectId?: string) {
     const space: KnowledgeSpace = {
       id: uuidv4(),
       title,
       description,
       icon,
+      projectId,
       documents: [],
       createdAt: new Date().toISOString(),
     };
@@ -86,6 +92,13 @@ class KnowledgeStore {
   addDocumentToSpace(spaceId: string, name: string, content: string, typeOverride?: DocumentItem['type']) {
     const space = this.spaces.find(s => s.id === spaceId);
     if (space) {
+      // Duplicate prevention
+      const existing = space.documents.find(d => d.name.toLowerCase() === name.toLowerCase());
+      if (existing) {
+        this.reindexDocument(spaceId, existing.id, content);
+        return;
+      }
+
       const parsed = DocumentParserService.parseTextContent(name, content);
       const chunks = RAGEngineService.chunkDocument(name, parsed.text);
       const doc: DocumentItem = {
@@ -96,15 +109,37 @@ class KnowledgeStore {
         chunksCount: chunks.length,
         isIndexed: true,
         addedAt: new Date().toISOString(),
+        projectId: space.projectId,
         chunks,
       };
       space.documents.push(doc);
     }
   }
 
+  reindexDocument(spaceId: string, docId: string, newContent: string) {
+    const space = this.spaces.find(s => s.id === spaceId);
+    if (space) {
+      const doc = space.documents.find(d => d.id === docId);
+      if (doc) {
+        const parsed = DocumentParserService.parseTextContent(doc.name, newContent);
+        doc.chunks = RAGEngineService.chunkDocument(doc.name, parsed.text);
+        doc.chunksCount = doc.chunks.length;
+        doc.sizeBytes = parsed.sizeBytes;
+        doc.isIndexed = true;
+      }
+    }
+  }
+
   searchRAG(query: string): DocumentChunk[] {
     const allChunks = this.spaces.flatMap(s => s.documents.flatMap(d => d.chunks));
     return RAGEngineService.retrieveRelevantChunks(query, allChunks);
+  }
+
+  deleteDocument(spaceId: string, docId: string) {
+    const space = this.spaces.find(s => s.id === spaceId);
+    if (space) {
+      space.documents = space.documents.filter(d => d.id !== docId);
+    }
   }
 
   deleteSpace(spaceId: string) {
