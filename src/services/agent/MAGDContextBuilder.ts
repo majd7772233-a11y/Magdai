@@ -23,37 +23,40 @@ export class MAGDContextBuilder {
 
     let systemAdditions = '';
 
-    // 1. Smart Memory Store Grounding (Retrieves only query-relevant memories)
-    const memories = memoryStore.searchRelevantMemories(userQuery);
-    if (memories.length > 0) {
-      const memoryLines = memories.map(m => `- [${m.title}]: ${m.content}`).join('\n');
-      systemAdditions += `\n\n🧠 ✨ MAGD AI Persistent Memories & User Preferences ✨\n${memoryLines}`;
-    }
+    // Ground only if a user query is actively present
+    if (userQuery && userQuery.trim().length > 0) {
+      // 1. Smart Memory Store Grounding
+      if (memoryStore && typeof memoryStore.searchRelevantMemories === 'function') {
+        const memories = memoryStore.searchRelevantMemories(userQuery);
+        if (memories && memories.length > 0) {
+          const memoryLines = memories.map(m => `- [${m.title}]: ${m.content}`).join('\n');
+          systemAdditions += `\n\n🧠 ✨ MAGD AI Persistent Memories & User Preferences ✨\n${memoryLines}`;
+        }
+      }
 
-    // 2. Active Project Grounding
-    const activeProject = projectStore.activeProject;
-    let activeProjectName: string | undefined;
-    if (activeProject) {
-      activeProjectName = activeProject.name;
-      systemAdditions += `\n\n🔗 Active Project Context:\nName: ${activeProject.name}\nDescription: ${activeProject.description}`;
-    }
+      // 2. Active Project Grounding
+      const activeProject = projectStore?.activeProject;
+      if (activeProject) {
+        systemAdditions += `\n\n🔗 Active Project Context:\nName: ${activeProject.name}\nDescription: ${activeProject.description}`;
+      }
 
-    // 3. RAG Knowledge Search Grounding
-    const retrievedChunks: Array<{docName: string; content: string}> = [];
-    if (enableRAG && userQuery && userQuery.trim().length > 0) {
-      const chunks = knowledgeStore.searchRAG(userQuery);
-      if (chunks.length > 0) {
-        systemAdditions += `\n\n📚 Knowledge Base RAG Grounding (Relevant Sources):`;
-        chunks.forEach((chunk, index) => {
-          retrievedChunks.push({docName: chunk.docName, content: chunk.content});
-          systemAdditions += `\n[Source #${index + 1}: ${chunk.docName}]: "${chunk.content}"`;
-        });
+      // 3. RAG Knowledge Search Grounding
+      if (enableRAG && knowledgeStore && typeof knowledgeStore.searchRAG === 'function') {
+        const chunks = knowledgeStore.searchRAG(userQuery);
+        if (chunks && chunks.length > 0) {
+          systemAdditions += `\n\n📚 Knowledge Base RAG Grounding (Relevant Sources):`;
+          chunks.forEach((chunk, index) => {
+            systemAdditions += `\n[Source #${index + 1}: ${chunk.docName}]: "${chunk.content}"`;
+          });
+        }
       }
     }
 
+    const activeProjectName = userQuery ? projectStore?.activeProject?.name : undefined;
+
     return {
       systemPromptAdditions: systemAdditions,
-      retrievedChunks,
+      retrievedChunks: [],
       activeProjectName,
     };
   }
