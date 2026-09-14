@@ -7,6 +7,8 @@ export * from './StudyScreen';
 export * from './TranslationScreen';
 export * from './MemoryScreen';
 export * from './ProjectsScreen';
+export * from './ElectronicsScreen';
+export * from './StudioScreen';
 export * from './AboutScreen';
 export * from './BenchmarkScreen';
 export * from './ChatScreen';
