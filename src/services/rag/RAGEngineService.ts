@@ -2,34 +2,48 @@ export interface DocumentChunk {
   id: string;
   docName: string;
   content: string;
+  sectionIndex: number;
   score?: number;
 }
 
 export class RAGEngineService {
   /**
-   * Split document content into overlapping chunks.
+   * Split document content by paragraph and heading boundaries.
    */
-  static chunkDocument(docName: string, text: string, chunkSize: number = 200): DocumentChunk[] {
-    const words = text.split(/\s+/);
+  static chunkDocumentSemantic(docName: string, text: string): DocumentChunk[] {
+    const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
     const chunks: DocumentChunk[] = [];
-    let currentChunk: string[] = [];
 
-    for (let i = 0; i < words.length; i++) {
-      currentChunk.push(words[i]);
-      if (currentChunk.length >= chunkSize || i === words.length - 1) {
-        chunks.push({
-          id: `${docName}-chunk-${chunks.length + 1}`,
-          docName,
-          content: currentChunk.join(' '),
-        });
-        currentChunk = currentChunk.slice(Math.floor(chunkSize / 2));
-      }
+    paragraphs.forEach((p, index) => {
+      chunks.push({
+        id: `${docName}-sec-${index + 1}`,
+        docName,
+        content: p.trim(),
+        sectionIndex: index + 1,
+      });
+    });
+
+    if (chunks.length === 0 && text.trim().length > 0) {
+      chunks.push({
+        id: `${docName}-sec-1`,
+        docName,
+        content: text.trim(),
+        sectionIndex: 1,
+      });
     }
+
     return chunks;
   }
 
   /**
-   * Perform term-overlap similarity search across document chunks.
+   * Backward compatible chunker.
+   */
+  static chunkDocument(docName: string, text: string): DocumentChunk[] {
+    return this.chunkDocumentSemantic(docName, text);
+  }
+
+  /**
+   * Perform BM25-style term frequency similarity search.
    */
   static retrieveRelevantChunks(query: string, allChunks: DocumentChunk[], topK: number = 3): DocumentChunk[] {
     const queryTokens = query.toLowerCase().split(/\s+/).filter(t => t.length > 2);
@@ -38,11 +52,15 @@ export class RAGEngineService {
     const scored = allChunks.map(chunk => {
       const contentLower = chunk.content.toLowerCase();
       let score = 0;
+
       queryTokens.forEach(token => {
         if (contentLower.includes(token)) {
-          score += 1;
+          // Term Frequency count
+          const occurrences = contentLower.split(token).length - 1;
+          score += 1 + Math.log(occurrences);
         }
       });
+
       return {...chunk, score};
     });
 
