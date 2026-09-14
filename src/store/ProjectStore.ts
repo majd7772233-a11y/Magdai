@@ -1,6 +1,4 @@
 import {makeAutoObservable} from 'mobx';
-import {makePersistable} from 'mobx-persist-store';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {v4 as uuidv4} from 'uuid';
 
 export interface ProjectItem {
@@ -8,7 +6,6 @@ export interface ProjectItem {
   name: string;
   description: string;
   tags: string[];
-  rootPath?: string;
   createdAt: string;
   updatedAt: string;
   chatCount: number;
@@ -29,17 +26,10 @@ class ProjectStore {
     },
   ];
 
-  activeProjectId: string | null = 'proj-1';
+  activeProjectId: string | null = null;
 
   constructor() {
     makeAutoObservable(this);
-    makePersistable(this, {
-      name: 'MAGD_ProjectStore',
-      properties: ['projects', 'activeProjectId'],
-      storage: AsyncStorage,
-    }).catch(err => {
-      console.warn('ProjectStore persistence notice:', err);
-    });
   }
 
   setActiveProject(id: string | null) {

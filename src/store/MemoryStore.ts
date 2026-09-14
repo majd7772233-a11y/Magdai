@@ -1,6 +1,4 @@
 import {makeAutoObservable} from 'mobx';
-import {makePersistable} from 'mobx-persist-store';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {v4 as uuidv4} from 'uuid';
 
 export interface MemoryItem {
@@ -9,8 +7,6 @@ export interface MemoryItem {
   title: string;
   content: string;
   projectId?: string;
-  conversationId?: string;
-  sensitive?: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -39,13 +35,6 @@ class MemoryStore {
 
   constructor() {
     makeAutoObservable(this);
-    makePersistable(this, {
-      name: 'MAGD_MemoryStore',
-      properties: ['memories'],
-      storage: AsyncStorage,
-    }).catch(err => {
-      console.warn('MemoryStore persistence notice:', err);
-    });
   }
 
   setSearchQuery(query: string) {
@@ -53,17 +42,6 @@ class MemoryStore {
   }
 
   addMemory(data: Omit<MemoryItem, 'id' | 'createdAt' | 'updatedAt'>) {
-    // Deduplication check
-    const existing = this.memories.find(
-      m => m.content.toLowerCase().trim() === data.content.toLowerCase().trim() ||
-           (m.title.toLowerCase().trim() === data.title.toLowerCase().trim() && m.title.length > 3)
-    );
-    if (existing) {
-      existing.content = data.content;
-      existing.updatedAt = new Date().toISOString();
-      return existing;
-    }
-
     const newItem: MemoryItem = {
       ...data,
       id: uuidv4(),
@@ -72,50 +50,6 @@ class MemoryStore {
     };
     this.memories.push(newItem);
     return newItem;
-  }
-
-  searchRelevantMemories(
-    query?: string,
-    maxLimit: number = 5,
-    options: { projectId?: string; conversationId?: string } = {},
-  ): MemoryItem[] {
-    if (!query || !query.trim()) {
-      return this.memories.slice(0, maxLimit);
-    }
-
-    const qTokens = query.toLowerCase().split(/\s+/).filter(t => t.length > 2);
-
-    const scored = this.memories.map(m => {
-      let score = 0;
-
-      // Project & Conversation Scoping Boost
-      if (options.projectId && m.projectId === options.projectId) {
-        score += 2.0;
-      }
-      if (options.conversationId && m.conversationId === options.conversationId) {
-        score += 1.5;
-      }
-
-      // BM25 Keyword Matching & Term Relevance
-      const combined = `${m.title} ${m.content}`.toLowerCase();
-      qTokens.forEach(token => {
-        if (combined.includes(token)) {
-          score += 1.0;
-          if (m.title.toLowerCase().includes(token)) score += 0.5;
-        }
-      });
-
-      // Always prioritize preferences
-      if (m.category === 'preference') score += 0.5;
-
-      return { m, score };
-    });
-
-    return scored
-      .filter(x => x.score > 0)
-      .sort((a, b) => b.score - a.score)
-      .map(x => x.m)
-      .slice(0, maxLimit);
   }
 
   updateMemory(id: string, content: string, title?: string) {

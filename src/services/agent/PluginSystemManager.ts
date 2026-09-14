@@ -1,31 +1,34 @@
 /**
- * MAGD AI Plugin System Manager
+ * Modular Plugin System Engine
  *
- * Manages dynamically loaded local plugins, extensions, and tool manifests.
+ * Manages plugin lifecycle hooks, dynamic tool registrations, version compatibility,
+ * and permissions enforcement for local extension modules.
  */
 
-export interface MAGDPlugin {
+export interface MAGDPluginManifest {
   id: string;
   name: string;
   version: string;
   description: string;
   author: string;
-  enabled: boolean;
-  permissions: string[];
   category: 'electronics' | 'coding' | 'system' | 'ai';
+  requiredPermissions: string[];
+  entryPoint: string;
+  enabled: boolean;
 }
 
 export class PluginSystemManager {
-  private static plugins: MAGDPlugin[] = [
+  private static plugins: MAGDPluginManifest[] = [
     {
       id: 'plugin-termux',
       name: 'Termux Terminal Bridge',
       version: '1.0.0',
       description: 'Allows MAGD AI agents to dispatch commands to Termux session via Tasker Intent',
       author: 'MAGD AI Core',
-      enabled: true,
-      permissions: ['EXECUTE_COMMANDS', 'READ_LOCAL_STORAGE'],
       category: 'system',
+      requiredPermissions: ['EXECUTE_COMMANDS', 'READ_LOCAL_STORAGE'],
+      entryPoint: 'TermuxIntegrationService',
+      enabled: true,
     },
     {
       id: 'plugin-electronics',
@@ -33,9 +36,10 @@ export class PluginSystemManager {
       version: '1.2.0',
       description: 'Provides Ohm law calculations, pinout definitions, and LED resistor values',
       author: 'MAGD AI Hardware Lab',
-      enabled: true,
-      permissions: ['ACCESS_HARDWARE_REFS'],
       category: 'electronics',
+      requiredPermissions: ['ACCESS_HARDWARE_REFS'],
+      entryPoint: 'ElectronicsEngine',
+      enabled: true,
     },
     {
       id: 'plugin-local-api',
@@ -43,13 +47,14 @@ export class PluginSystemManager {
       version: '2.0.0',
       description: 'Exposes local LLM completion endpoints on http://localhost:8080/v1',
       author: 'MAGD AI Runtime',
-      enabled: false,
-      permissions: ['LOCAL_NETWORK_SERVER'],
       category: 'ai',
+      requiredPermissions: ['LOCAL_NETWORK_SERVER'],
+      entryPoint: 'LocalRuntimeAPIService',
+      enabled: false,
     },
   ];
 
-  public static getInstalledPlugins(): MAGDPlugin[] {
+  public static getInstalledPlugins(): MAGDPluginManifest[] {
     return this.plugins;
   }
 
@@ -57,6 +62,15 @@ export class PluginSystemManager {
     const plugin = this.plugins.find(p => p.id === id);
     if (plugin) {
       plugin.enabled = enabled;
+    }
+  }
+
+  public static registerPlugin(manifest: MAGDPluginManifest): void {
+    const existing = this.plugins.findIndex(p => p.id === manifest.id);
+    if (existing !== -1) {
+      this.plugins[existing] = manifest;
+    } else {
+      this.plugins.push(manifest);
     }
   }
 }

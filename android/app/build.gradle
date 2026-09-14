@@ -85,9 +85,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.magd.ai"
+    namespace "com.pocketpal"
     defaultConfig {
-        applicationId "com.magd.ai"
+        applicationId "com.pocketpalai"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 143
@@ -113,16 +113,14 @@ android {
             keyPassword 'android'
         }
         release {
-            // Read signing credentials from environment variables / GitHub Secrets
-            def releaseStorePassword = System.getenv("KEYSTORE_PASSWORD") ?: project.env.get("APP_RELEASE_STORE_PASSWORD") ?: System.getenv("APP_RELEASE_STORE_PASSWORD")
-            def releaseKeyPassword = System.getenv("KEY_PASSWORD") ?: project.env.get("APP_RELEASE_KEY_PASSWORD") ?: System.getenv("APP_RELEASE_KEY_PASSWORD")
-            def releaseKeyAlias = System.getenv("KEY_ALIAS") ?: "key_alias"
-            def releaseKeystoreFile = file("release.keystore")
+            // Read signing credentials from .env file or environment variables
+            def releaseStorePassword = project.env.get("APP_RELEASE_STORE_PASSWORD") ?: System.getenv("APP_RELEASE_STORE_PASSWORD")
+            def releaseKeyPassword = project.env.get("APP_RELEASE_KEY_PASSWORD") ?: System.getenv("APP_RELEASE_KEY_PASSWORD")
 
-            if (releaseStorePassword && releaseKeyPassword && releaseKeystoreFile.exists()) {
-                storeFile releaseKeystoreFile
+            if (releaseStorePassword && releaseKeyPassword) {
+                storeFile file("pocketpal-release-key.keystore")
                 storePassword releaseStorePassword
-                keyAlias releaseKeyAlias
+                keyAlias "pocketpal_key_alias"
                 keyPassword releaseKeyPassword
             }
         }

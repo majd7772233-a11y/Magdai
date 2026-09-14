@@ -1,12 +1,10 @@
 import type {Pal} from '../types/pal';
 import type {Model} from './types';
 import {generateFinalSystemPrompt} from './palshub-template-parser';
-import {MAGDContextBuilder} from '../services/agent/MAGDContextBuilder';
 
 export interface SystemPromptDependencies {
   pal?: Pal | null;
   model?: Model | null;
-  userQuery?: string;
 }
 
 /**
@@ -20,29 +18,23 @@ export function resolveSystemPrompt(
 ): string {
   const {pal, model} = dependencies;
 
-  let basePrompt = '';
-
   // Priority 1: Pal's system prompt
   if (pal?.systemPrompt) {
+    // Check if the pal has parameters that need rendering
     if (pal.parameters && Object.keys(pal.parameters).length > 0) {
-      basePrompt = generateFinalSystemPrompt(pal.systemPrompt, pal.parameters);
+      return generateFinalSystemPrompt(pal.systemPrompt, pal.parameters);
     } else {
-      basePrompt = pal.systemPrompt;
+      return pal.systemPrompt;
     }
-  } else if (model?.chatTemplate?.systemPrompt) {
-    // Priority 2: Model's chat template system prompt
-    basePrompt = model.chatTemplate.systemPrompt;
   }
 
-  // Inject Central MAGD Context (Memory, Preferences, Active Project, RAG Grounding)
-  const unifiedContext = MAGDContextBuilder.buildContext({
-    userQuery: dependencies.userQuery,
-    palName: pal?.name,
-  });
+  // Priority 2: Model's chat template system prompt
+  if (model?.chatTemplate?.systemPrompt) {
+    return model.chatTemplate.systemPrompt;
+  }
 
-  const memoryContextBlock = unifiedContext.systemPromptAdditions;
-
-  return basePrompt ? `${basePrompt}${memoryContextBlock}` : memoryContextBlock.trim();
+  // Priority 3: Empty string
+  return '';
 }
 
 type ChatMessage = {role: string; content?: unknown};
