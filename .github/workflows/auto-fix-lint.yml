@@ -1,0 +1,51 @@
+name: Auto Fix Lint
+
+on:
+  push:
+    branches:
+      - auto/fix-lint
+
+permissions:
+  contents: write
+
+jobs:
+  autofix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          if [ -f yarn.lock ]; then
+            yarn install --frozen-lockfile
+          else
+            npm ci
+          fi
+
+      - name: Run eslint --fix
+        run: |
+          npx eslint . --ext .js,.jsx,.ts,.tsx --fix || true
+
+      - name: Run prettier --write
+        run: |
+          npx prettier --write . || true
+
+      - name: Run eslint (check)
+        run: |
+          npx eslint . --ext .js,.jsx,.ts,.tsx
+
+      - name: Commit auto fixes
+        uses: EndBug/add-and-commit@v9
+        with:
+          author_name: GitHub Actions
+          author_email: actions@github.com
+          message: "chore: apply automatic lint/prettier fixes (auto/fix-lint)"
+          push: true
