@@ -1,0 +1,5 @@
+Auto-fix workflow trigger
+
+This file was added to trigger the auto-fix lint workflow on branch auto/fix-lint.
+
+Committed by GitHub Copilot to start eslint --fix and prettier --write in CI.
