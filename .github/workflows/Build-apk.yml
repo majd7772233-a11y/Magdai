@@ -1,0 +1,463 @@
+name: Build MAGD AI APK
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_type:
+        description: "Android build type"
+        required: true
+        default: "release"
+        type: choice
+        options:
+          - release
+          - debug
+
+  push:
+    branches:
+      - main
+      - "feature/**"
+    tags:
+      - "v*"
+
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: magd-ai-build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "20"
+  JAVA_VERSION: "17"
+  ANDROID_DIR: android
+  APK_NAME: "MAGD-AI"
+
+jobs:
+  build:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ============================================================
+      # 1. Checkout
+      # ============================================================
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ============================================================
+      # 2. Node.js
+      # ============================================================
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      # ============================================================
+      # 3. Java / JDK
+      # ============================================================
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: gradle
+
+      # ============================================================
+      # 4. Environment information
+      # ============================================================
+      - name: Show build environment
+        shell: bash
+        run: |
+          set -e
+
+          echo "=========================================="
+          echo "MAGD AI BUILD ENVIRONMENT"
+          echo "=========================================="
+
+          echo
+          echo "Node:"
+          node --version
+
+          echo
+          echo "npm:"
+          npm --version
+
+          echo
+          echo "Java:"
+          java -version
+
+          echo
+          echo "Gradle:"
+          cd "$ANDROID_DIR"
+          ./gradlew --version
+
+      # ============================================================
+      # 5. Install JavaScript dependencies
+      # ============================================================
+      - name: Install JavaScript dependencies
+        shell: bash
+        run: |
+          set -e
+
+          if [ -f package-lock.json ]; then
+            echo "Using npm ci..."
+            npm ci
+
+          elif [ -f npm-shrinkwrap.json ]; then
+            echo "Using npm ci with npm-shrinkwrap..."
+            npm ci
+
+          elif [ -f yarn.lock ]; then
+            echo "Using Yarn..."
+            corepack enable
+            yarn install --frozen-lockfile
+
+          else
+            echo "No lockfile detected."
+            echo "Using npm install..."
+            npm install
+          fi
+
+      # ============================================================
+      # 6. Verify Android project
+      # ============================================================
+      - name: Verify Android project
+        shell: bash
+        run: |
+          set -e
+
+          if [ ! -d "$ANDROID_DIR" ]; then
+            echo "::error::Android directory does not exist."
+            exit 1
+          fi
+
+          if [ ! -f "$ANDROID_DIR/gradlew" ]; then
+            echo "::error::android/gradlew does not exist."
+            exit 1
+          fi
+
+          chmod +x "$ANDROID_DIR/gradlew"
+
+          echo "Android project verified."
+
+      # ============================================================
+      # 7. Determine build type
+      # ============================================================
+      - name: Determine build type
+        id: build_type
+        shell: bash
+        run: |
+          set -e
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TYPE="${{ github.event.inputs.build_type }}"
+
+          elif [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            TYPE="release"
+
+          else
+            TYPE="release"
+          fi
+
+          echo "type=$TYPE" >> "$GITHUB_OUTPUT"
+
+          echo "Selected build type: $TYPE"
+
+      # ============================================================
+      # 8. Prepare release signing
+      #
+      # GitHub Secrets:
+      #
+      # MY_KEYSTORE.JKS
+      # KEYSTORE_PASSWORD
+      # KEY_ALIAS
+      # KEY_PASSWORD
+      #
+      # MY_KEYSTORE.JKS must contain the Base64 representation
+      # of my_keystore.jks.
+      # ============================================================
+      - name: Prepare release signing
+        if: steps.build_type.outputs.type == 'release'
+        shell: bash
+        env:
+          MY_KEYSTORE_JKS: ${{ secrets.MY_KEYSTORE.JKS }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          set -e
+
+          echo "Preparing MAGD AI release signing..."
+
+          if [ -z "$MY_KEYSTORE_JKS" ]; then
+            echo "::error::GitHub Secret MY_KEYSTORE.JKS is missing."
+            exit 1
+          fi
+
+          if [ -z "$KEYSTORE_PASSWORD" ]; then
+            echo "::error::GitHub Secret KEYSTORE_PASSWORD is missing."
+            exit 1
+          fi
+
+          if [ -z "$KEY_ALIAS" ]; then
+            echo "::error::GitHub Secret KEY_ALIAS is missing."
+            exit 1
+          fi
+
+          if [ -z "$KEY_PASSWORD" ]; then
+            echo "::error::GitHub Secret KEY_PASSWORD is missing."
+            exit 1
+          fi
+
+          mkdir -p "$ANDROID_DIR"
+
+          echo "$MY_KEYSTORE_JKS" | base64 --decode > "$ANDROID_DIR/my_keystore.jks"
+
+          if [ ! -s "$ANDROID_DIR/my_keystore.jks" ]; then
+            echo "::error::Failed to create my_keystore.jks."
+            exit 1
+          fi
+
+          cat > "$ANDROID_DIR/key.properties" <<EOF
+storeFile=my_keystore.jks
+storePassword=$KEYSTORE_PASSWORD
+keyAlias=$KEY_ALIAS
+keyPassword=$KEY_PASSWORD
+EOF
+
+          chmod 600 "$ANDROID_DIR/my_keystore.jks"
+          chmod 600 "$ANDROID_DIR/key.properties"
+
+          echo "Release signing is ready."
+
+      # ============================================================
+      # 9. Clean Android build
+      # ============================================================
+      - name: Clean Android build
+        working-directory: android
+        shell: bash
+        run: |
+          set -e
+
+          ./gradlew clean --no-daemon
+
+      # ============================================================
+      # 10. Lint
+      # ============================================================
+      - name: Run JavaScript lint
+        shell: bash
+        run: |
+          set -e
+
+          if npm run | grep -qE '^[[:space:]]+lint'; then
+            npm run lint
+          else
+            echo "No lint script configured."
+          fi
+
+      # ============================================================
+      # 11. Tests
+      # ============================================================
+      - name: Run JavaScript tests
+        shell: bash
+        run: |
+          set -e
+
+          if npm run | grep -qE '^[[:space:]]+test'; then
+            npm test -- --runInBand
+          else
+            echo "No test script configured."
+          fi
+
+      # ============================================================
+      # 12. Build Debug APK
+      # ============================================================
+      - name: Build Debug APK
+        if: steps.build_type.outputs.type == 'debug'
+        working-directory: android
+        shell: bash
+        run: |
+          set -e
+
+          ./gradlew assembleDebug \
+            --no-daemon \
+            --stacktrace
+
+      # ============================================================
+      # 13. Build Release APK
+      # ============================================================
+      - name: Build Release APK
+        if: steps.build_type.outputs.type == 'release'
+        working-directory: android
+        shell: bash
+        run: |
+          set -e
+
+          ./gradlew assembleRelease \
+            --no-daemon \
+            --stacktrace
+
+      # ============================================================
+      # 14. Locate APK
+      # ============================================================
+      - name: Locate APK
+        id: apk
+        shell: bash
+        run: |
+          set -e
+
+          mkdir -p build-artifacts
+
+          if [ "${{ steps.build_type.outputs.type }}" = "release" ]; then
+
+            APK="$(find android/app/build/outputs/apk/release \
+              -type f \
+              -name "*.apk" \
+              | head -n 1)"
+
+          else
+
+            APK="$(find android/app/build/outputs/apk/debug \
+              -type f \
+              -name "*.apk" \
+              | head -n 1)"
+
+          fi
+
+          if [ -z "$APK" ]; then
+            echo "::error::No APK was produced."
+            exit 1
+          fi
+
+          echo "APK:"
+          echo "$APK"
+
+          # --------------------------------------------------------
+          # Try to detect versionName/versionCode
+          # --------------------------------------------------------
+
+          VERSION_NAME="$(
+            grep -E 'versionName[[:space:]]*[=]?[[:space:]]*["'\''][^"'\'']+["'\'']' \
+              android/app/build.gradle \
+              android/app/build.gradle.kts \
+              2>/dev/null \
+              | head -n 1 \
+              | sed -E 's/.*versionName[^"'\'']*["'\'']([^"'\'']+)["'\''].*/\1/' \
+            || true
+          )"
+
+          VERSION_CODE="$(
+            grep -E 'versionCode[[:space:]]*[=]?[[:space:]]*[0-9]+' \
+              android/app/build.gradle \
+              android/app/build.gradle.kts \
+              2>/dev/null \
+              | head -n 1 \
+              | sed -E 's/.*versionCode[^0-9]*([0-9]+).*/\1/' \
+            || true
+          )"
+
+          if [ -z "$VERSION_NAME" ]; then
+            VERSION_NAME="unknown"
+          fi
+
+          if [ -z "$VERSION_CODE" ]; then
+            VERSION_CODE="unknown"
+          fi
+
+          BUILD_DATE="$(date -u +'%Y%m%d-%H%M%S')"
+
+          DEST="build-artifacts/${APK_NAME}-${VERSION_NAME}-${BUILD_DATE}-${{ steps.build_type.outputs.type }}.apk"
+
+          cp "$APK" "$DEST"
+
+          echo "path=$DEST" >> "$GITHUB_OUTPUT"
+          echo "version_name=$VERSION_NAME" >> "$GITHUB_OUTPUT"
+          echo "version_code=$VERSION_CODE" >> "$GITHUB_OUTPUT"
+
+      # ============================================================
+      # 15. SHA-256
+      # ============================================================
+      - name: Generate APK SHA-256
+        shell: bash
+        run: |
+          set -e
+
+          APK="${{ steps.apk.outputs.path }}"
+
+          sha256sum "$APK" | tee "${APK}.sha256"
+
+      # ============================================================
+      # 16. APK information
+      # ============================================================
+      - name: Show APK information
+        shell: bash
+        run: |
+          set -e
+
+          APK="${{ steps.apk.outputs.path }}"
+
+          echo
+          echo "=========================================="
+          echo "MAGD AI APK"
+          echo "=========================================="
+
+          echo "Version name : ${{ steps.apk.outputs.version_name }}"
+          echo "Version code : ${{ steps.apk.outputs.version_code }}"
+          echo "Build type   : ${{ steps.build_type.outputs.type }}"
+
+          echo
+          echo "File:"
+          ls -lh "$APK"
+
+          echo
+          echo "SHA-256:"
+          cat "${APK}.sha256"
+
+      # ============================================================
+      # 17. Upload APK as GitHub Actions Artifact
+      # ============================================================
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MAGD-AI-${{ steps.build_type.outputs.type }}-${{ github.run_number }}
+          path: |
+            build-artifacts/*.apk
+            build-artifacts/*.sha256
+          if-no-files-found: error
+          retention-days: 30
+
+      # ============================================================
+      # 18. GitHub Release for tags
+      # ============================================================
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build-artifacts/*.apk
+            build-artifacts/*.sha256
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ============================================================
+      # 19. Cleanup signing material
+      # ============================================================
+      - name: Cleanup signing files
+        if: always()
+        shell: bash
+        run: |
+          rm -f android/my_keystore.jks
+          rm -f android/key.properties
+
+          echo "Signing files removed from runner."
