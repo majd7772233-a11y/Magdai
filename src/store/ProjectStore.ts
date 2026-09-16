@@ -17,7 +17,8 @@ class ProjectStore {
     {
       id: 'proj-1',
       name: '📱 Android MAGD AI Project',
-      description: 'مشروع تحويل PocketPal AI إلى منصة ✨ MAGD AI ✨ المحلية مع واجهة Liquid Glass',
+      description:
+        'مشروع تحويل PocketPal AI إلى منصة ✨ MAGD AI ✨ المحلية مع واجهة Liquid Glass',
       tags: ['Android', 'React Native', 'MAGD AI'],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),

@@ -55,12 +55,18 @@ export const ProjectsScreen: React.FC = observer(() => {
       ]}
       contentContainerStyle={styles.contentContainer}>
       {/* Header */}
-      <GlassCard style={styles.headerCard} glow glowColor="rgba(99, 102, 241, 0.25)">
-        <Text style={[styles.headerTitle, {color: isDark ? '#E0E7FF' : '#312E81'}]}>
+      <GlassCard
+        style={styles.headerCard}
+        glow
+        glowColor="rgba(99, 102, 241, 0.25)">
+        <Text
+          style={[styles.headerTitle, {color: isDark ? '#E0E7FF' : '#312E81'}]}>
           🔗 نظام المشاريع (Projects Workspace)
         </Text>
-        <Text style={[styles.headerSub, {color: isDark ? '#94A3B8' : '#475569'}]}>
-          أنشئ مساحات عمل مستقلة تجمع المحادثات، والملفات، والذاكرة الخاصة بكل مشروع.
+        <Text
+          style={[styles.headerSub, {color: isDark ? '#94A3B8' : '#475569'}]}>
+          أنشئ مساحات عمل مستقلة تجمع المحادثات، والملفات، والذاكرة الخاصة بكل
+          مشروع.
         </Text>
       </GlassCard>
 
@@ -76,7 +82,8 @@ export const ProjectsScreen: React.FC = observer(() => {
       {/* New Project Form */}
       {isCreating && (
         <GlassCard style={styles.formCard}>
-          <Text style={[styles.formTitle, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
+          <Text
+            style={[styles.formTitle, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
             إنشاء مشروع جديد
           </Text>
           <TextInput
@@ -109,7 +116,10 @@ export const ProjectsScreen: React.FC = observer(() => {
             onChangeText={setDescription}
           />
           <TouchableOpacity
-            style={[styles.createBtn, {backgroundColor: '#10B981', marginTop: 8}]}
+            style={[
+              styles.createBtn,
+              {backgroundColor: '#10B981', marginTop: 8},
+            ]}
             onPress={handleCreate}>
             <Text style={styles.createBtnText}>حفظ المشروع</Text>
           </TouchableOpacity>
@@ -118,21 +128,30 @@ export const ProjectsScreen: React.FC = observer(() => {
 
       {/* Project List */}
       {projectStore.projects.length === 0 ? (
-        <Text style={[styles.emptyText, {color: isDark ? '#64748B' : '#94A3B8'}]}>
+        <Text
+          style={[styles.emptyText, {color: isDark ? '#64748B' : '#94A3B8'}]}>
           لا توجد مشاريع قائمة حالياً. أنشئ مشروعك الأول الآن!
         </Text>
       ) : (
         projectStore.projects.map(proj => (
           <GlassCard key={proj.id} style={styles.projectCard}>
             <View style={styles.projectHeader}>
-              <Text style={[styles.projectName, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
+              <Text
+                style={[
+                  styles.projectName,
+                  {color: isDark ? '#F1F5F9' : '#0F172A'},
+                ]}>
                 {proj.name}
               </Text>
               <TouchableOpacity onPress={() => handleDelete(proj.id)}>
                 <Text style={styles.deleteIcon}>🗑️</Text>
               </TouchableOpacity>
             </View>
-            <Text style={[styles.projectDesc, {color: isDark ? '#CBD5E1' : '#334155'}]}>
+            <Text
+              style={[
+                styles.projectDesc,
+                {color: isDark ? '#CBD5E1' : '#334155'},
+              ]}>
               {proj.description}
             </Text>
 

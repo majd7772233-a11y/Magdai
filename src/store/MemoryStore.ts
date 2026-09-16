@@ -17,7 +17,8 @@ class MemoryStore {
       id: '1',
       category: 'preference',
       title: 'اللغة المفضلة',
-      content: 'اللغة: العربية، الواجهة: Dark Mode، طريقة الشرح: تدريجية ومنطقية',
+      content:
+        'اللغة: العربية، الواجهة: Dark Mode، طريقة الشرح: تدريجية ومنطقية',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     },
@@ -25,7 +26,8 @@ class MemoryStore {
       id: '2',
       category: 'long_term',
       title: 'الهوية والتصميم',
-      content: 'المشروع هو ✨ MAGD AI ✨، منصة ذكاء اصطناعي محلي بأسلوب Liquid Glass UI.',
+      content:
+        'المشروع هو ✨ MAGD AI ✨، منصة ذكاء اصطناعي محلي بأسلوب Liquid Glass UI.',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     },
