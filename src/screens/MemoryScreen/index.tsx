@@ -12,7 +12,7 @@ import {observer} from 'mobx-react';
 import {useTheme} from 'react-native-paper';
 
 import {GlassCard} from '../../components/ui';
-import {memoryStore, MemoryItem} from '../../store/MemoryStore';
+import {memoryStore} from '../../store/MemoryStore';
 
 export const MemoryScreen: React.FC = observer(() => {
   const theme = useTheme();
