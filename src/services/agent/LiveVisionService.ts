@@ -64,8 +64,8 @@ export class LiveVisionService {
       extractedText: 'ESP32-WROOM-32 Pinout VCC GND TX RX',
       detectedObjects: ['Microcontroller PCB Board', 'LED', 'Resistor 220 Ohm'],
       circuitComponents: [
-        { type: 'microcontroller', value: 'ESP32', confidence: 0.98 },
-        { type: 'resistor', value: '220Ω', confidence: 0.94 },
+        {type: 'microcontroller', value: 'ESP32', confidence: 0.98},
+        {type: 'resistor', value: '220Ω', confidence: 0.94},
       ],
       batteryUsagePercent: 12,
     };

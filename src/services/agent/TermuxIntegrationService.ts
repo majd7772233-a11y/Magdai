@@ -32,7 +32,10 @@ export class TermuxIntegrationService {
 
     try {
       if (NativeModules.TermuxBridge) {
-        const result = await NativeModules.TermuxBridge.executeCommand(command, timeoutMs);
+        const result = await NativeModules.TermuxBridge.executeCommand(
+          command,
+          timeoutMs,
+        );
         return {
           status: result.exitCode === 0 ? 'success' : 'failed',
           command,

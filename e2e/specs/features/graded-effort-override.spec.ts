@@ -167,7 +167,10 @@ describe('Local Graded-Effort Override', () => {
 
     // The reasoning section sits at the bottom of the settings ScrollView;
     // scroll it into view before driving the controls.
-    await Gestures.scrollToElement(Selectors.modelSettings.isReasoningSwitch, 6);
+    await Gestures.scrollToElement(
+      Selectors.modelSettings.isReasoningSwitch,
+      6,
+    );
     const isReasoning = browser.$(Selectors.modelSettings.isReasoningSwitch);
     await isReasoning.waitForDisplayed({timeout: 10000});
 
@@ -190,7 +193,9 @@ describe('Local Graded-Effort Override', () => {
       Selectors.modelSettings.supportsEffortSwitch,
       6,
     );
-    const supportsEffort = browser.$(Selectors.modelSettings.supportsEffortSwitch);
+    const supportsEffort = browser.$(
+      Selectors.modelSettings.supportsEffortSwitch,
+    );
     await supportsEffort.waitForDisplayed({timeout: 10000});
 
     // Ensure axis-2 is ON (it reveals the effort chips). Same paper-Switch
@@ -281,7 +286,9 @@ describe('Local Graded-Effort Override', () => {
       current = await advance(current);
       const on = current.length > 0;
       states.push(on);
-      console.log(`pill state after step ${i + 1}: ${on ? `ON (${current})` : 'OFF'}`);
+      console.log(
+        `pill state after step ${i + 1}: ${on ? `ON (${current})` : 'OFF'}`,
+      );
     }
 
     expect(states).toEqual([true, true, true, false]);
