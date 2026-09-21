@@ -31,7 +31,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_VERSION: "20"
+  NODE_VERSION: "22.21.0"
   JAVA_VERSION: "17"
   ANDROID_DIR: android
   APK_NAME: "MAGD-AI"
@@ -287,7 +287,7 @@ EOF
         run: |
           set -e
 
-          ./gradlew assembleDebug \
+          ./gradlew assembleProdDebug \
             --no-daemon \
             --stacktrace
 
@@ -301,7 +301,7 @@ EOF
         run: |
           set -e
 
-          ./gradlew assembleRelease \
+          ./gradlew assembleProdRelease \
             --no-daemon \
             --stacktrace
 
