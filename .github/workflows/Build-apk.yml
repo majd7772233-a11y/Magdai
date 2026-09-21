@@ -54,11 +54,18 @@ jobs:
       # ============================================================
       # 2. Node.js
       # ============================================================
-      - name: Set up Node.js
+      - name: Set up Node.js with npm cache
+        if: ${{ hashFiles('package-lock.json') != '' }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
+
+      - name: Set up Node.js
+        if: ${{ hashFiles('package-lock.json') == '' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
 
       # ============================================================
       # 3. Java / JDK
@@ -76,7 +83,7 @@ jobs:
       - name: Show build environment
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
           echo "=========================================="
           echo "MAGD AI BUILD ENVIRONMENT"
@@ -105,14 +112,10 @@ jobs:
       - name: Install JavaScript dependencies
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
-          if [ -f package-lock.json ]; then
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
             echo "Using npm ci..."
-            npm ci
-
-          elif [ -f npm-shrinkwrap.json ]; then
-            echo "Using npm ci with npm-shrinkwrap..."
             npm ci
 
           elif [ -f yarn.lock ]; then
@@ -132,7 +135,7 @@ jobs:
       - name: Verify Android project
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
           if [ ! -d "$ANDROID_DIR" ]; then
             echo "::error::Android directory does not exist."
@@ -155,7 +158,7 @@ jobs:
         id: build_type
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             TYPE="${{ github.event.inputs.build_type }}"
@@ -176,29 +179,29 @@ jobs:
       #
       # GitHub Secrets:
       #
-      # MY_KEYSTORE.JKS
+      # MY_KEYSTORE_JKS
       # KEYSTORE_PASSWORD
       # KEY_ALIAS
       # KEY_PASSWORD
       #
-      # MY_KEYSTORE.JKS must contain the Base64 representation
+      # MY_KEYSTORE_JKS must contain the Base64 representation
       # of my_keystore.jks.
       # ============================================================
       - name: Prepare release signing
         if: steps.build_type.outputs.type == 'release'
         shell: bash
         env:
-          MY_KEYSTORE_JKS: ${{ secrets.MY_KEYSTORE.JKS }}
+          MY_KEYSTORE_JKS: ${{ secrets.MY_KEYSTORE_JKS }}
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
-          set -e
+          set -euo pipefail
 
           echo "Preparing MAGD AI release signing..."
 
           if [ -z "$MY_KEYSTORE_JKS" ]; then
-            echo "::error::GitHub Secret MY_KEYSTORE.JKS is missing."
+            echo "::error::GitHub Secret MY_KEYSTORE_JKS is missing."
             exit 1
           fi
 
@@ -219,7 +222,9 @@ jobs:
 
           mkdir -p "$ANDROID_DIR"
 
-          echo "$MY_KEYSTORE_JKS" | base64 --decode > "$ANDROID_DIR/my_keystore.jks"
+          printf '%s' "$MY_KEYSTORE_JKS" \
+            | base64 --decode \
+            > "$ANDROID_DIR/my_keystore.jks"
 
           if [ ! -s "$ANDROID_DIR/my_keystore.jks" ]; then
             echo "::error::Failed to create my_keystore.jks."
@@ -227,11 +232,11 @@ jobs:
           fi
 
           cat > "$ANDROID_DIR/key.properties" <<EOF
-storeFile=my_keystore.jks
-storePassword=$KEYSTORE_PASSWORD
-keyAlias=$KEY_ALIAS
-keyPassword=$KEY_PASSWORD
-EOF
+          storeFile=my_keystore.jks
+          storePassword=$KEYSTORE_PASSWORD
+          keyAlias=$KEY_ALIAS
+          keyPassword=$KEY_PASSWORD
+          EOF
 
           chmod 600 "$ANDROID_DIR/my_keystore.jks"
           chmod 600 "$ANDROID_DIR/key.properties"
@@ -245,7 +250,7 @@ EOF
         working-directory: android
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
           ./gradlew clean --no-daemon
 
@@ -255,7 +260,7 @@ EOF
       - name: Run JavaScript lint
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
           if npm run | grep -qE '^[[:space:]]+lint'; then
             npm run lint
@@ -269,7 +274,7 @@ EOF
       - name: Run JavaScript tests
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
           if npm run | grep -qE '^[[:space:]]+test'; then
             npm test -- --runInBand
@@ -285,7 +290,7 @@ EOF
         working-directory: android
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
           ./gradlew assembleProdDebug \
             --no-daemon \
@@ -299,7 +304,7 @@ EOF
         working-directory: android
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
           ./gradlew assembleProdRelease \
             --no-daemon \
@@ -312,24 +317,28 @@ EOF
         id: apk
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
           mkdir -p build-artifacts
 
           if [ "${{ steps.build_type.outputs.type }}" = "release" ]; then
-
-            APK="$(find android/app/build/outputs/apk/release \
-              -type f \
-              -name "*.apk" \
-              | head -n 1)"
-
+            APK="$(
+              find android/app/build/outputs/apk/release \
+                -type f \
+                -name "*.apk" \
+                -print \
+                -quit \
+                2>/dev/null || true
+            )"
           else
-
-            APK="$(find android/app/build/outputs/apk/debug \
-              -type f \
-              -name "*.apk" \
-              | head -n 1)"
-
+            APK="$(
+              find android/app/build/outputs/apk/debug \
+                -type f \
+                -name "*.apk" \
+                -print \
+                -quit \
+                2>/dev/null || true
+            )"
           fi
 
           if [ -z "$APK" ]; then
@@ -345,22 +354,26 @@ EOF
           # --------------------------------------------------------
 
           VERSION_NAME="$(
-            grep -E 'versionName[[:space:]]*[=]?[[:space:]]*["'\''][^"'\'']+["'\'']' \
+            grep -hE \
+              '^[[:space:]]*versionName[[:space:]]*(=)?[[:space:]]*["'\'']' \
               android/app/build.gradle \
               android/app/build.gradle.kts \
               2>/dev/null \
               | head -n 1 \
-              | sed -E 's/.*versionName[^"'\'']*["'\'']([^"'\'']+)["'\''].*/\1/' \
+              | sed -E \
+              's/.*versionName[^"'\'']*["'\'']([^"'\'']+)["'\''].*/\1/' \
             || true
           )"
 
           VERSION_CODE="$(
-            grep -E 'versionCode[[:space:]]*[=]?[[:space:]]*[0-9]+' \
+            grep -hE \
+              '^[[:space:]]*versionCode[[:space:]]*(=)?[[:space:]]*[0-9]+' \
               android/app/build.gradle \
               android/app/build.gradle.kts \
               2>/dev/null \
               | head -n 1 \
-              | sed -E 's/.*versionCode[^0-9]*([0-9]+).*/\1/' \
+              | sed -E \
+              's/.*versionCode[^0-9]*([0-9]+).*/\1/' \
             || true
           )"
 
@@ -388,7 +401,7 @@ EOF
       - name: Generate APK SHA-256
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
           APK="${{ steps.apk.outputs.path }}"
 
@@ -400,7 +413,7 @@ EOF
       - name: Show APK information
         shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
           APK="${{ steps.apk.outputs.path }}"
 
@@ -457,7 +470,7 @@ EOF
         if: always()
         shell: bash
         run: |
-          rm -f android/my_keystore.jks
-          rm -f android/key.properties
+          rm -f "$ANDROID_DIR/my_keystore.jks"
+          rm -f "$ANDROID_DIR/key.properties"
 
           echo "Signing files removed from runner."
