@@ -23,7 +23,8 @@ export class PluginSystemManager {
       id: 'plugin-termux',
       name: 'Termux Terminal Bridge',
       version: '1.0.0',
-      description: 'Allows MAGD AI agents to dispatch commands to Termux session via Tasker Intent',
+      description:
+        'Allows MAGD AI agents to dispatch commands to Termux session via Tasker Intent',
       author: 'MAGD AI Core',
       category: 'system',
       requiredPermissions: ['EXECUTE_COMMANDS', 'READ_LOCAL_STORAGE'],
@@ -34,7 +35,8 @@ export class PluginSystemManager {
       id: 'plugin-electronics',
       name: 'Circuit & Microcontroller Assistant',
       version: '1.2.0',
-      description: 'Provides Ohm law calculations, pinout definitions, and LED resistor values',
+      description:
+        'Provides Ohm law calculations, pinout definitions, and LED resistor values',
       author: 'MAGD AI Hardware Lab',
       category: 'electronics',
       requiredPermissions: ['ACCESS_HARDWARE_REFS'],
@@ -45,7 +47,8 @@ export class PluginSystemManager {
       id: 'plugin-local-api',
       name: 'OpenAI-Compatible Local API Server',
       version: '2.0.0',
-      description: 'Exposes local LLM completion endpoints on http://localhost:8080/v1',
+      description:
+        'Exposes local LLM completion endpoints on http://localhost:8080/v1',
       author: 'MAGD AI Runtime',
       category: 'ai',
       requiredPermissions: ['LOCAL_NETWORK_SERVER'],

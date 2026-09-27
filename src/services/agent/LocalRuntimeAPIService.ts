@@ -57,7 +57,8 @@ export class LocalRuntimeAPIService {
       throw new Error('Local Runtime API server is stopped.');
     }
 
-    const userMessage = request.messages[request.messages.length - 1]?.content || '';
+    const userMessage =
+      request.messages[request.messages.length - 1]?.content || '';
 
     const responseContent = `✨ [MAGD AI Local Runtime Engine]: Response to "${userMessage}"`;
 
