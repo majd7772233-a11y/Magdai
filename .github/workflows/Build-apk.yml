@@ -339,20 +339,6 @@ jobs:
           yarn verify:fonts
 
       # ============================================================
-      # 13. Unit tests
-      #
-      # Full test/coverage validation is handled by CI Pipeline.
-      # Build-apk must not duplicate the entire Jest suite because
-      # the serial --runInBand invocation can return exit code 1
-      # even when all suites/tests report as passed.
-      # ============================================================
-      - name: Run unit tests
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          yarn test --coverage=false
-      # ============================================================
       # 14. Clean Android build
       # ============================================================
       - name: Clean Android build
@@ -411,35 +397,42 @@ jobs:
             APK="android/app/build/outputs/apk/debug/app-prod-debug.apk"
           fi
 
+          echo "Expected APK:"
+          echo "$APK"
+
           if [ ! -f "$APK" ]; then
             echo "::error::Expected APK was not produced:"
             echo "$APK"
 
             echo
             echo "Available APK files:"
-            find android/app/build/outputs/apk -type f -name "*.apk" -print || true
+            find android/app/build/outputs/apk \
+              -type f \
+              -name "*.apk" \
+              -print || true
 
             exit 1
           fi
 
+          # Read the application version from package.json.
           VERSION_NAME="$(
-            grep -hE \
-              '^[[:space:]]*versionName[[:space:]]*["'\'']' \
-              android/app/build.gradle \
-              | head -n 1 \
-              | sed -E \
-              's/.*versionName[[:space:]]*["'\'']([^"'\'']+)["'\''].*/\1/'
-            || true
+            node -e '
+              const pkg = require("./package.json");
+              process.stdout.write(String(pkg.version || "unknown"));
+            '
           )"
 
+          # Read Android versionCode without using fragile shell quoting.
           VERSION_CODE="$(
-            grep -hE \
-              '^[[:space:]]*versionCode[[:space:]]*[0-9]+' \
-              android/app/build.gradle \
-              | head -n 1 \
-              | sed -E \
-              's/.*versionCode[[:space:]]*([0-9]+).*/\1/'
-            || true
+            node -e '
+              const fs = require("fs");
+              const gradle = fs.readFileSync(
+                "android/app/build.gradle",
+                "utf8"
+              );
+              const match = gradle.match(/\bversionCode\s+(\d+)/);
+              process.stdout.write(match ? match[1] : "unknown");
+            '
           )"
 
           [ -n "$VERSION_NAME" ] || VERSION_NAME="unknown"
@@ -455,9 +448,16 @@ jobs:
           echo "version_name=$VERSION_NAME" >> "$GITHUB_OUTPUT"
           echo "version_code=$VERSION_CODE" >> "$GITHUB_OUTPUT"
 
-          echo "APK created:"
+          echo
+          echo "=========================================="
+          echo "MAGD AI APK CREATED"
+          echo "=========================================="
+          echo "Version name : $VERSION_NAME"
+          echo "Version code : $VERSION_CODE"
+          echo "Build type   : ${{ steps.build_type.outputs.type }}"
+          echo
+          echo "APK:"
           ls -lh "$DEST"
-
       # ============================================================
       # 18. Verify APK signature
       # ============================================================
