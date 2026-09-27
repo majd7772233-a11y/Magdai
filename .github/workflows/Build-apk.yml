@@ -339,19 +339,19 @@ jobs:
           yarn verify:fonts
 
       # ============================================================
-      # 13. Optional unit tests without coverage
+      # 13. Unit tests
       #
-      # This avoids the previous APK workflow failure occurring after
-      # all 262 suites had already passed because the coverage-enabled
-      # test command returned exit code 1.
+      # Full test/coverage validation is handled by CI Pipeline.
+      # Build-apk must not duplicate the entire Jest suite because
+      # the serial --runInBand invocation can return exit code 1
+      # even when all suites/tests report as passed.
       # ============================================================
-      - name: Run unit tests without coverage
+      - name: Run unit tests
         shell: bash
         run: |
           set -euo pipefail
 
-          yarn test --runInBand --coverage=false
-
+          yarn test --coverage=false
       # ============================================================
       # 14. Clean Android build
       # ============================================================
