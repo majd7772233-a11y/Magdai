@@ -38,7 +38,9 @@ export const GlassCard: React.FC<GlassCardProps> = ({
         {
           borderRadius,
           borderColor,
-          boxShadow: glow ? `0px 4px 20px ${glowColor}` : '0px 2px 10px rgba(0,0,0,0.08)',
+          boxShadow: glow
+            ? `0px 4px 20px ${glowColor}`
+            : '0px 2px 10px rgba(0,0,0,0.08)',
         },
         style,
       ]}>

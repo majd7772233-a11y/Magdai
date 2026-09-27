@@ -305,13 +305,15 @@ describe('Remote Reasoning Features', () => {
     // reasoning capability is "unknown" (fail-open), not gated on a native
     // context the remote path lacks. Poll because activation just settled.
     let visible = false;
-    await browser.waitUntil(
-      async () => {
-        visible = await chatPage.isThinkingToggleVisible();
-        return visible;
-      },
-      {timeout: 15000, interval: 1000, timeoutMsg: 'thinking pill not shown'},
-    ).catch(() => undefined);
+    await browser
+      .waitUntil(
+        async () => {
+          visible = await chatPage.isThinkingToggleVisible();
+          return visible;
+        },
+        {timeout: 15000, interval: 1000, timeoutMsg: 'thinking pill not shown'},
+      )
+      .catch(() => undefined);
     if (!visible) {
       await dumpPageSource('remote-pill-missing.xml');
     }

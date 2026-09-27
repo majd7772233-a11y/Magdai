@@ -12,7 +12,7 @@ import {observer} from 'mobx-react';
 import {useTheme} from 'react-native-paper';
 
 import {GlassCard} from '../../components/ui';
-import {memoryStore, MemoryItem} from '../../store/MemoryStore';
+import {memoryStore} from '../../store/MemoryStore';
 
 export const MemoryScreen: React.FC = observer(() => {
   const theme = useTheme();
@@ -42,7 +42,9 @@ export const MemoryScreen: React.FC = observer(() => {
       return;
     }
     memoryStore.addMemory({
-      category: (activeCategory === 'all' ? 'long_term' : activeCategory) as any,
+      category: (activeCategory === 'all'
+        ? 'long_term'
+        : activeCategory) as any,
       title: newTitle.trim(),
       content: newContent.trim(),
     });
@@ -52,14 +54,18 @@ export const MemoryScreen: React.FC = observer(() => {
   };
 
   const handleDelete = (id: string) => {
-    Alert.alert('حذف المعلومة', 'هل أنت تأكد من حذف هذه المعلومة من ذاكرة MAGD AI؟', [
-      {text: 'إلغاء', style: 'cancel'},
-      {
-        text: 'حذف',
-        style: 'destructive',
-        onPress: () => memoryStore.deleteMemory(id),
-      },
-    ]);
+    Alert.alert(
+      'حذف المعلومة',
+      'هل أنت تأكد من حذف هذه المعلومة من ذاكرة MAGD AI؟',
+      [
+        {text: 'إلغاء', style: 'cancel'},
+        {
+          text: 'حذف',
+          style: 'destructive',
+          onPress: () => memoryStore.deleteMemory(id),
+        },
+      ],
+    );
   };
 
   const handleClearAll = () => {
@@ -81,11 +87,16 @@ export const MemoryScreen: React.FC = observer(() => {
       ]}
       contentContainerStyle={styles.contentContainer}>
       {/* Header */}
-      <GlassCard style={styles.headerCard} glow glowColor="rgba(99, 102, 241, 0.25)">
-        <Text style={[styles.headerTitle, {color: isDark ? '#E0E7FF' : '#312E81'}]}>
+      <GlassCard
+        style={styles.headerCard}
+        glow
+        glowColor="rgba(99, 102, 241, 0.25)">
+        <Text
+          style={[styles.headerTitle, {color: isDark ? '#E0E7FF' : '#312E81'}]}>
           🧠 مركز الذاكرة (Memory Control Center)
         </Text>
-        <Text style={[styles.headerSub, {color: isDark ? '#94A3B8' : '#475569'}]}>
+        <Text
+          style={[styles.headerSub, {color: isDark ? '#94A3B8' : '#475569'}]}>
           ما يعرفه ✨ MAGD AI ✨ عنك وعن مشاريعك لتوفير تجربة مخصصة ودقيقة.
         </Text>
       </GlassCard>
@@ -108,7 +119,10 @@ export const MemoryScreen: React.FC = observer(() => {
       </View>
 
       {/* Category Tabs */}
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.tabsRow}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={styles.tabsRow}>
         {categories.map(cat => (
           <TouchableOpacity
             key={cat.id}
@@ -120,8 +134,8 @@ export const MemoryScreen: React.FC = observer(() => {
                   activeCategory === cat.id
                     ? '#6366F1'
                     : isDark
-                    ? 'rgba(30, 41, 59, 0.6)'
-                    : '#E2E8F0',
+                      ? 'rgba(30, 41, 59, 0.6)'
+                      : '#E2E8F0',
               },
             ]}>
             <Text
@@ -132,8 +146,8 @@ export const MemoryScreen: React.FC = observer(() => {
                     activeCategory === cat.id
                       ? '#FFFFFF'
                       : isDark
-                      ? '#CBD5E1'
-                      : '#334155',
+                        ? '#CBD5E1'
+                        : '#334155',
                 },
               ]}>
               {cat.label}
@@ -147,7 +161,9 @@ export const MemoryScreen: React.FC = observer(() => {
         <TouchableOpacity
           style={[styles.btn, {backgroundColor: '#6366F1'}]}
           onPress={() => setIsAdding(!isAdding)}>
-          <Text style={styles.btnText}>{isAdding ? 'إلغاء' : '+ إضافة معلومة'}</Text>
+          <Text style={styles.btnText}>
+            {isAdding ? 'إلغاء' : '+ إضافة معلومة'}
+          </Text>
         </TouchableOpacity>
 
         {memoryStore.memories.length > 0 && (
@@ -162,7 +178,8 @@ export const MemoryScreen: React.FC = observer(() => {
       {/* Add Form */}
       {isAdding && (
         <GlassCard style={styles.addCard}>
-          <Text style={[styles.formTitle, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
+          <Text
+            style={[styles.formTitle, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
             إضافة حقيقة/تفضيل جديد إلى الذاكرة
           </Text>
           <TextInput
@@ -204,21 +221,30 @@ export const MemoryScreen: React.FC = observer(() => {
 
       {/* Memory List */}
       {filtered.length === 0 ? (
-        <Text style={[styles.emptyText, {color: isDark ? '#64748B' : '#94A3B8'}]}>
+        <Text
+          style={[styles.emptyText, {color: isDark ? '#64748B' : '#94A3B8'}]}>
           لا توجد ذكريات محفوظة في هذه الفئة.
         </Text>
       ) : (
         filtered.map(item => (
           <GlassCard key={item.id} style={styles.memoryCard}>
             <View style={styles.cardHeader}>
-              <Text style={[styles.itemTitle, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
+              <Text
+                style={[
+                  styles.itemTitle,
+                  {color: isDark ? '#F1F5F9' : '#0F172A'},
+                ]}>
                 {item.title}
               </Text>
               <TouchableOpacity onPress={() => handleDelete(item.id)}>
                 <Text style={styles.deleteIcon}>🗑️</Text>
               </TouchableOpacity>
             </View>
-            <Text style={[styles.itemContent, {color: isDark ? '#CBD5E1' : '#334155'}]}>
+            <Text
+              style={[
+                styles.itemContent,
+                {color: isDark ? '#CBD5E1' : '#334155'},
+              ]}>
               {item.content}
             </Text>
           </GlassCard>

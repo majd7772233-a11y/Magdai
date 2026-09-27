@@ -134,7 +134,8 @@ const App = observer(() => {
                             name={ROUTES.HOME}
                             component={gestureHandlerRootHOC(HomeScreen)}
                             options={{
-                              title: currentL10n.screenTitles?.home || 'الرئيسية',
+                              title:
+                                currentL10n.screenTitles?.home || 'الرئيسية',
                             }}
                           />
                           <Drawer.Screen
@@ -149,7 +150,9 @@ const App = observer(() => {
                             component={gestureHandlerRootHOC(ProjectsScreen)}
                             options={{
                               headerStyle: styles.headerWithoutDivider,
-                              title: currentL10n.screenTitles?.projects || 'المشاريع',
+                              title:
+                                currentL10n.screenTitles?.projects ||
+                                'المشاريع',
                             }}
                           />
                           <Drawer.Screen
@@ -157,7 +160,8 @@ const App = observer(() => {
                             component={gestureHandlerRootHOC(MemoryScreen)}
                             options={{
                               headerStyle: styles.headerWithoutDivider,
-                              title: currentL10n.screenTitles?.memory || 'الذاكرة',
+                              title:
+                                currentL10n.screenTitles?.memory || 'الذاكرة',
                             }}
                           />
                           <Drawer.Screen

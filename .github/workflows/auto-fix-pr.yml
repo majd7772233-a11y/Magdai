@@ -1,0 +1,74 @@
+name: Auto Fix PR Lint
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-fix:
+    # نسمح بالكتابة فقط عندما يكون فرع الـPR داخل نفس المستودع
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.21.0'
+          cache: yarn
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run ESLint auto-fix
+        run: yarn lint:fix
+
+      - name: Run Prettier
+        run: yarn format
+
+      - name: Show changed files
+        run: git status --short
+
+      - name: Commit fixes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet; then
+            echo "No automatic fixes were needed."
+            exit 0
+          fi
+
+          git add .
+          git commit -m "chore: auto-fix lint and formatting"
+          git push origin HEAD:${{ github.event.pull_request.head.ref || github.ref_name }}
+
+      - name: Verify ESLint
+        run: yarn lint
+
+      - name: TypeScript type check
+        run: yarn typecheck
+
+      - name: Unit tests
+        run: yarn test --runInBand
