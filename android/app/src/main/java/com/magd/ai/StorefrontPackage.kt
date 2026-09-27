@@ -1,16 +1,16 @@
-package com.pocketpal
+package com.magd.ai
 
 import com.facebook.react.TurboReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
-import com.pocketpal.specs.NativeHardwareInfoSpec
+import com.magd.ai.specs.NativeStorefrontSpec
 
-class HardwareInfoPackage : TurboReactPackage() {
+class StorefrontPackage : TurboReactPackage() {
   override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
-    return if (name == NativeHardwareInfoSpec.NAME) {
-      HardwareInfoModule(reactContext)
+    return if (name == NativeStorefrontSpec.NAME) {
+      StorefrontModule(reactContext)
     } else {
       null
     }
@@ -19,12 +19,12 @@ class HardwareInfoPackage : TurboReactPackage() {
   override fun getReactModuleInfoProvider(): ReactModuleInfoProvider {
     return ReactModuleInfoProvider {
       mapOf(
-        NativeHardwareInfoSpec.NAME to ReactModuleInfo(
-          NativeHardwareInfoSpec.NAME,
-          NativeHardwareInfoSpec.NAME,
+        NativeStorefrontSpec.NAME to ReactModuleInfo(
+          NativeStorefrontSpec.NAME,
+          NativeStorefrontSpec.NAME,
           false, // canOverrideExistingModule
           false, // needsEagerInit
-          true,  // hasConstants
+          false, // hasConstants
           false, // isCxxModule
           true   // isTurboModule
         )
@@ -32,4 +32,3 @@ class HardwareInfoPackage : TurboReactPackage() {
     }
   }
 }
-

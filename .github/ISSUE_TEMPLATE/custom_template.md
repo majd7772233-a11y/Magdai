@@ -1,9 +1,10 @@
 ---
 name: General issue
 about: Use this for general issues or questions (when it is not a bug or feature request)
-title: '[General]: '
+title: "[General]: "
 labels: question
 assignees: ''
+
 ---
 
 **Issue description**

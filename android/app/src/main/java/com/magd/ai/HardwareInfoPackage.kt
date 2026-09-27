@@ -1,16 +1,16 @@
-package com.pocketpal
+package com.magd.ai
 
 import com.facebook.react.TurboReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
-import com.pocketpal.specs.NativeExternalContentLinkSpec
+import com.magd.ai.specs.NativeHardwareInfoSpec
 
-class ExternalContentLinkPackage : TurboReactPackage() {
+class HardwareInfoPackage : TurboReactPackage() {
   override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
-    return if (name == NativeExternalContentLinkSpec.NAME) {
-      ExternalContentLinkModule(reactContext)
+    return if (name == NativeHardwareInfoSpec.NAME) {
+      HardwareInfoModule(reactContext)
     } else {
       null
     }
@@ -19,12 +19,12 @@ class ExternalContentLinkPackage : TurboReactPackage() {
   override fun getReactModuleInfoProvider(): ReactModuleInfoProvider {
     return ReactModuleInfoProvider {
       mapOf(
-        NativeExternalContentLinkSpec.NAME to ReactModuleInfo(
-          NativeExternalContentLinkSpec.NAME,
-          NativeExternalContentLinkSpec.NAME,
+        NativeHardwareInfoSpec.NAME to ReactModuleInfo(
+          NativeHardwareInfoSpec.NAME,
+          NativeHardwareInfoSpec.NAME,
           false, // canOverrideExistingModule
           false, // needsEagerInit
-          false, // hasConstants
+          true,  // hasConstants
           false, // isCxxModule
           true   // isTurboModule
         )
@@ -32,3 +32,4 @@ class ExternalContentLinkPackage : TurboReactPackage() {
     }
   }
 }
+
