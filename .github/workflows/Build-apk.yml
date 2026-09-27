@@ -1,0 +1,567 @@
+name: Build MAGD AI APK
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_type:
+        description: "Android build type"
+        required: true
+        default: "release"
+        type: choice
+        options:
+          - release
+          - debug
+
+  push:
+    branches:
+      - main
+      - "feature/**"
+    tags:
+      - "v*"
+
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+concurrency:
+  group: magd-ai-build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "22.21.0"
+  JAVA_VERSION: "17"
+  ANDROID_DIR: "android"
+  APK_NAME: "MAGD-AI"
+
+jobs:
+  build:
+    name: Build MAGD AI Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      # ============================================================
+      # 1. Checkout
+      # ============================================================
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # ============================================================
+      # 2. Node.js
+      # ============================================================
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: yarn
+
+      # ============================================================
+      # 3. Yarn
+      # ============================================================
+      - name: Enable Corepack and Yarn
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          corepack enable
+          corepack prepare yarn@1.22.22 --activate
+
+          node --version
+          yarn --version
+
+      # ============================================================
+      # 4. Java
+      # ============================================================
+      - name: Setup JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: gradle
+
+      # ============================================================
+      # 5. Environment information
+      # ============================================================
+      - name: Show build environment
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "=========================================="
+          echo "MAGD AI BUILD ENVIRONMENT"
+          echo "=========================================="
+
+          echo
+          echo "Node:"
+          node --version
+
+          echo
+          echo "Yarn:"
+          yarn --version
+
+          echo
+          echo "Java:"
+          java -version
+
+          echo
+          echo "Android Gradle:"
+          cd "$ANDROID_DIR"
+          chmod +x ./gradlew
+          ./gradlew --version
+
+      # ============================================================
+      # 6. Install JavaScript dependencies
+      # ============================================================
+      - name: Install JavaScript dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          yarn install --frozen-lockfile
+
+      # ============================================================
+      # 7. Create CI Google Services configuration
+      #
+      # Real GOOGLE_SERVICES_JSON may be supplied as a GitHub Secret.
+      # Otherwise use a harmless CI-only dummy configuration.
+      # ============================================================
+      - name: Configure Google Services
+        shell: bash
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          set -euo pipefail
+
+          mkdir -p android/app
+
+          if [ -n "$GOOGLE_SERVICES_JSON" ]; then
+            echo "Using GOOGLE_SERVICES_JSON GitHub Secret."
+            printf '%s' "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
+          else
+            echo "GOOGLE_SERVICES_JSON is not configured."
+            echo "Creating CI-only dummy Firebase configuration."
+
+            cat > android/app/google-services.json <<'EOF'
+          {
+            "project_info": {
+              "project_number": "000000000000",
+              "project_id": "dummy-magd-ai-ci",
+              "storage_bucket": "dummy-magd-ai-ci.appspot.com"
+            },
+            "client": [
+              {
+                "client_info": {
+                  "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
+                  "android_client_info": {
+                    "package_name": "com.magd.ai"
+                  }
+                },
+                "api_key": [
+                  {
+                    "current_key": "dummy-api-key-for-ci-builds"
+                  }
+                ]
+              }
+            ]
+          }
+          EOF
+          fi
+
+          test -s android/app/google-services.json
+          echo "Google Services configuration is ready."
+
+      # ============================================================
+      # 8. Create CI environment
+      # ============================================================
+      - name: Create CI environment file
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          cat > .env <<'EOF'
+          FIREBASE_FUNCTIONS_URL=https://dummy-firebase-url.com
+
+          SUPABASE_URL=https://dummy-supabase-url.supabase.co
+          SUPABASE_ANON_KEY=dummy-supabase-anon-key-for-ci
+
+          PALSHUB_API_BASE_URL=https://dummy-palshub-api.com
+
+          APP_URL=pocketpal://app
+
+          ENABLE_PALSHUB_INTEGRATION=true
+          ENABLE_AUTHENTICATION=true
+          ENABLE_OFFLINE_MODE=true
+
+          GOOGLE_IOS_CLIENT_ID=dummy-ios-client-id.apps.googleusercontent.com
+          GOOGLE_WEB_CLIENT_ID=dummy-web-client-id.apps.googleusercontent.com
+          EOF
+
+          test -s .env
+          echo ".env created for CI."
+
+      # ============================================================
+      # 9. Determine build type
+      # ============================================================
+      - name: Determine build type
+        id: build_type
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TYPE="${{ github.event.inputs.build_type }}"
+
+          elif [[ "${GITHUB_REF}" == refs/tags/v* ]]; then
+            TYPE="release"
+
+          else
+            TYPE="release"
+          fi
+
+          echo "type=$TYPE" >> "$GITHUB_OUTPUT"
+
+          echo "Selected build type: $TYPE"
+
+      # ============================================================
+      # 10. Prepare release signing
+      #
+      # Required GitHub Secrets for release:
+      #
+      # MY_KEYSTORE_JKS
+      # KEYSTORE_PASSWORD
+      # KEY_ALIAS
+      # KEY_PASSWORD
+      #
+      # MY_KEYSTORE_JKS = Base64 encoded JKS
+      # ============================================================
+      - name: Prepare release signing
+        if: steps.build_type.outputs.type == 'release'
+        shell: bash
+        env:
+          MY_KEYSTORE_JKS: ${{ secrets.MY_KEYSTORE_JKS }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+
+          echo "Preparing MAGD AI release signing..."
+
+          if [ -z "$MY_KEYSTORE_JKS" ]; then
+            echo "::error::Missing MY_KEYSTORE_JKS GitHub Secret."
+            exit 1
+          fi
+
+          if [ -z "$KEYSTORE_PASSWORD" ]; then
+            echo "::error::Missing KEYSTORE_PASSWORD GitHub Secret."
+            exit 1
+          fi
+
+          if [ -z "$KEY_ALIAS" ]; then
+            echo "::error::Missing KEY_ALIAS GitHub Secret."
+            exit 1
+          fi
+
+          if [ -z "$KEY_PASSWORD" ]; then
+            echo "::error::Missing KEY_PASSWORD GitHub Secret."
+            exit 1
+          fi
+
+          printf '%s' "$MY_KEYSTORE_JKS" \
+            | base64 --decode \
+            > android/my_keystore.jks
+
+          if [ ! -s android/my_keystore.jks ]; then
+            echo "::error::Decoded keystore is empty."
+            exit 1
+          fi
+
+          cat > android/key.properties <<EOF
+          storeFile=my_keystore.jks
+          storePassword=$KEYSTORE_PASSWORD
+          keyAlias=$KEY_ALIAS
+          keyPassword=$KEY_PASSWORD
+          EOF
+
+          chmod 600 android/my_keystore.jks
+          chmod 600 android/key.properties
+
+          echo "Release signing material prepared."
+
+      # ============================================================
+      # 11. Verify Android project
+      # ============================================================
+      - name: Verify Android project
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -d android
+          test -f android/gradlew
+          test -f android/app/build.gradle
+
+          chmod +x android/gradlew
+
+          echo "Android project verified."
+
+      # ============================================================
+      # 12. Static checks
+      #
+      # Coverage is intentionally not used here.
+      # The CI workflow owns full unit-test/coverage validation.
+      # ============================================================
+      - name: Run ESLint
+        shell: bash
+        run: |
+          set -euo pipefail
+          yarn lint
+
+      - name: Run TypeScript typecheck
+        shell: bash
+        run: |
+          set -euo pipefail
+          yarn typecheck
+
+      - name: Validate localization
+        shell: bash
+        run: |
+          set -euo pipefail
+          yarn l10n:validate
+
+      - name: Verify bundled fonts
+        shell: bash
+        run: |
+          set -euo pipefail
+          yarn verify:fonts
+
+      # ============================================================
+      # 13. Optional unit tests without coverage
+      #
+      # This avoids the previous APK workflow failure occurring after
+      # all 262 suites had already passed because the coverage-enabled
+      # test command returned exit code 1.
+      # ============================================================
+      - name: Run unit tests without coverage
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          yarn test --runInBand --coverage=false
+
+      # ============================================================
+      # 14. Clean Android build
+      # ============================================================
+      - name: Clean Android build
+        working-directory: android
+        shell: bash
+        env:
+          REQUIRE_RELEASE_SIGNING: ${{ steps.build_type.outputs.type == 'release' && 'true' || 'false' }}
+        run: |
+          set -euo pipefail
+          ./gradlew clean --no-daemon --stacktrace
+
+      # ============================================================
+      # 15. Build Debug APK
+      # ============================================================
+      - name: Build Debug APK
+        if: steps.build_type.outputs.type == 'debug'
+        working-directory: android
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ./gradlew assembleProdDebug \
+            --no-daemon \
+            --stacktrace
+
+      # ============================================================
+      # 16. Build Release APK
+      # ============================================================
+      - name: Build Release APK
+        if: steps.build_type.outputs.type == 'release'
+        working-directory: android
+        shell: bash
+        env:
+          REQUIRE_RELEASE_SIGNING: "true"
+        run: |
+          set -euo pipefail
+
+          ./gradlew assembleProdRelease \
+            --no-daemon \
+            --stacktrace
+
+      # ============================================================
+      # 17. Locate APK
+      # ============================================================
+      - name: Locate APK
+        id: apk
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p build-artifacts
+
+          if [ "${{ steps.build_type.outputs.type }}" = "release" ]; then
+            APK="android/app/build/outputs/apk/prod/release/app-prod-release.apk"
+          else
+            APK="android/app/build/outputs/apk/debug/app-prod-debug.apk"
+          fi
+
+          if [ ! -f "$APK" ]; then
+            echo "::error::Expected APK was not produced:"
+            echo "$APK"
+
+            echo
+            echo "Available APK files:"
+            find android/app/build/outputs/apk -type f -name "*.apk" -print || true
+
+            exit 1
+          fi
+
+          VERSION_NAME="$(
+            grep -hE \
+              '^[[:space:]]*versionName[[:space:]]*["'\'']' \
+              android/app/build.gradle \
+              | head -n 1 \
+              | sed -E \
+              's/.*versionName[[:space:]]*["'\'']([^"'\'']+)["'\''].*/\1/'
+            || true
+          )"
+
+          VERSION_CODE="$(
+            grep -hE \
+              '^[[:space:]]*versionCode[[:space:]]*[0-9]+' \
+              android/app/build.gradle \
+              | head -n 1 \
+              | sed -E \
+              's/.*versionCode[[:space:]]*([0-9]+).*/\1/'
+            || true
+          )"
+
+          [ -n "$VERSION_NAME" ] || VERSION_NAME="unknown"
+          [ -n "$VERSION_CODE" ] || VERSION_CODE="unknown"
+
+          BUILD_DATE="$(date -u +'%Y%m%d-%H%M%S')"
+
+          DEST="build-artifacts/MAGD-AI-${VERSION_NAME}-${BUILD_DATE}-${{ steps.build_type.outputs.type }}.apk"
+
+          cp "$APK" "$DEST"
+
+          echo "path=$DEST" >> "$GITHUB_OUTPUT"
+          echo "version_name=$VERSION_NAME" >> "$GITHUB_OUTPUT"
+          echo "version_code=$VERSION_CODE" >> "$GITHUB_OUTPUT"
+
+          echo "APK created:"
+          ls -lh "$DEST"
+
+      # ============================================================
+      # 18. Verify APK signature
+      # ============================================================
+      - name: Verify APK signature
+        if: steps.build_type.outputs.type == 'release'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          APK="${{ steps.apk.outputs.path }}"
+
+          APKSIGNER="${ANDROID_HOME}/build-tools/36.0.0/apksigner"
+
+          if [ ! -x "$APKSIGNER" ]; then
+            echo "::error::apksigner was not found:"
+            echo "$APKSIGNER"
+            exit 1
+          fi
+
+          "$APKSIGNER" verify --verbose "$APK"
+
+          echo
+          echo "Certificate:"
+          "$APKSIGNER" verify --print-certs "$APK"
+
+      # ============================================================
+      # 19. SHA-256
+      # ============================================================
+      - name: Generate APK SHA-256
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          APK="${{ steps.apk.outputs.path }}"
+
+          sha256sum "$APK" \
+            | tee "${APK}.sha256"
+
+      # ============================================================
+      # 20. Inspect APK
+      # ============================================================
+      - name: Show APK information
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          APK="${{ steps.apk.outputs.path }}"
+
+          echo "=========================================="
+          echo "MAGD AI APK"
+          echo "=========================================="
+
+          echo
+          echo "Version name : ${{ steps.apk.outputs.version_name }}"
+          echo "Version code : ${{ steps.apk.outputs.version_code }}"
+          echo "Build type   : ${{ steps.build_type.outputs.type }}"
+
+          echo
+          echo "File:"
+          ls -lh "$APK"
+
+          echo
+          echo "SHA-256:"
+          cat "${APK}.sha256"
+
+      # ============================================================
+      # 21. Upload APK artifact
+      # ============================================================
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MAGD-AI-${{ steps.build_type.outputs.type }}-${{ github.run_number }}
+          path: |
+            build-artifacts/*.apk
+            build-artifacts/*.sha256
+          if-no-files-found: error
+          retention-days: 30
+
+      # ============================================================
+      # 22. GitHub Release for tags
+      # ============================================================
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v') && steps.build_type.outputs.type == 'release'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            build-artifacts/*.apk
+            build-artifacts/*.sha256
+          generate_release_notes: true
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ============================================================
+      # 23. Cleanup secrets
+      # ============================================================
+      - name: Cleanup signing files
+        if: always()
+        shell: bash
+        run: |
+          rm -f android/my_keystore.jks
+          rm -f android/key.properties
+          rm -f android/app/google-services.json
+          rm -f .env
+
+          echo "Temporary signing/configuration files removed."
