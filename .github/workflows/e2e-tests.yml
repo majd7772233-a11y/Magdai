@@ -1,118 +1,227 @@
 name: E2E Android Build (manual)
 
 on:
-  # Manual trigger. Pick the branch/tag to build via the GitHub
-  # "Use workflow from" selector (or `gh workflow run --ref <branch>`);
-  # checkout below builds whatever ref the run was dispatched on.
   workflow_dispatch:
 
 permissions:
   contents: read
 
 env:
-  NODE_VERSION: '22'
-  JAVA_VERSION: '17'
+  NODE_VERSION: "22.21.0"
+  JAVA_VERSION: "17"
 
 jobs:
   build-android:
+    name: Build MAGD AI E2E APK
     runs-on: ubuntu-latest
+
     steps:
+      # ============================================================
+      # 1. Checkout selected branch/ref
+      # ============================================================
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: ${{ env.JAVA_VERSION }}
-
+      # ============================================================
+      # 2. Node.js
+      # ============================================================
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'yarn'
+          cache: yarn
 
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Create dummy google-services.json for CI
+      # ============================================================
+      # 3. Yarn
+      # ============================================================
+      - name: Enable Corepack and Yarn
+        shell: bash
         run: |
-          cat > android/app/google-services.json << 'EOL'
+          set -euo pipefail
+
+          corepack enable
+          corepack prepare yarn@1.22.22 --activate
+
+          node --version
+          yarn --version
+
+      # ============================================================
+      # 4. Java
+      # ============================================================
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: gradle
+
+      # ============================================================
+      # 5. Install dependencies
+      # ============================================================
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          yarn install --frozen-lockfile
+
+      # ============================================================
+      # 6. Create dummy Google Services config
+      #
+      # Include both prod and E2E application IDs because the Google
+      # Services Gradle plugin sees the whole Android project.
+      # ============================================================
+      - name: Create dummy google-services.json for CI
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p android/app
+
+          cat > android/app/google-services.json <<'EOF'
           {
             "project_info": {
               "project_number": "000000000000",
-              "project_id": "dummy-project-for-ci",
-              "storage_bucket": "dummy-project-for-ci.appspot.com"
+              "project_id": "dummy-magd-ai-e2e",
+              "storage_bucket": "dummy-magd-ai-e2e.appspot.com"
             },
             "client": [
               {
                 "client_info": {
                   "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
                   "android_client_info": {
-                    "package_name": "com.pocketpalai"
+                    "package_name": "com.magd.ai"
                   }
                 },
-                "api_key": [{
-                  "current_key": "dummy-api-key-for-ci-builds"
-                }]
+                "api_key": [
+                  {
+                    "current_key": "dummy-api-key-for-ci-builds"
+                  }
+                ]
               },
               {
                 "client_info": {
                   "mobilesdk_app_id": "1:000000000000:android:1111111111111111",
                   "android_client_info": {
-                    "package_name": "com.pocketpalai.e2e"
+                    "package_name": "com.magd.ai.e2e"
                   }
                 },
-                "api_key": [{
-                  "current_key": "dummy-api-key-for-ci-builds"
-                }]
+                "api_key": [
+                  {
+                    "current_key": "dummy-api-key-for-ci-builds"
+                  }
+                ]
               }
             ]
           }
-          EOL
+          EOF
 
+          test -s android/app/google-services.json
+
+      # ============================================================
+      # 7. Create dummy .env
+      # ============================================================
       - name: Create dummy .env file for CI
+        shell: bash
         run: |
-          cat > .env << 'EOL'
+          set -euo pipefail
+
+          cat > .env <<'EOF'
           FIREBASE_FUNCTIONS_URL=https://dummy-firebase-url.com
+
           SUPABASE_URL=https://dummy-supabase-url.supabase.co
-          SUPABASE_ANON_KEY=dummy-anon-key-for-ci-builds
+          SUPABASE_ANON_KEY=dummy-supabase-anon-key-for-ci
+
           PALSHUB_API_BASE_URL=https://dummy-palshub-api.com
+
           APP_URL=pocketpal://app
+
           ENABLE_PALSHUB_INTEGRATION=true
           ENABLE_AUTHENTICATION=true
           ENABLE_OFFLINE_MODE=true
+
           GOOGLE_IOS_CLIENT_ID=dummy-ios-client-id.apps.googleusercontent.com
           GOOGLE_WEB_CLIENT_ID=dummy-web-client-id.apps.googleusercontent.com
-          EOL
+          EOF
 
-      - name: Create dummy release keystore for CI
-        working-directory: android/app
+          test -s .env
+
+      # ============================================================
+      # 8. Verify Android project
+      # ============================================================
+      - name: Verify Android project
+        shell: bash
         run: |
-          keytool -genkeypair -v \
-            -storetype PKCS12 \
-            -keystore pocketpal-release-key.keystore \
-            -alias pocketpal_key_alias \
-            -keyalg RSA \
-            -keysize 2048 \
-            -validity 10000 \
-            -storepass dummy-ci-password \
-            -keypass dummy-ci-password \
-            -dname "CN=CI Build, OU=CI, O=PocketPal, L=CI, S=CI, C=US"
+          set -euo pipefail
 
+          test -f android/gradlew
+          test -f android/app/build.gradle
+
+          chmod +x android/gradlew
+
+      # ============================================================
+      # 9. Build E2E APK
+      #
+      # Effective applicationId:
+      # com.magd.ai.e2e
+      #
+      # Effective variant:
+      # e2eReleaseE2e
+      # ============================================================
       - name: Build Android E2E APK
+        working-directory: android
+        shell: bash
         env:
-          APP_RELEASE_STORE_PASSWORD: dummy-ci-password
-          APP_RELEASE_KEY_PASSWORD: dummy-ci-password
+          E2E_BUILD: "true"
         run: |
-          cd android
-          E2E_BUILD=true ./gradlew assembleE2eReleaseE2e
+          set -euo pipefail
 
+          ./gradlew assembleE2eReleaseE2e \
+            --no-daemon \
+            --stacktrace
+
+      # ============================================================
+      # 10. Locate generated APK
+      # ============================================================
+      - name: Verify generated E2E APK
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          APK="android/app/build/outputs/apk/e2e/releaseE2e/app-e2e-releaseE2e.apk"
+
+          if [ ! -f "$APK" ]; then
+            echo "::error::E2E APK was not produced."
+            echo
+            echo "Available APK files:"
+            find android/app/build/outputs/apk -type f -name "*.apk" -print || true
+            exit 1
+          fi
+
+          echo "E2E APK:"
+          ls -lh "$APK"
+
+      # ============================================================
+      # 11. Upload artifact
+      # ============================================================
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: e2e-android-apk
+          name: MAGD-AI-e2e-${{ github.run_number }}
           path: android/app/build/outputs/apk/e2e/releaseE2e/app-e2e-releaseE2e.apk
+          if-no-files-found: error
           retention-days: 30
+
+      # ============================================================
+      # 12. Cleanup
+      # ============================================================
+      - name: Cleanup temporary files
+        if: always()
+        shell: bash
+        run: |
+          rm -f android/app/google-services.json
+          rm -f .env
+
+          echo "Temporary E2E configuration removed."
