@@ -1,16 +1,16 @@
-package com.pocketpal
+package com.magd.ai
 
 import com.facebook.react.TurboReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
 import com.facebook.react.module.model.ReactModuleInfoProvider
-import com.pocketpal.specs.NativeKeepAwakeSpec
+import com.magd.ai.specs.NativeExternalContentLinkSpec
 
-class KeepAwakePackage : TurboReactPackage() {
+class ExternalContentLinkPackage : TurboReactPackage() {
   override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
-    return if (name == NativeKeepAwakeSpec.NAME) {
-      KeepAwakeModule(reactContext)
+    return if (name == NativeExternalContentLinkSpec.NAME) {
+      ExternalContentLinkModule(reactContext)
     } else {
       null
     }
@@ -19,9 +19,9 @@ class KeepAwakePackage : TurboReactPackage() {
   override fun getReactModuleInfoProvider(): ReactModuleInfoProvider {
     return ReactModuleInfoProvider {
       mapOf(
-        NativeKeepAwakeSpec.NAME to ReactModuleInfo(
-          NativeKeepAwakeSpec.NAME,
-          NativeKeepAwakeSpec.NAME,
+        NativeExternalContentLinkSpec.NAME to ReactModuleInfo(
+          NativeExternalContentLinkSpec.NAME,
+          NativeExternalContentLinkSpec.NAME,
           false, // canOverrideExistingModule
           false, // needsEagerInit
           false, // hasConstants
@@ -32,4 +32,3 @@ class KeepAwakePackage : TurboReactPackage() {
     }
   }
 }
-

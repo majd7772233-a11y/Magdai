@@ -1,5 +1,5 @@
 {
-  "name": "PocketPal",
+  "name": "MAGDAI",
   "version": "1.16.1",
   "private": true,
   "scripts": {
@@ -134,11 +134,11 @@
   },
   "packageManager": "yarn@1.22.22",
   "codegenConfig": {
-    "name": "PocketPalSpecs",
+    "name": "MAGDAISpecs",
     "type": "all",
     "jsSrcsDir": "src/specs",
     "android": {
-      "javaPackageName": "com.pocketpal.specs"
+      "javaPackageName": "com.magd.ai.specs"
     }
   }
 }

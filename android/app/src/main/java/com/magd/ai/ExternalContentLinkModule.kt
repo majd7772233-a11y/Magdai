@@ -1,4 +1,4 @@
-package com.pocketpal
+package com.magd.ai
 
 import android.net.Uri
 import android.util.Log
@@ -13,7 +13,7 @@ import com.facebook.react.bridge.Promise
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.module.annotations.ReactModule
-import com.pocketpal.specs.NativeExternalContentLinkSpec
+import com.magd.ai.specs.NativeExternalContentLinkSpec
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**

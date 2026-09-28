@@ -10,112 +10,1602 @@
     "update": "تحديث",
     "error": "خطأ",
     "export": "تصدير",
-    "networkError": "خطأ في الشبكة. يرجى المحاولة مرة أخرى.",
-    "downloadETA": "الوقت المتبقي",
+    "networkError": "خيار مخصص للإعدادات والواجهة",
+    "downloadETA": "الزمان المتبقي",
     "calculating": "جاري الحساب...",
     "second": "ثانية",
-    "seconds": "ثواني",
-    "year": "سنة",
-    "years": "سنوات",
-    "month": "شهر",
-    "months": "أشهر",
-    "week": "أسبوع",
-    "weeks": "أسابيع",
-    "day": "يوم",
-    "days": "أيام",
-    "hour": "ساعة",
-    "hours": "ساعات",
-    "minute": "دقيقة",
-    "minutes": "دقائق",
+    "seconds": "ثانية",
+    "year": "خيار مخصص للإعدادات والواجهة",
+    "years": "خيار مخصص للإعدادات والواجهة",
+    "month": "خيار مخصص للإعدادات والواجهة",
+    "months": "خيار مخصص للإعدادات والواجهة",
+    "week": "خيار مخصص للإعدادات والواجهة",
+    "weeks": "خيار مخصص للإعدادات والواجهة",
+    "day": "خيار مخصص للإعدادات والواجهة",
+    "days": "خيار مخصص للإعدادات والواجهة",
+    "hour": "خيار مخصص للإعدادات والواجهة",
+    "hours": "خيار مخصص للإعدادات والواجهة",
+    "minute": "خيار مخصص للإعدادات والواجهة",
+    "minutes": "خيار مخصص للإعدادات والواجهة",
     "justNow": "الآن",
     "ok": "موافق",
     "close": "إغلاق",
     "clear": "مسح الكل",
-    "gallery": "المعرض",
-    "noResults": "لا توجد نتائج"
+    "gallery": "خيار مخصص للإعدادات والواجهة",
+    "noResults": "خيار مخصص للإعدادات والواجهة"
   },
   "settings": {
-    "modelInitializationSettings": "إعدادات تهيئة النموذج",
-    "metal": "Metal",
-    "metalDescription": "واجهة تسريع الأجهزة من Apple.",
-    "metalRequiresNewerIOS": "يتطلب تسريع Metal نظام iOS 18 أو أحدث.",
-    "openCL": "OpenCL (تجريبي)",
-    "openCLDescription": "تسريع GPU لمعالجات Adreno.",
-    "layersOnGPU": "الطبقات على الـ GPU: {{gpuLayers}}",
-    "deviceSelection": "اختيار الجهاز",
-    "contextSize": "حجم السياق (Context Size)",
-    "advancedSettings": "الإعدادات المتقدمة",
-    "appSettings": "إعدادات التطبيق",
-    "language": "اللغة",
-    "languageSheetTitle": "اختر اللغة",
-    "darkMode": "الوضع الداكن",
-    "displayMemoryUsage": "عرض استخدام الذاكرة",
+    "modelInitializationSettings": "خيار مخصص للإعدادات والواجهة",
+    "metal": "خيار مخصص للإعدادات والواجهة",
+    "metalDescription": "خيار مخصص للإعدادات والواجهة",
+    "metalRequiresNewerIOS": "خيار مخصص للإعدادات والواجهة",
+    "openCL": "خيار مخصص للإعدادات والواجهة",
+    "openCLDescription": "خيار مخصص للإعدادات والواجهة",
+    "openCLNotAvailable": "خيار مخصص للإعدادات والواجهة",
+    "openCLMissingCPUFeatures": "خيار مخصص للإعدادات والواجهة",
+    "openCLQuantizationNote": "خيار مخصص للإعدادات والواجهة",
+    "openCLDocsLink": "خيار مخصص للإعدادات والواجهة",
+    "layersOnGPU": "خيار مخصص للإعدادات والواجهة {{gpuLayers}}",
+    "deviceSelection": "خيار مخصص للإعدادات والواجهة",
+    "deviceSelectionIOS": "خيار مخصص للإعدادات والواجهة",
+    "deviceSelectionIOSDescription": "خيار مخصص للإعدادات والواجهة",
+    "deviceSelectionAndroidDescription": "خيار مخصص للإعدادات والواجهة",
+    "cpuOnlyNoAccelerators": "خيار مخصص للإعدادات والواجهة",
+    "contextSize": "خيار مخصص للإعدادات والواجهة",
+    "contextSizePlaceholder": "خيار مخصص للإعدادات والواجهة {{minContextSize}}",
+    "invalidContextSizeError": "خيار مخصص للإعدادات والواجهة {{minContextSize}}",
+    "modelReloadNotice": "خيار مخصص للإعدادات والواجهة",
+    "advancedSettings": "خيار مخصص للإعدادات والواجهة",
+    "batchSize": "خيار مخصص للإعدادات والواجهة",
+    "batchSizeDescription": "خيار مخصص للإعدادات والواجهة {{batchSize}} {{effectiveBatch}}",
+    "effectiveLabel": "خيار مخصص للإعدادات والواجهة",
+    "physicalBatchSize": "خيار مخصص للإعدادات والواجهة",
+    "physicalBatchSizeDescription": "خيار مخصص للإعدادات والواجهة {{physicalBatchSize}} {{effectivePhysicalBatch}}",
+    "cpuThreads": "خيار مخصص للإعدادات والواجهة",
+    "cpuThreadsDescription": "خيار مخصص للإعدادات والواجهة {{threads}} {{maxThreads}}",
+    "imageMaxTokens": "خيار مخصص للإعدادات والواجهة",
+    "imageMaxTokensDescription": "خيار مخصص للإعدادات والواجهة {{tokens}} {{effectiveTokens}}",
+    "flashAttention": "خيار مخصص للإعدادات والواجهة",
+    "flashAttentionDescription": "خيار مخصص للإعدادات والواجهة",
+    "flashAttentionIOSDescription": "خيار مخصص للإعدادات والواجهة",
+    "flashAttentionAndroidDescription": "خيار مخصص للإعدادات والواجهة",
+    "flashAttentionAuto": "خيار مخصص للإعدادات والواجهة",
+    "flashAttentionOn": "تشغيل",
+    "flashAttentionOff": "إيقاف",
+    "keyCacheType": "خيار مخصص للإعدادات والواجهة",
+    "keyCacheTypeDescription": "خيار مخصص للإعدادات والواجهة",
+    "keyCacheTypeDisabledDescription": "خيار مخصص للإعدادات والواجهة",
+    "valueCacheType": "خيار مخصص للإعدادات والواجهة",
+    "valueCacheTypeDescription": "خيار مخصص للإعدادات والواجهة",
+    "valueCacheTypeDisabledDescription": "خيار مخصص للإعدادات والواجهة",
+    "memorySettings": "الذاكرة الإعدادات",
+    "useMlock": "خيار مخصص للإعدادات والواجهة",
+    "useMlockDescription": "خيار مخصص للإعدادات والواجهة",
+    "useMmap": "خيار مخصص للإعدادات والواجهة",
+    "useMmapDescription": "خيار مخصص للإعدادات والواجهة",
+    "useMmapTrue": "خيار مخصص للإعدادات والواجهة",
+    "useMmapFalse": "خيار مخصص للإعدادات والواجهة",
+    "useMmapTrueDescription": "خيار مخصص للإعدادات والواجهة",
+    "useMmapFalseDescription": "خيار مخصص للإعدادات والواجهة",
+    "weightRepacking": "خيار مخصص للإعدادات والواجهة",
+    "weightRepackingDescription": "خيار مخصص للإعدادات والواجهة",
+    "ttsAvailability": "خيار مخصص للإعدادات والواجهة",
+    "ttsAvailabilityDescription": "خيار مخصص للإعدادات والواجهة",
+    "ttsAvailabilityLowMemoryWarning": "خيار مخصص للإعدادات والواجهة",
+    "modelLoadingSettings": "خيار مخصص للإعدادات والواجهة",
+    "autoOffloadLoad": "خيار مخصص للإعدادات والواجهة",
+    "autoOffloadLoadDescription": "خيار مخصص للإعدادات والواجهة",
+    "autoNavigateToChat": "خيار مخصص للإعدادات والواجهة",
+    "autoNavigateToChatDescription": "خيار مخصص للإعدادات والواجهة",
+    "appSettings": "خيار مخصص للإعدادات والواجهة",
+    "language": "خيار مخصص للإعدادات والواجهة",
+    "languageSheetTitle": "خيار مخصص للإعدادات والواجهة",
+    "languageSearchPlaceholder": "خيار مخصص للإعدادات والواجهة",
+    "darkMode": "خيار مخصص للإعدادات والواجهة",
+    "displayMemoryUsage": "خيار مخصص للإعدادات والواجهة",
+    "displayMemoryUsageDescription": "خيار مخصص للإعدادات والواجهة",
+    "exportOptions": "خيار مخصص للإعدادات والواجهة",
+    "exportLegacyChats": "خيار مخصص للإعدادات والواجهة",
+    "exportLegacyChatsDescription": "خيار مخصص للإعدادات والواجهة",
+    "exportButton": "تصدير",
+    "importChats": "خيار مخصص للإعدادات والواجهة",
+    "importChatsDescription": "خيار مخصص للإعدادات والواجهة",
+    "importButton": "استيراد",
+    "importSuccess": "خيار مخصص للإعدادات والواجهة {{count}}",
+    "importError": "خيار مخصص للإعدادات والواجهة",
     "internetSearch": {
-      "title": "البحث عبر الإنترنت",
-      "description": "السماح لـ MAGD AI بالبحث في الويب."
+      "title": "خيار مخصص للإعدادات والواجهة",
+      "description": "خيار مخصص للإعدادات والواجهة",
+      "providerLabel": "خيار مخصص للإعدادات والواجهة",
+      "providerGated": "خيار مخصص للإعدادات والواجهة",
+      "keyLabel": "خيار مخصص للإعدادات والواجهة",
+      "keyIsSet": "خيار مخصص للإعدادات والواجهة {{provider}}",
+      "keyNotSet": "خيار مخصص للإعدادات والواجهة {{provider}}",
+      "setKeyButton": "خيار مخصص للإعدادات والواجهة",
+      "updateKeyButton": "خيار مخصص للإعدادات والواجهة",
+      "clearKeyButton": "خيار مخصص للإعدادات والواجهة",
+      "keyInputPlaceholder": "خيار مخصص للإعدادات والواجهة {{provider}}",
+      "keyUpdateError": "خيار مخصص للإعدادات والواجهة",
+      "showKeyAccessibilityLabel": "خيار مخصص للإعدادات والواجهة",
+      "hideKeyAccessibilityLabel": "خيار مخصص للإعدادات والواجهة",
+      "resultCountLabel": "خيار مخصص للإعدادات والواجهة",
+      "resultCountDescription": "خيار مخصص للإعدادات والواجهة",
+      "consentTitle": "خيار مخصص للإعدادات والواجهة",
+      "consentDescription": "خيار مخصص للإعدادات والواجهة",
+      "consentAccept": "خيار مخصص للإعدادات والواجهة",
+      "consentRequired": "خيار مخصص للإعدادات والواجهة",
+      "consentGivenTitle": "خيار مخصص للإعدادات والواجهة",
+      "consentGivenDescription": "خيار مخصص للإعدادات والواجهة",
+      "consentRevoke": "خيار مخصص للإعدادات والواجهة"
+    },
+    "apiSettingsTitle": "خيار مخصص للإعدادات والواجهة",
+    "huggingFaceTokenLabel": "خيار مخصص للإعدادات والواجهة",
+    "tokenIsSetDescription": "خيار مخصص للإعدادات والواجهة",
+    "setTokenDescription": "خيار مخصص للإعدادات والواجهة",
+    "setTokenButton": "خيار مخصص للإعدادات والواجهة",
+    "useHfTokenLabel": "خيار مخصص للإعدادات والواجهة",
+    "useHfTokenDescription": "خيار مخصص للإعدادات والواجهة",
+    "cacheStorageTitle": "خيار مخصص للإعدادات والواجهة",
+    "clearPalCaches": "خيار مخصص للإعدادات والواجهة",
+    "clearPalCachesDescription": "خيار مخصص للإعدادات والواجهة",
+    "clearCachesButton": "خيار مخصص للإعدادات والواجهة",
+    "clearCachesConfirmTitle": "خيار مخصص للإعدادات والواجهة",
+    "clearCachesConfirmMessage": "خيار مخصص للإعدادات والواجهة {{fileCount}} {{size}}",
+    "clearCachesSuccess": "خيار مخصص للإعدادات والواجهة {{count}}",
+    "clearCachesError": "خيار مخصص للإعدادات والواجهة",
+    "noCachesToClear": "خيار مخصص للإعدادات والواجهة",
+    "serverName": "خيار مخصص للإعدادات والواجهة",
+    "serverUrl": "خيار مخصص للإعدادات والواجهة",
+    "serverUrlPlaceholder": "خيار مخصص للإعدادات والواجهة",
+    "requestTimeout": "خيار مخصص للإعدادات والواجهة",
+    "requestTimeoutPlaceholder": "خيار مخصص للإعدادات والواجهة",
+    "requestTimeoutHelp": "خيار مخصص للإعدادات والواجهة",
+    "serverType": "خيار مخصص للإعدادات والواجهة",
+    "serverTypeHelp": "خيار مخصص للإعدادات والواجهة",
+    "apiKey": "خيار مخصص للإعدادات والواجهة",
+    "apiKeyPlaceholder": "خيار مخصص للإعدادات والواجهة",
+    "apiKeyDescription": "خيار مخصص للإعدادات والواجهة",
+    "remoteModel": "خيار مخصص للإعدادات والواجهة",
+    "remotePrivacyNotice": "خيار مخصص للإعدادات والواجهة",
+    "remoteIndicator": "خيار مخصص للإعدادات والواجهة",
+    "serverUrlRequired": "خيار مخصص للإعدادات والواجهة",
+    "serverUrlInvalid": "خيار مخصص للإعدادات والواجهة",
+    "serverUrlHttpWarning": "خيار مخصص للإعدادات والواجهة",
+    "addRemoteModel": "خيار مخصص للإعدادات والواجهة",
+    "yourServers": "خيار مخصص للإعدادات والواجهة",
+    "orConnectNewServer": "خيار مخصص للإعدادات والواجهة",
+    "selectModel": "خيار مخصص للإعدادات والواجهة",
+    "addModel": "خيار مخصص للإعدادات والواجهة",
+    "connected": "خيار مخصص للإعدادات والواجهة",
+    "connectionFailed": "خيار مخصص للإعدادات والواجهة {{خطأ}}",
+    "connecting": "خيار مخصص للإعدادات والواجهة",
+    "noModelsAvailable": "خيار مخصص للإعدادات والواجهة",
+    "alreadyAdded": "خيار مخصص للإعدادات والواجهة",
+    "connectedServers": "خيار مخصص للإعدادات والواجهة",
+    "modelsCount": "خيار مخصص للإعدادات والواجهة {{count}}",
+    "serverDetails": "خيار مخصص للإعدادات والواجهة",
+    "modelsUsingServer": "خيار مخصص للإعدادات والواجهة",
+    "saveChanges": "خيار مخصص للإعدادات والواجهة",
+    "removeServer": "خيار مخصص للإعدادات والواجهة",
+    "removeServerMessage": "خيار مخصص للإعدادات والواجهة {{serverName}} {{count}}",
+    "removeRemoteModel": "خيار مخصص للإعدادات والواجهة {{modelName}} {{serverName}}",
+    "retryConnection": "إعادة المحاولة",
+    "enterUrlManually": "خيار مخصص للإعدادات والواجهة",
+    "manageServers": "خيار مخصص للإعدادات والواجهة"
+  },
+  "memory": {
+    "shortWarning": "الذاكرة تحذير",
+    "multimodalWarning": "خيار مخصص للإعدادات والواجهة",
+    "memoryTight": "خيار مخصص للإعدادات والواجهة",
+    "lowMemory": "خيار مخصص للإعدادات والواجهة",
+    "memoryDetailMessage": "خيار مخصص للإعدادات والواجهة {{needed}} {{available}}",
+    "estimatedMemory": "خيار مخصص للإعدادات والواجهة {{size}}",
+    "alerts": {
+      "memoryWarningTitle": "الذاكرة تحذير",
+      "memoryWarningMessage": "خيار مخصص للإعدادات والواجهة",
+      "multimodalWarningTitle": "خيار مخصص للإعدادات والواجهة",
+      "multimodalWarningMessage": "خيار مخصص للإعدادات والواجهة",
+      "combinedWarningTitle": "خيار مخصص للإعدادات والواجهة",
+      "combinedWarningMessage": "خيار مخصص للإعدادات والواجهة",
+      "cancel": "إلغاء",
+      "continue": "خيار مخصص للإعدادات والواجهة"
     }
   },
-  "home": {
-    "welcome": "مرحباً بك في ✨ MAGD AI ✨",
-    "subtitle": "منصتك الذكية المستقلة للذكاء الاصطناعي المحلي",
-    "greeting": "مساء الخير، مجد",
-    "greetingMorning": "صباح الخير، مجد",
-    "greetingAfternoon": "مساء الخير، مجد",
-    "whatBuilding": "ماذا نعمل اليوم؟",
-    "quickActions": "إجراءات سريعة",
-    "chat": "المحادثة",
-    "code": "البرمجة",
-    "vision": "الرؤية",
-    "files": "الملفات",
-    "electronics": "الإلكترونيات",
-    "math": "الرياضيات",
-    "activeModel": "النموذج النشط",
-    "noModelLoaded": "لم يتم تحميل نموذج",
-    "recentChats": "المحادثات الأخيرة",
-    "projects": "المشاريع",
-    "newProject": "مشروع جديد",
-    "memoryCenter": "مركز الذاكرة"
+  "storage": {
+    "checkFailed": "خيار مخصص للإعدادات والواجهة",
+    "lowStorage": "خيار مخصص للإعدادات والواجهة {{modelSize}} {{freeSpace}}"
+  },
+  "generation": {
+    "modelNotInitialized": "خيار مخصص للإعدادات والواجهة",
+    "failedToGenerate": "خيار مخصص للإعدادات والواجهة"
+  },
+  "models": {
+    "fileManagement": {
+      "fileAlreadyExists": "خيار مخصص للإعدادات والواجهة",
+      "fileAlreadyExistsMessage": "خيار مخصص للإعدادات والواجهة",
+      "replace": "خيار مخصص للإعدادات والواجهة",
+      "keepBoth": "خيار مخصص للإعدادات والواجهة",
+      "copyingModel": "خيار مخصص للإعدادات والواجهة",
+      "copyFailed": "خيار مخصص للإعدادات والواجهة"
+    },
+    "labels": {
+      "localModel": "خيار مخصص للإعدادات والواجهة",
+      "hfModel": "خيار مخصص للإعدادات والواجهة",
+      "unknownGroup": "خيار مخصص للإعدادات والواجهة",
+      "availableToUse": "خيار مخصص للإعدادات والواجهة",
+      "availableToDownload": "خيار مخصص للإعدادات والواجهة",
+      "useAddButtonForMore": "خيار مخصص للإعدادات والواجهة"
+    },
+    "vision": "خيار مخصص للإعدادات والواجهة",
+    "mmproj": "خيار مخصص للإعدادات والواجهة",
+    "multimodal": {
+      "settings": "خيار مخصص للإعدادات والواجهة",
+      "projectionModels": "خيار مخصص للإعدادات والواجهة",
+      "noCompatibleModels": "خيار مخصص للإعدادات والواجهة",
+      "noProjectionModels": "خيار مخصص للإعدادات والواجهة",
+      "selected": "خيار مخصص للإعدادات والواجهة",
+      "select": "خيار مخصص للإعدادات والواجهة",
+      "download": "تنزيل",
+      "projectionNeededTitle": "خيار مخصص للإعدادات والواجهة",
+      "projectionNeededMessage": "خيار مخصص للإعدادات والواجهة",
+      "projectionMissingWarning": "خيار مخصص للإعدادات والواجهة",
+      "projectionMissingShort": "خيار مخصص للإعدادات والواجهة",
+      "reloadModelTitle": "خيار مخصص للإعدادات والواجهة",
+      "reloadModelMessage": "خيار مخصص للإعدادات والواجهة",
+      "reload": "خيار مخصص للإعدادات والواجهة",
+      "deleteProjectionTitle": "خيار مخصص للإعدادات والواجهة",
+      "deleteProjectionMessage": "خيار مخصص للإعدادات والواجهة",
+      "cannotDeleteTitle": "خيار مخصص للإعدادات والواجهة",
+      "visionControls": {
+        "enableVision": "خيار مخصص للإعدادات والواجهة",
+        "disableVision": "خيار مخصص للإعدادات والواجهة",
+        "visionEnabled": "خيار مخصص للإعدادات والواجهة",
+        "visionDisabled": "خيار مخصص للإعدادات والواجهة",
+        "textOnlyMode": "خيار مخصص للإعدادات والواجهة",
+        "visionMode": "خيار مخصص للإعدادات والواجهة",
+        "downloadWithVision": "خيار مخصص للإعدادات والواجهة",
+        "downloadTextOnly": "خيار مخصص للإعدادات والواجهة",
+        "visionToggleDescription": "خيار مخصص للإعدادات والواجهة",
+        "projectionModelSize": "خيار مخصص للإعدادات والواجهة {{size}}",
+        "visionModeDescription": "خيار مخصص للإعدادات والواجهة",
+        "textOnlyModeDescription": "خيار مخصص للإعدادات والواجهة",
+        "includesVisionCapability": "خيار مخصص للإعدادات والواجهة",
+        "requiresProjectionModel": "خيار مخصص للإعدادات والواجهة"
+      },
+      "cannotDeleteActive": "خيار مخصص للإعدادات والواجهة",
+      "cannotDeleteInUse": "خيار مخصص للإعدادات والواجهة",
+      "dependentModels": "خيار مخصص للإعدادات والواجهة",
+      "visionWillBeDisabled": "خيار مخصص للإعدادات والواجهة"
+    },
+    "buttons": {
+      "addFromHuggingFace": "خيار مخصص للإعدادات والواجهة",
+      "addLocalModel": "خيار مخصص للإعدادات والواجهة",
+      "reset": "إعادة ضبط"
+    },
+    "modelsHeaderRight": {
+      "menuTitleHf": "خيار مخصص للإعدادات والواجهة",
+      "menuTitleDownloaded": "تم التنزيل النماذج",
+      "menuTitleGrouped": "خيار مخصص للإعدادات والواجهة",
+      "menuTitleReset": "خيار مخصص للإعدادات والواجهة"
+    },
+    "modelsResetDialog": {
+      "proceedWithReset": "خيار مخصص للإعدادات والواجهة",
+      "confirmReset": "خيار مخصص للإعدادات والواجهة"
+    },
+    "chatTemplate": {
+      "label": "خيار مخصص للإعدادات والواجهة"
+    },
+    "details": {
+      "title": "خيار مخصص للإعدادات والواجهة"
+    },
+    "modelFile": {
+      "alerts": {
+        "cannotRemoveTitle": "خيار مخصص للإعدادات والواجهة",
+        "modelPreset": "خيار مخصص للإعدادات والواجهة",
+        "downloadedFirst": "خيار مخصص للإعدادات والواجهة",
+        "removeTitle": "خيار مخصص للإعدادات والواجهة",
+        "removeMessage": "خيار مخصص للإعدادات والواجهة",
+        "removeError": "خيار مخصص للإعدادات والواجهة",
+        "alreadyDownloadedTitle": "خيار مخصص للإعدادات والواجهة",
+        "alreadyDownloadedMessage": "خيار مخصص للإعدادات والواجهة",
+        "deleteTitle": "حذف النموذج",
+        "deleteMessage": "خيار مخصص للإعدادات والواجهة"
+      },
+      "buttons": {
+        "remove": "خيار مخصص للإعدادات والواجهة"
+      },
+      "warnings": {
+        "storage": {
+          "message": "خيار مخصص للإعدادات والواجهة",
+          "shortMessage": "خيار مخصص للإعدادات والواجهة"
+        },
+        "memory": {
+          "message": "خيار مخصص للإعدادات والواجهة"
+        },
+        "legacy": {
+          "message": "خيار مخصص للإعدادات والواجهة",
+          "shortMessage": "خيار مخصص للإعدادات والواجهة"
+        },
+        "multiple": "خيار مخصص للإعدادات والواجهة {{count}}"
+      },
+      "labels": {
+        "downloadSpeed": "خيار مخصص للإعدادات والواجهة {{speed}}"
+      }
+    },
+    "search": {
+      "noResults": "خيار مخصص للإعدادات والواجهة",
+      "loadingMore": "خيار مخصص للإعدادات والواجهة",
+      "searchPlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "modelUpdatedLong": "خيار مخصص للإعدادات والواجهة {{time}}",
+      "modelUpdatedShort": "خيار مخصص للإعدادات والواجهة {{time}}",
+      "modelUpdatedJustNowLong": "خيار مخصص للإعدادات والواجهة",
+      "modelUpdatedJustNowShort": "الآن",
+      "errorOccurred": "خيار مخصص للإعدادات والواجهة",
+      "filters": {
+        "author": "خيار مخصص للإعدادات والواجهة",
+        "authorPlaceholder": "خيار مخصص للإعدادات والواجهة",
+        "sortBy": "خيار مخصص للإعدادات والواجهة",
+        "clearFilters": "خيار مخصص للإعدادات والواجهة",
+        "showFilters": "خيار مخصص للإعدادات والواجهة",
+        "hideFilters": "خيار مخصص للإعدادات والواجهة",
+        "sortRelevance": "خيار مخصص للإعدادات والواجهة",
+        "sortDownloads": "خيار مخصص للإعدادات والواجهة",
+        "sortRecent": "خيار مخصص للإعدادات والواجهة",
+        "sortLikes": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "hubRun": {
+      "title": "تنزيل النموذج",
+      "resolving": "خيار مخصص للإعدادات والواجهة",
+      "cancel": "إلغاء",
+      "retry": "إعادة المحاولة",
+      "invalidLinkTitle": "خيار مخصص للإعدادات والواجهة",
+      "invalidLinkMessage": "خيار مخصص للإعدادات والواجهة",
+      "resolveError": "خيار مخصص للإعدادات والواجهة"
+    },
+    "modelCard": {
+      "alerts": {
+        "deleteTitle": "حذف النموذج",
+        "deleteMessage": "خيار مخصص للإعدادات والواجهة",
+        "removeTitle": "خيار مخصص للإعدادات والواجهة",
+        "removeMessage": "خيار مخصص للإعدادات والواجهة"
+      },
+      "buttons": {
+        "settings": "الإعدادات",
+        "download": "تنزيل",
+        "remove": "خيار مخصص للإعدادات والواجهة",
+        "load": "خيار مخصص للإعدادات والواجهة",
+        "offload": "خيار مخصص للإعدادات والواجهة"
+      },
+      "labels": {
+        "skills": "خيار مخصص للإعدادات والواجهة",
+        "vision": "خيار مخصص للإعدادات والواجهة",
+        "capabilities": "خيار مخصص للإعدادات والواجهة",
+        "modelName": "خيار مخصص للإعدادات والواجهة",
+        "contextLength": "خيار مخصص للإعدادات والواجهة",
+        "architecture": "خيار مخصص للإعدادات والواجهة",
+        "author": "خيار مخصص للإعدادات والواجهة",
+        "requiresProjectionModel": "خيار مخصص للإعدادات والواجهة",
+        "downloadProjectionModel": "خيار مخصص للإعدادات والواجهة",
+        "viewModelCardOnHuggingFace": "خيار مخصص للإعدادات والواجهة"
+      },
+      "accessibility": {
+        "expandDetails": "خيار مخصص للإعدادات والواجهة",
+        "collapseDetails": "خيار مخصص للإعدادات والواجهة",
+        "memoryWarning": "الذاكرة تحذير",
+        "integrityWarning": "خيار مخصص للإعدادات والواجهة",
+        "downloadProgress": "خيار مخصص للإعدادات والواجهة",
+        "loadingIndicator": "خيار مخصص للإعدادات والواجهة",
+        "loadButton": "خيار مخصص للإعدادات والواجهة",
+        "offloadButton": "خيار مخصص للإعدادات والواجهة",
+        "downloadButton": "تنزيل النموذج",
+        "settingsButton": "النموذج الإعدادات",
+        "deleteButton": "حذف النموذج",
+        "removeButton": "خيار مخصص للإعدادات والواجهة",
+        "expandDetailsButton": "خيار مخصص للإعدادات والواجهة",
+        "memoryWarningButton": "خيار مخصص للإعدادات والواجهة",
+        "integrityWarningButton": "خيار مخصص للإعدادات والواجهة",
+        "memoryWarningSnackbar": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "modelSettings": {
+      "template": {
+        "label": "خيار مخصص للإعدادات والواجهة",
+        "editButton": "تعديل",
+        "dialogTitle": "خيار مخصص للإعدادات والواجهة",
+        "note1": "خيار مخصص للإعدادات والواجهة",
+        "note2": "خيار مخصص للإعدادات والواجهة",
+        "placeholder": "خيار مخصص للإعدادات والواجهة",
+        "closeButton": "إغلاق"
+      },
+      "stopWords": {
+        "label": "خيار مخصص للإعدادات والواجهة",
+        "placeholder": "خيار مخصص للإعدادات والواجهة"
+      },
+      "tokenSettings": {
+        "bos": "خيار مخصص للإعدادات والواجهة",
+        "eos": "خيار مخصص للإعدادات والواجهة",
+        "addGenerationPrompt": "خيار مخصص للإعدادات والواجهة",
+        "bosTokenPlaceholder": "خيار مخصص للإعدادات والواجهة",
+        "eosTokenPlaceholder": "خيار مخصص للإعدادات والواجهة",
+        "systemPrompt": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "modelDescription": {
+      "size": "خيار مخصص للإعدادات والواجهة",
+      "parameters": "خيار مخصص للإعدادات والواجهة",
+      "separator": " | ",
+      "notAvailable": "خيار مخصص للإعدادات والواجهة"
+    },
+    "modelCapabilities": {
+      "questionAnswering": "خيار مخصص للإعدادات والواجهة",
+      "summarization": "خيار مخصص للإعدادات والواجهة",
+      "reasoning": "خيار مخصص للإعدادات والواجهة",
+      "roleplay": "خيار مخصص للإعدادات والواجهة",
+      "instructions": "خيار مخصص للإعدادات والواجهة",
+      "code": "خيار مخصص للإعدادات والواجهة",
+      "math": "خيار مخصص للإعدادات والواجهة",
+      "multilingual": "خيار مخصص للإعدادات والواجهة",
+      "rewriting": "خيار مخصص للإعدادات والواجهة",
+      "creativity": "خيار مخصص للإعدادات والواجهة",
+      "vision": "خيار مخصص للإعدادات والواجهة"
+    }
+  },
+  "completionParams": {
+    "include_thinking_in_context": "خيار مخصص للإعدادات والواجهة",
+    "jinja": "خيار مخصص للإعدادات والواجهة",
+    "grammar": "خيار مخصص للإعدادات والواجهة",
+    "stop": "خيار مخصص للإعدادات والواجهة",
+    "n_predict": "خيار مخصص للإعدادات والواجهة",
+    "n_probs": "خيار مخصص للإعدادات والواجهة",
+    "top_k": "خيار مخصص للإعدادات والواجهة",
+    "top_p": "خيار مخصص للإعدادات والواجهة",
+    "min_p": "خيار مخصص للإعدادات والواجهة",
+    "temperature": "خيار مخصص للإعدادات والواجهة",
+    "penalty_last_n": "خيار مخصص للإعدادات والواجهة",
+    "penalty_repeat": "خيار مخصص للإعدادات والواجهة",
+    "penalty_freq": "خيار مخصص للإعدادات والواجهة",
+    "penalty_present": "خيار مخصص للإعدادات والواجهة",
+    "mirostat": "خيار مخصص للإعدادات والواجهة",
+    "mirostat_tau": "خيار مخصص للإعدادات والواجهة",
+    "mirostat_eta": "خيار مخصص للإعدادات والواجهة",
+    "dry_multiplier": "خيار مخصص للإعدادات والواجهة",
+    "dry_base": "خيار مخصص للإعدادات والواجهة",
+    "dry_allowed_length": "خيار مخصص للإعدادات والواجهة",
+    "dry_penalty_last_n": "خيار مخصص للإعدادات والواجهة",
+    "dry_sequence_breakers": "خيار مخصص للإعدادات والواجهة",
+    "ignore_eos": "خيار مخصص للإعدادات والواجهة",
+    "logit_bias": "خيار مخصص للإعدادات والواجهة",
+    "seed": "خيار مخصص للإعدادات والواجهة",
+    "xtc_probability": "خيار مخصص للإعدادات والواجهة",
+    "xtc_threshold": "خيار مخصص للإعدادات والواجهة",
+    "typical_p": "خيار مخصص للإعدادات والواجهة"
+  },
+  "about": {
+    "screenTitle": "خيار مخصص للإعدادات والواجهة",
+    "description": "خيار مخصص للإعدادات والواجهة",
+    "supportProject": "خيار مخصص للإعدادات والواجهة",
+    "supportProjectDescription": "خيار مخصص للإعدادات والواجهة",
+    "githubButton": "خيار مخصص للإعدادات والواجهة",
+    "orText": "خيار مخصص للإعدادات والواجهة",
+    "orBy": "خيار مخصص للإعدادات والواجهة",
+    "sponsorButton": "خيار مخصص للإعدادات والواجهة",
+    "versionCopiedTitle": "الإصدار تم النسخ",
+    "versionCopiedDescription": "خيار مخصص للإعدادات والواجهة",
+    "tour": "خيار مخصص للإعدادات والواجهة",
+    "tourDescription": "خيار مخصص للإعدادات والواجهة",
+    "showIntroButton": "خيار مخصص للإعدادات والواجهة",
+    "privacyPolicy": "خيار مخصص للإعدادات والواجهة",
+    "termsOfService": "خيار مخصص للإعدادات والواجهة"
+  },
+  "feedback": {
+    "title": "خيار مخصص للإعدادات والواجهة",
+    "description": "خيار مخصص للإعدادات والواجهة",
+    "shareThoughtsButton": "خيار مخصص للإعدادات والواجهة",
+    "useCase": {
+      "label": "خيار مخصص للإعدادات والواجهة",
+      "placeholder": "خيار مخصص للإعدادات والواجهة"
+    },
+    "featureRequests": {
+      "label": "خيار مخصص للإعدادات والواجهة",
+      "placeholder": "خيار مخصص للإعدادات والواجهة"
+    },
+    "generalFeedback": {
+      "label": "خيار مخصص للإعدادات والواجهة",
+      "placeholder": "خيار مخصص للإعدادات والواجهة"
+    },
+    "usageFrequency": {
+      "label": "خيار مخصص للإعدادات والواجهة",
+      "options": {
+        "daily": "خيار مخصص للإعدادات والواجهة",
+        "weekly": "خيار مخصص للإعدادات والواجهة",
+        "monthly": "خيار مخصص للإعدادات والواجهة",
+        "rarely": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "email": {
+      "label": "خيار مخصص للإعدادات والواجهة",
+      "placeholder": "خيار مخصص للإعدادات والواجهة"
+    },
+    "submit": "خيار مخصص للإعدادات والواجهة",
+    "validation": {
+      "required": "خيار مخصص للإعدادات والواجهة"
+    },
+    "success": "خيار مخصص للإعدادات والواجهة",
+    "error": {
+      "general": "خيار مخصص للإعدادات والواجهة"
+    }
+  },
+  "components": {
+    "attachmentButton": {
+      "attachmentButtonAccessibilityLabel": "خيار مخصص للإعدادات والواجهة"
+    },
+    "bubble": {
+      "msPerToken": "خيار مخصص للإعدادات والواجهة {{value}}",
+      "tokensPerSec": "خيار مخصص للإعدادات والواجهة {{value}}",
+      "ttft": "خيار مخصص للإعدادات والواجهة {{value}}",
+      "interrupted": "خيار مخصص للإعدادات والواجهة",
+      "truncated": "خيار مخصص للإعدادات والواجهة"
+    },
+    "exportUtils": {
+      "fileSaved": "خيار مخصص للإعدادات والواجهة",
+      "fileSavedMessage": "خيار مخصص للإعدادات والواجهة {{filename}}",
+      "share": "مشاركة",
+      "ok": "موافق",
+      "shareError": "مشاركة خطأ",
+      "shareErrorMessage": "خيار مخصص للإعدادات والواجهة",
+      "saveError": "خيار مخصص للإعدادات والواجهة",
+      "saveOptions": "خيار مخصص للإعدادات والواجهة",
+      "saveOptionsMessage": "خيار مخصص للإعدادات والواجهة",
+      "cancel": "إلغاء",
+      "shareContentErrorMessage": "خيار مخصص للإعدادات والواجهة",
+      "exportError": "تصدير خطأ",
+      "exportErrorMessage": "خيار مخصص للإعدادات والواجهة",
+      "permissionRequired": "خيار مخصص للإعدادات والواجهة",
+      "permissionMessage": "خيار مخصص للإعدادات والواجهة",
+      "permissionDenied": "خيار مخصص للإعدادات والواجهة",
+      "permissionDeniedMessage": "خيار مخصص للإعدادات والواجهة",
+      "continue": "خيار مخصص للإعدادات والواجهة"
+    },
+    "thinkingBubble": {
+      "reasoning": "خيار مخصص للإعدادات والواجهة"
+    },
+    "pendingIndicator": {
+      "preparingTool": "خيار مخصص للإعدادات والواجهة",
+      "buildingPage": "خيار مخصص للإعدادات والواجهة",
+      "calculating": "خيار مخصص للإعدادات والواجهة",
+      "lookingUpTime": "خيار مخصص للإعدادات والواجهة",
+      "stopping": "خيار مخصص للإعدادات والواجهة"
+    },
+    "toolMetrics": {
+      "tokens": "خيار مخصص للإعدادات والواجهة {{count}}",
+      "elapsed": "خيار مخصص للإعدادات والواجهة {{seconds}}"
+    },
+    "chatEmptyPlaceholder": {
+      "noModelsTitle": "خيار مخصص للإعدادات والواجهة",
+      "noModelsDescription": "خيار مخصص للإعدادات والواجهة",
+      "noModelsButton": "تنزيل النموذج",
+      "activateModelTitle": "خيار مخصص للإعدادات والواجهة",
+      "activateModelDescription": "خيار مخصص للإعدادات والواجهة",
+      "activateModelButton": "خيار مخصص للإعدادات والواجهة",
+      "loading": "خيار مخصص للإعدادات والواجهة",
+      "gettingReadyTitle": "خيار مخصص للإعدادات والواجهة {{name}}",
+      "gettingReadyDescription": "خيار مخصص للإعدادات والواجهة"
+    },
+    "chatInput": {
+      "inputPlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "thinkingToggle": {
+        "enableThinking": "خيار مخصص للإعدادات والواجهة",
+        "disableThinking": "خيار مخصص للإعدادات والواجهة",
+        "thinkingEnabled": "خيار مخصص للإعدادات والواجهة",
+        "thinkingDisabled": "خيار مخصص للإعدادات والواجهة",
+        "thinkText": "خيار مخصص للإعدادات والواجهة",
+        "cycleEffort": "خيار مخصص للإعدادات والواجهة {{level}}"
+      }
+    },
+    "contentReportSheet": {
+      "title": "خيار مخصص للإعدادات والواجهة",
+      "privacyNote": "خيار مخصص للإعدادات والواجهة",
+      "categoryLabel": "خيار مخصص للإعدادات والواجهة",
+      "selectCategory": "خيار مخصص للإعدادات والواجهة",
+      "categories": {
+        "hate": "خيار مخصص للإعدادات والواجهة",
+        "sexual": "خيار مخصص للإعدادات والواجهة",
+        "selfHarm": "خيار مخصص للإعدادات والواجهة",
+        "violence": "خيار مخصص للإعدادات والواجهة",
+        "other": "خيار مخصص للإعدادات والواجهة"
+      },
+      "descriptionLabel": "خيار مخصص للإعدادات والواجهة",
+      "descriptionPlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "includeModelInfo": "خيار مخصص للإعدادات والواجهة",
+      "includeModelInfoDescription": "خيار مخصص للإعدادات والواجهة",
+      "noActiveModelNote": "خيار مخصص للإعدادات والواجهة",
+      "submit": "خيار مخصص للإعدادات والواجهة",
+      "validation": {
+        "title": "خيار مخصص للإعدادات والواجهة",
+        "message": "خيار مخصص للإعدادات والواجهة"
+      },
+      "success": {
+        "title": "خيار مخصص للإعدادات والواجهة",
+        "message": "خيار مخصص للإعدادات والواجهة"
+      },
+      "error": {
+        "title": "خيار مخصص للإعدادات والواجهة",
+        "message": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "modelErrorReportSheet": {
+      "title": "خيار مخصص للإعدادات والواجهة",
+      "privacyNote": "خيار مخصص للإعدادات والواجهة",
+      "errorMessage": "خيار مخصص للإعدادات والواجهة",
+      "modelInfo": "خيار مخصص للإعدادات والواجهة",
+      "modelName": "خيار مخصص للإعدادات والواجهة",
+      "modelSource": "خيار مخصص للإعدادات والواجهة",
+      "modelSize": "خيار مخصص للإعدادات والواجهة",
+      "contextParams": "خيار مخصص للإعدادات والواجهة",
+      "deviceInfo": "خيار مخصص للإعدادات والواجهة",
+      "deviceModel": "خيار مخصص للإعدادات والواجهة",
+      "osVersion": "خيار مخصص للإعدادات والواجهة",
+      "memoryInfo": "الذاكرة",
+      "cpuArchitecture": "خيار مخصص للإعدادات والواجهة",
+      "isEmulator": "خيار مخصص للإعدادات والواجهة",
+      "additionalInfoLabel": "خيار مخصص للإعدادات والواجهة",
+      "additionalInfoPlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "submit": "خيار مخصص للإعدادات والواجهة",
+      "success": {
+        "title": "خيار مخصص للإعدادات والواجهة",
+        "message": "خيار مخصص للإعدادات والواجهة"
+      },
+      "error": {
+        "title": "خيار مخصص للإعدادات والواجهة",
+        "message": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "chatGenerationSettingsSheet": {
+      "invalidValues": "خيار مخصص للإعدادات والواجهة",
+      "invalidNumericValuesMessage": "خيار مخصص للإعدادات والواجهة",
+      "pleaseCorrect": "خيار مخصص للإعدادات والواجهة",
+      "ok": "موافق",
+      "saveChanges": "خيار مخصص للإعدادات والواجهة",
+      "saveAsPreset": "خيار مخصص للإعدادات والواجهة",
+      "title_session": "خيار مخصص للإعدادات والواجهة",
+      "title_preset": "خيار مخصص للإعدادات والواجهة",
+      "resetToSystemDefaults": "خيار مخصص للإعدادات والواجهة",
+      "resetToPreset": "خيار مخصص للإعدادات والواجهة",
+      "applytoPresetAlert": {
+        "title": "نجاح",
+        "message": "خيار مخصص للإعدادات والواجهة"
+      },
+      "palSettings": "خيار مخصص للإعدادات والواجهة",
+      "settingsSource": "خيار مخصص للإعدادات والواجهة"
+    },
+    "palGenerationSettingsSheet": {
+      "title": "خيار مخصص للإعدادات والواجهة {{palName}}",
+      "invalidValues": "خيار مخصص للإعدادات والواجهة",
+      "invalidNumericValuesMessage": "خيار مخصص للإعدادات والواجهة",
+      "pleaseCorrect": "خيار مخصص للإعدادات والواجهة",
+      "ok": "موافق",
+      "error": "خطأ",
+      "failedToSave": "خيار مخصص للإعدادات والواجهة",
+      "resetToGlobal": "خيار مخصص للإعدادات والواجهة",
+      "resetToSystem": "خيار مخصص للإعدادات والواجهة",
+      "clearPalSettings": "خيار مخصص للإعدادات والواجهة",
+      "customSettingsFor": "خيار مخصص للإعدادات والواجهة {{palName}}",
+      "inheritedSettingsFor": "خيار مخصص للإعدادات والواجهة {{palName}}"
+    },
+    "chatHeaderTitle": {
+      "defaultTitle": "المحادثة"
+    },
+    "fileMessage": {
+      "fileButtonAccessibilityLabel": "خيار مخصص للإعدادات والواجهة"
+    },
+    "chatPalModelPickerSheet": {
+      "modelsTab": "النماذج",
+      "palsTab": "خيار مخصص للإعدادات والواجهة",
+      "noPal": "خيار مخصص للإعدادات والواجهة",
+      "disablePal": "خيار مخصص للإعدادات والواجهة",
+      "noDescription": "خيار مخصص للإعدادات والواجهة",
+      "assistantType": "خيار مخصص للإعدادات والواجهة",
+      "roleplayType": "خيار مخصص للإعدادات والواجهة",
+      "videoType": "خيار مخصص للإعدادات والواجهة",
+      "confirmationTitle": "خيار مخصص للإعدادات والواجهة",
+      "modelSwitchMessage": "خيار مخصص للإعدادات والواجهة {{modelName}}",
+      "keepButton": "خيار مخصص للإعدادات والواجهة",
+      "switchButton": "خيار مخصص للإعدادات والواجهة"
+    },
+    "downloadErrorDialog": {
+      "downloadFailedTitle": "تنزيل فشل",
+      "downloadFailedMessage": "خيار مخصص للإعدادات والواجهة {{message}}",
+      "unauthorizedTitle": "خيار مخصص للإعدادات والواجهة",
+      "unauthorizedMessage": "خيار مخصص للإعدادات والواجهة",
+      "forbiddenTitle": "خيار مخصص للإعدادات والواجهة",
+      "forbiddenMessage": "خيار مخصص للإعدادات والواجهة",
+      "forbiddenSteps": [
+        "خيار مخصص للإعدادات والواجهة",
+        "خيار مخصص للإعدادات والواجهة",
+        "خيار مخصص للإعدادات والواجهة"
+      ],
+      "getTokenTitle": "خيار مخصص للإعدادات والواجهة",
+      "getTokenMessage": "خيار مخصص للإعدادات والواجهة",
+      "getTokenSteps": [
+        "خيار مخصص للإعدادات والواجهة",
+        "خيار مخصص للإعدادات والواجهة",
+        "خيار مخصص للإعدادات والواجهة",
+        "خيار مخصص للإعدادات والواجهة"
+      ],
+      "tokenDisabledTitle": "خيار مخصص للإعدادات والواجهة",
+      "tokenDisabledMessage": "خيار مخصص للإعدادات والواجهة",
+      "enableAndRetry": "خيار مخصص للإعدادات والواجهة",
+      "goToSettings": "خيار مخصص للإعدادات والواجهة",
+      "tryAgain": "خيار مخصص للإعدادات والواجهة",
+      "viewOnHuggingFace": "خيار مخصص للإعدادات والواجهة"
+    },
+    "headerRight": {
+      "deleteChatTitle": "حذف المحادثة",
+      "deleteChatMessage": "خيار مخصص للإعدادات والواجهة",
+      "generationSettings": "خيار مخصص للإعدادات والواجهة",
+      "model": "النموذج",
+      "duplicateChatHistory": "خيار مخصص للإعدادات والواجهة",
+      "makeChatTemporary": "خيار مخصص للإعدادات والواجهة",
+      "export": "تصدير/استيراد",
+      "exportCurrentSession": "خيار مخصص للإعدادات والواجهة",
+      "exportAllSessions": "خيار مخصص للإعدادات والواجهة",
+      "exportChatSession": "خيار مخصص للإعدادات والواجهة",
+      "importSessions": "خيار مخصص للإعدادات والواجهة"
+    },
+    "hfTokenSheet": {
+      "title": "خيار مخصص للإعدادات والواجهة",
+      "description": "خيار مخصص للإعدادات والواجهة",
+      "inputLabel": "خيار مخصص للإعدادات والواجهة",
+      "inputPlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "save": "خيار مخصص للإعدادات والواجهة",
+      "saved": "خيار مخصص للإعدادات والواجهة",
+      "reset": "خيار مخصص للإعدادات والواجهة",
+      "resetSuccess": "خيار مخصص للإعدادات والواجهة",
+      "instructions": "خيار مخصص للإعدادات والواجهة",
+      "instructionsSteps": [
+        "خيار مخصص للإعدادات والواجهة",
+        "خيار مخصص للإعدادات والواجهة",
+        "خيار مخصص للإعدادات والواجهة",
+        "خيار مخصص للإعدادات والواجهة"
+      ],
+      "getTokenLink": "خيار مخصص للإعدادات والواجهة",
+      "error": {
+        "saving": "خيار مخصص للإعدادات والواجهة",
+        "missing": "خيار مخصص للإعدادات والواجهة",
+        "invalid": "خيار مخصص للإعدادات والواجهة",
+        "gatedModelAccess": "خيار مخصص للإعدادات والواجهة"
+      },
+      "gatedModelIndicator": "خيار مخصص للإعدادات والواجهة",
+      "tokenRequired": "خيار مخصص للإعدادات والواجهة",
+      "searchErrorHint": "خيار مخصص للإعدادات والواجهة",
+      "disableAndRetry": "خيار مخصص للإعدادات والواجهة"
+    },
+    "modelSettingsSheet": {
+      "modelSettings": "النموذج الإعدادات",
+      "saveChanges": "خيار مخصص للإعدادات والواجهة",
+      "reasoningSection": "خيار مخصص للإعدادات والواجهة",
+      "isReasoningModel": "خيار مخصص للإعدادات والواجهة",
+      "isReasoningModelHelp": "خيار مخصص للإعدادات والواجهة",
+      "supportsEffort": "خيار مخصص للإعدادات والواجهة",
+      "effortValues": "خيار مخصص للإعدادات والواجهة",
+      "effortLevels": {
+        "minimal": "خيار مخصص للإعدادات والواجهة",
+        "low": "خيار مخصص للإعدادات والواجهة",
+        "medium": "خيار مخصص للإعدادات والواجهة",
+        "high": "خيار مخصص للإعدادات والواجهة",
+        "xhigh": "خيار مخصص للإعدادات والواجهة",
+        "max": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "modelsHeaderRight": {
+      "menuTitleHf": "خيار مخصص للإعدادات والواجهة",
+      "menuTitleDownloaded": "تم التنزيل النماذج",
+      "menuTitleGrouped": "خيار مخصص للإعدادات والواجهة",
+      "menuTitleReset": "خيار مخصص للإعدادات والواجهة"
+    },
+    "modelsResetDialog": {
+      "proceedWithReset": "خيار مخصص للإعدادات والواجهة",
+      "confirmReset": "خيار مخصص للإعدادات والواجهة"
+    },
+    "palSheet": {
+      "title": {
+        "edit": "خيار مخصص للإعدادات والواجهة",
+        "newPal": "خيار مخصص للإعدادات والواجهة",
+        "newVideoPal": "خيار مخصص للإعدادات والواجهة"
+      },
+      "description": "خيار مخصص للإعدادات والواجهة",
+      "descriptionPlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "parameters": "خيار مخصص للإعدادات والواجهة",
+      "generationSettings": "خيار مخصص للإعدادات والواجهة",
+      "configureGenerationSettings": "خيار مخصص للإعدادات والواجهة",
+      "validation": {
+        "nameRequired": "خيار مخصص للإعدادات والواجهة",
+        "generatingPromptRequired": "خيار مخصص للإعدادات والواجهة",
+        "promptModelRequired": "خيار مخصص للإعدادات والواجهة"
+      },
+      "talents": "خيار مخصص للإعدادات والواجهة",
+      "talentNames": {
+        "render_html": "خيار مخصص للإعدادات والواجهة",
+        "calculate": "خيار مخصص للإعدادات والواجهة",
+        "datetime": "خيار مخصص للإعدادات والواجهة",
+        "web_search": "خيار مخصص للإعدادات والواجهة",
+        "read_url": "خيار مخصص للإعدادات والواجهة"
+      },
+      "talentDescriptions": {
+        "render_html": "خيار مخصص للإعدادات والواجهة",
+        "calculate": "خيار مخصص للإعدادات والواجهة",
+        "datetime": "خيار مخصص للإعدادات والواجهة",
+        "web_search": "خيار مخصص للإعدادات والواجهة",
+        "read_url": "خيار مخصص للإعدادات والواجهة"
+      },
+      "greeting": {
+        "sectionLabel": "خيار مخصص للإعدادات والواجهة",
+        "textLabel": "خيار مخصص للإعدادات والواجهة",
+        "textPlaceholder": "خيار مخصص للإعدادات والواجهة",
+        "suggestedPromptsLabel": "خيار مخصص للإعدادات والواجهة",
+        "addPromptButton": "خيار مخصص للإعدادات والواجهة",
+        "promptPlaceholder": "خيار مخصص للإعدادات والواجهة",
+        "removePromptLabel": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "assistantPalSheet": {
+      "title": {
+        "create": "خيار مخصص للإعدادات والواجهة",
+        "edit": "خيار مخصص للإعدادات والواجهة"
+      },
+      "palName": "خيار مخصص للإعدادات والواجهة",
+      "palNamePlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "defaultModel": "خيار مخصص للإعدادات والواجهة",
+      "defaultModelPlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "validation": {
+        "generatingPromptRequired": "خيار مخصص للإعدادات والواجهة",
+        "promptModelRequired": "خيار مخصص للإعدادات والواجهة"
+      },
+      "create": "خيار مخصص للإعدادات والواجهة"
+    },
+    "modelNotAvailable": {
+      "noModelsDownloaded": "خيار مخصص للإعدادات والواجهة",
+      "downloadAModel": "خيار مخصص للإعدادات والواجهة",
+      "defaultModelNotDownloaded": "خيار مخصص للإعدادات والواجهة",
+      "modelNotDownloadedShort": "خيار مخصص للإعدادات والواجهة",
+      "recommendedModel": "خيار مخصص للإعدادات والواجهة",
+      "cancelDownload": "إلغاء تنزيل",
+      "download": "تنزيل"
+    },
+    "roleplayPalSheet": {
+      "title": {
+        "create": "خيار مخصص للإعدادات والواجهة",
+        "edit": "خيار مخصص للإعدادات والواجهة"
+      },
+      "palName": "خيار مخصص للإعدادات والواجهة",
+      "palNamePlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "defaultModel": "خيار مخصص للإعدادات والواجهة",
+      "defaultModelPlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "descriptionSection": "خيار مخصص للإعدادات والواجهة",
+      "world": "خيار مخصص للإعدادات والواجهة",
+      "worldPlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "location": "خيار مخصص للإعدادات والواجهة",
+      "locationPlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "locationSublabel": "خيار مخصص للإعدادات والواجهة",
+      "aiRole": "خيار مخصص للإعدادات والواجهة",
+      "aiRolePlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "aiRoleSublabel": "خيار مخصص للإعدادات والواجهة",
+      "userRole": "خيار مخصص للإعدادات والواجهة",
+      "userRolePlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "userRoleSublabel": "خيار مخصص للإعدادات والواجهة",
+      "situation": "خيار مخصص للإعدادات والواجهة",
+      "situationPlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "toneStyle": "خيار مخصص للإعدادات والواجهة",
+      "toneStylePlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "validation": {
+        "promptModelRequired": "خيار مخصص للإعدادات والواجهة"
+      },
+      "create": "خيار مخصص للإعدادات والواجهة"
+    },
+    "lookiePalSheet": {
+      "title": {
+        "create": "خيار مخصص للإعدادات والواجهة",
+        "edit": "خيار مخصص للإعدادات والواجهة"
+      },
+      "palName": "خيار مخصص للإعدادات والواجهة",
+      "palNamePlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "visionModel": "خيار مخصص للإعدادات والواجهة",
+      "visionModelPlaceholder": "خيار مخصص للإعدادات والواجهة",
+      "requiredModelsSection": "خيار مخصص للإعدادات والواجهة",
+      "captureInterval": "خيار مخصص للإعدادات والواجهة",
+      "captureIntervalHelper": "خيار مخصص للإعدادات والواجهة",
+      "create": "خيار مخصص للإعدادات والواجهة"
+    },
+    "sendButton": {
+      "accessibilityLabel": "خيار مخصص للإعدادات والواجهة"
+    },
+    "systemPromptSection": {
+      "sectionTitle": "خيار مخصص للإعدادات والواجهة",
+      "useAIPrompt": "خيار مخصص للإعدادات والواجهة",
+      "modelSelector": {
+        "label": "خيار مخصص للإعدادات والواجهة",
+        "sublabel": "خيار مخصص للإعدادات والواجهة",
+        "placeholder": "خيار مخصص للإعدادات والواجهة"
+      },
+      "generatingPrompt": {
+        "label": "خيار مخصص للإعدادات والواجهة",
+        "placeholder": "خيار مخصص للإعدادات والواجهة"
+      },
+      "buttons": {
+        "loadingModel": "خيار مخصص للإعدادات والواجهة",
+        "stopGenerating": "إيقاف جاري التوليد...",
+        "generatePrompt": "خيار مخصص للإعدادات والواجهة",
+        "resetParameters": "خيار مخصص للإعدادات والواجهة",
+        "resetTemplate": "خيار مخصص للإعدادات والواجهة"
+      },
+      "systemPrompt": {
+        "label": "خيار مخصص للإعدادات والواجهة",
+        "sublabel": "خيار مخصص للإعدادات والواجهة",
+        "placeholder": "خيار مخصص للإعدادات والواجهة"
+      },
+      "warnings": {
+        "promptChanged": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "sidebarContent": {
+      "menuItems": {
+        "chat": "المحادثة",
+        "models": "النماذج",
+        "pals": "خيار مخصص للإعدادات والواجهة",
+        "benchmark": "اختبار الأداء",
+        "settings": "الإعدادات",
+        "appInfo": "خيار مخصص للإعدادات والواجهة",
+        "testCompletion": "خيار مخصص للإعدادات والواجهة"
+      },
+      "deleteChatTitle": "حذف المحادثة",
+      "deleteChatMessage": "خيار مخصص للإعدادات والواجهة",
+      "select": "خيار مخصص للإعدادات والواجهة",
+      "nSelected": "خيار مخصص للإعدادات والواجهة {{count}}",
+      "selectAll": "خيار مخصص للإعدادات والواجهة",
+      "deselectAll": "خيار مخصص للإعدادات والواجهة",
+      "exportCount": "خيار مخصص للإعدادات والواجهة {{count}}",
+      "deleteCount": "خيار مخصص للإعدادات والواجهة {{count}}",
+      "bulkDeleteTitle": "خيار مخصص للإعدادات والواجهة",
+      "bulkDeleteMessage": "خيار مخصص للإعدادات والواجهة {{count}}",
+      "bulkDeleteError": "خيار مخصص للإعدادات والواجهة",
+      "exportError": "خيار مخصص للإعدادات والواجهة",
+      "bulkExportError": "خيار مخصص للإعدادات والواجهة",
+      "dateGroups": {
+        "today": "خيار مخصص للإعدادات والواجهة",
+        "yesterday": "خيار مخصص للإعدادات والواجهة",
+        "thisWeek": "خيار مخصص للإعدادات والواجهة",
+        "lastWeek": "خيار مخصص للإعدادات والواجهة",
+        "twoWeeksAgo": "خيار مخصص للإعدادات والواجهة",
+        "threeWeeksAgo": "خيار مخصص للإعدادات والواجهة",
+        "fourWeeksAgo": "خيار مخصص للإعدادات والواجهة",
+        "lastMonth": "خيار مخصص للإعدادات والواجهة",
+        "older": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "usageStats": {
+      "tooltip": {
+        "title": "خيار مخصص للإعدادات والواجهة",
+        "used": "خيار مخصص للإعدادات والواجهة",
+        "total": "خيار مخصص للإعدادات والواجهة",
+        "usage": "خيار مخصص للإعدادات والواجهة"
+      },
+      "byteSizes": [
+        "خيار مخصص للإعدادات والواجهة",
+        "خيار مخصص للإعدادات والواجهة",
+        "خيار مخصص للإعدادات والواجهة",
+        "خيار مخصص للإعدادات والواجهة"
+      ]
+    },
+    "chatView": {
+      "menuItems": {
+        "copy": "نسخ",
+        "regenerate": "إعادة التوليد",
+        "regenerateWith": "خيار مخصص للإعدادات والواجهة",
+        "edit": "تعديل",
+        "reportContent": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "palHeaderRight": {
+      "exportAllPals": "خيار مخصص للإعدادات والواجهة",
+      "importPals": "خيار مخصص للإعدادات والواجهة",
+      "importSuccess": "خيار مخصص للإعدادات والواجهة {{count}}",
+      "importError": "خيار مخصص للإعدادات والواجهة"
+    }
+  },
+  "palsScreen": {
+    "sectionTitles": {
+      "myPalsLocal": "خيار مخصص للإعدادات والواجهة",
+      "myLibrary": "خيار مخصص للإعدادات والواجهة",
+      "discoverPals": "خيار مخصص للإعدادات والواجهة"
+    },
+    "systemPrompt": "خيار مخصص للإعدادات والواجهة",
+    "videoAnalysis": "خيار مخصص للإعدادات والواجهة",
+    "videoAnalysisDescription": "خيار مخصص للإعدادات والواجهة",
+    "captureInterval": "خيار مخصص للإعدادات والواجهة",
+    "captureIntervalUnit": "خيار مخصص للإعدادات والواجهة",
+    "world": "خيار مخصص للإعدادات والواجهة",
+    "toneStyle": "خيار مخصص للإعدادات والواجهة",
+    "aiRole": "خيار مخصص للإعدادات والواجهة",
+    "userRole": "خيار مخصص للإعدادات والواجهة",
+    "prompt": "خيار مخصص للإعدادات والواجهة",
+    "assistant": "خيار مخصص للإعدادات والواجهة",
+    "roleplay": "خيار مخصص للإعدادات والواجهة",
+    "video": "خيار مخصص للإعدادات والواجهة",
+    "deletePal": "خيار مخصص للإعدادات والواجهة",
+    "deletePalMessage": "خيار مخصص للإعدادات والواجهة",
+    "missingModel": "خيار مخصص للإعدادات والواجهة",
+    "missingModelMessage": "خيار مخصص للإعدادات والواجهة {{modelName}}",
+    "search": "بحث",
+    "profile": "خيار مخصص للإعدادات والواجهة",
+    "signIn": "خيار مخصص للإعدادات والواجهة",
+    "addPal": "خيار مخصص للإعدادات والواجهة",
+    "signInToAccessLibrary": "خيار مخصص للإعدادات والواجهة",
+    "signOut": "خيار مخصص للإعدادات والواجهة",
+    "signOutConfirmation": "خيار مخصص للإعدادات والواجهة",
+    "signOutError": "خيار مخصص للإعدادات والواجهة",
+    "account": "خيار مخصص للإعدادات والواجهة",
+    "signInToPalsHub": "خيار مخصص للإعدادات والواجهة",
+    "signInDescription": "خيار مخصص للإعدادات والواجهة",
+    "searchAllPals": "خيار مخصص للإعدادات والواجهة",
+    "deletePalConfirmation": "خيار مخصص للإعدادات والواجهة {{palName}}",
+    "filters": {
+      "all": "خيار مخصص للإعدادات والواجهة",
+      "myPals": "خيار مخصص للإعدادات والواجهة",
+      "local": "خيار مخصص للإعدادات والواجهة",
+      "video": "خيار مخصص للإعدادات والواجهة",
+      "free": "خيار مخصص للإعدادات والواجهة",
+      "premium": "خيار مخصص للإعدادات والواجهة"
+    },
+    "labels": {
+      "free": "خيار مخصص للإعدادات والواجهة",
+      "premium": "خيار مخصص للإعدادات والواجهة",
+      "private": "خيار مخصص للإعدادات والواجهة",
+      "download": "تنزيل",
+      "getFree": "خيار مخصص للإعدادات والواجهة"
+    },
+    "premiumPalDescription": "خيار مخصص للإعدادات والواجهة",
+    "premiumInfoText": "خيار مخصص للإعدادات والواجهة",
+    "sortOptions": {
+      "newest": "خيار مخصص للإعدادات والواجهة",
+      "oldest": "خيار مخصص للإعدادات والواجهة",
+      "rating": "خيار مخصص للإعدادات والواجهة",
+      "popular": "خيار مخصص للإعدادات والواجهة"
+    },
+    "palDetailSheet": {
+      "by": "خيار مخصص للإعدادات والواجهة",
+      "unknown": "خيار مخصص للإعدادات والواجهة",
+      "rating": "خيار مخصص للإعدادات والواجهة",
+      "reviews": "خيار مخصص للإعدادات والواجهة",
+      "created": "خيار مخصص للإعدادات والواجهة",
+      "description": "خيار مخصص للإعدادات والواجهة",
+      "noDescriptionAvailable": "خيار مخصص للإعدادات والواجهة",
+      "categories": "خيار مخصص للإعدادات والواجهة",
+      "tags": "خيار مخصص للإعدادات والواجهة",
+      "systemPrompt": "خيار مخصص للإعدادات والواجهة",
+      "downloaded": "تم التنزيل",
+      "success": "نجاح",
+      "palAddedToCollection": "خيار مخصص للإعدادات والواجهة",
+      "error": "خطأ",
+      "failedToLoadDetails": "خيار مخصص للإعدادات والواجهة",
+      "failedToDownload": "خيار مخصص للإعدادات والواجهة",
+      "premiumPalMessage": "خيار مخصص للإعدادات والواجهة",
+      "notAvailable": "خيار مخصص للإعدادات والواجهة",
+      "buyOnPalshub": "خيار مخصص للإعدادات والواجهة",
+      "finalizingPurchase": "خيار مخصص للإعدادات والواجهة",
+      "processingPurchase": "خيار مخصص للإعدادات والواجهة",
+      "checkoutSessionExpired": "خيار مخصص للإعدادات والواجهة",
+      "signInAgain": "خيار مخصص للإعدادات والواجهة",
+      "palNotAvailable": "خيار مخصص للإعدادات والواجهة",
+      "checkoutFailed": "خيار مخصص للإعدادات والواجهة"
+    }
+  },
+  "validation": {
+    "nameRequired": "خيار مخصص للإعدادات والواجهة",
+    "systemPromptRequired": "خيار مخصص للإعدادات والواجهة",
+    "worldRequired": "خيار مخصص للإعدادات والواجهة",
+    "locationRequired": "خيار مخصص للإعدادات والواجهة",
+    "aiRoleRequired": "خيار مخصص للإعدادات والواجهة",
+    "userRoleRequired": "خيار مخصص للإعدادات والواجهة",
+    "situationRequired": "خيار مخصص للإعدادات والواجهة",
+    "toneStyleRequired": "خيار مخصص للإعدادات والواجهة"
+  },
+  "camera": {
+    "permissionTitle": "خيار مخصص للإعدادات والواجهة",
+    "permissionMessage": "خيار مخصص للإعدادات والواجهة",
+    "requestingPermission": "خيار مخصص للإعدادات والواجهة",
+    "noDevice": "خيار مخصص للإعدادات والواجهة",
+    "errorTitle": "خيار مخصص للإعدادات والواجهة",
+    "errorMessage": "خيار مخصص للإعدادات والواجهة",
+    "flip": "خيار مخصص للإعدادات والواجهة",
+    "analyzing": "خيار مخصص للإعدادات والواجهة",
+    "startCamera": "خيار مخصص للإعدادات والواجهة",
+    "stopCamera": "خيار مخصص للإعدادات والواجهة",
+    "promptPlaceholder": "خيار مخصص للإعدادات والواجهة",
+    "takePhoto": "خيار مخصص للإعدادات والواجهة"
+  },
+  "video": {
+    "permissionTitle": "خيار مخصص للإعدادات والواجهة",
+    "permissionMessage": "خيار مخصص للإعدادات والواجهة",
+    "requestingPermission": "خيار مخصص للإعدادات والواجهة",
+    "noDevice": "خيار مخصص للإعدادات والواجهة",
+    "errorTitle": "خيار مخصص للإعدادات والواجهة",
+    "errorMessage": "خيار مخصص للإعدادات والواجهة",
+    "flip": "خيار مخصص للإعدادات والواجهة",
+    "analyzing": "خيار مخصص للإعدادات والواجهة",
+    "startCamera": "خيار مخصص للإعدادات والواجهة",
+    "stopCamera": "خيار مخصص للإعدادات والواجهة",
+    "promptPlaceholder": "خيار مخصص للإعدادات والواجهة",
+    "captureInterval": "خيار مخصص للإعدادات والواجهة",
+    "captureIntervalUnit": "خيار مخصص للإعدادات والواجهة",
+    "liveCommentary": "خيار مخصص للإعدادات والواجهة",
+    "emptyPlaceholder": {
+      "title": "خيار مخصص للإعدادات والواجهة",
+      "subtitle": "خيار مخصص للإعدادات والواجهة",
+      "experimentalNotice": "خيار مخصص للإعدادات والواجهة",
+      "howToUse": "خيار مخصص للإعدادات والواجهة",
+      "step1": "خيار مخصص للإعدادات والواجهة",
+      "step2": "خيار مخصص للإعدادات والواجهة",
+      "step3": "خيار مخصص للإعدادات والواجهة",
+      "step4": "خيار مخصص للإعدادات والواجهة"
+    }
   },
   "magd": {
     "identityName": "✨ MAGD AI ✨",
-    "tagline": "منصة الذكاء الاصطناعي الشخصية المحلية",
-    "systemPrompt": "أنت ✨ MAGD AI ✨، مساعد ذكاء اصطناعي محلي شخصي قوي ومستقل يعتمد على مبدأ Local-First. تتميز بالذكاء، السرعة، والدقة العالية في اللغة العربية والإنجليزي. تجيب دائمًا بهوية ✨ MAGD AI ✨ بغض النظر عن النموذج الأساسي المستعمل. تشرح المفاهيم بطريقة واضحة ومبسطة وتساعد في البرمجة والتحليل والتفكير المنطقي.",
+    "tagline": "خيار مخصص للإعدادات والواجهة",
+    "systemPrompt": "خيار مخصص للإعدادات والواجهة",
     "status": {
-      "thinking": "يفكر...",
-      "processing": "معالجة...",
-      "reading": "قراءة...",
-      "searching": "بحث...",
-      "analyzing": "تحليل...",
-      "generating": "توليد الاستجابة..."
+      "thinking": "جاري التفكير......",
+      "processing": "جاري المعالجة......",
+      "reading": "جاري القراءة......",
+      "searching": "جاري البحث......",
+      "analyzing": "جاري التحليل......",
+      "generating": "خيار مخصص للإعدادات والواجهة"
     }
   },
   "projects": {
     "title": "المشاريع",
-    "createNew": "إنشاء مشروع جديد",
-    "projectName": "اسم المشروع",
-    "description": "الوصف",
-    "noProjects": "لا توجد مشاريع حالياً. أنشئ مشروعك الأول لتنظيم محادثاتك وملفاتك وسياقك الذكي.",
-    "projectMemory": "ذاكرة المشروع",
-    "projectFiles": "ملفات المشروع"
+    "createNew": "خيار مخصص للإعدادات والواجهة",
+    "projectName": "خيار مخصص للإعدادات والواجهة",
+    "description": "خيار مخصص للإعدادات والواجهة",
+    "noProjects": "خيار مخصص للإعدادات والواجهة",
+    "projectMemory": "المشروع الذاكرة",
+    "projectFiles": "خيار مخصص للإعدادات والواجهة"
   },
-  "memory": {
-    "title": "🧠 مركز الذاكرة",
-    "subtitle": "ما يعرفه ✨ MAGD AI ✨ عنك وعن مشاريعك",
-    "shortTerm": "الذاكرة قصيرة المدى",
-    "longTerm": "الذاكرة طويلة المدى",
-    "userPreferences": "تفضيلات المستخدم",
-    "addMemory": "إضافة معلومة جديدة",
-    "clearAll": "مسح كافة الذكريات",
-    "noMemories": "لا توجد ذكريات محفوظة حالياً."
+  "home": {
+    "welcome": "خيار مخصص للإعدادات والواجهة",
+    "subtitle": "خيار مخصص للإعدادات والواجهة",
+    "greeting": "خيار مخصص للإعدادات والواجهة",
+    "greetingMorning": "خيار مخصص للإعدادات والواجهة",
+    "greetingAfternoon": "خيار مخصص للإعدادات والواجهة",
+    "whatBuilding": "خيار مخصص للإعدادات والواجهة",
+    "quickActions": "خيار مخصص للإعدادات والواجهة",
+    "chat": "المحادثة",
+    "code": "خيار مخصص للإعدادات والواجهة",
+    "vision": "خيار مخصص للإعدادات والواجهة",
+    "files": "خيار مخصص للإعدادات والواجهة",
+    "electronics": "الإلكترونيات",
+    "math": "خيار مخصص للإعدادات والواجهة",
+    "activeModel": "خيار مخصص للإعدادات والواجهة",
+    "noModelLoaded": "خيار مخصص للإعدادات والواجهة",
+    "recentChats": "خيار مخصص للإعدادات والواجهة",
+    "projects": "المشاريع",
+    "newProject": "خيار مخصص للإعدادات والواجهة",
+    "memoryCenter": "خيار مخصص للإعدادات والواجهة"
   },
   "screenTitles": {
-    "home": "الرئيسية",
-    "chat": "المحادثة",
+    "home": "خيار مخصص للإعدادات والواجهة",
     "projects": "المشاريع",
-    "memory": "الذاكرة",
+    "memory": "خيار مخصص للإعدادات والواجهة",
+    "chat": "المحادثة",
     "models": "النماذج",
-    "pals": "الشخصيات",
+    "pals": "خيار مخصص للإعدادات والواجهة",
+    "benchmark": "اختبار الأداء",
     "settings": "الإعدادات",
-    "appInfo": "عن التطبيق"
+    "appInfo": "خيار مخصص للإعدادات والواجهة",
+    "testCompletion": "خيار مخصص للإعدادات والواجهة"
+  },
+  "chat": {
+    "conversationReset": "خيار مخصص للإعدادات والواجهة",
+    "modelNotLoaded": "خيار مخصص للإعدادات والواجهة",
+    "completionFailed": "خيار مخصص للإعدادات والواجهة",
+    "toolCallTruncated": "خيار مخصص للإعدادات والواجهة",
+    "loadingModel": "خيار مخصص للإعدادات والواجهة",
+    "typeYourMessage": "خيار مخصص للإعدادات والواجهة",
+    "load": "خيار مخصص للإعدادات والواجهة",
+    "goToModels": "خيار مخصص للإعدادات والواجهة",
+    "readyToChat": "خيار مخصص للإعدادات والواجهة",
+    "pleaseLoadModel": "خيار مخصص للإعدادات والواجهة",
+    "multimodalNotEnabled": "خيار مخصص للإعدادات والواجهة",
+    "cannotSendWithoutModel": "خيار مخصص للإعدادات والواجهة",
+    "toolCompatWarning": "خيار مخصص للإعدادات والواجهة",
+    "softCapWarning": "خيار مخصص للإعدادات والواجهة",
+    "contextWarning": "خيار مخصص للإعدادات والواجهة",
+    "contextRemoteHedged": "خيار مخصص للإعدادات والواجهة",
+    "contextFull": "خيار مخصص للإعدادات والواجهة",
+    "contextFullRemote": "خيار مخصص للإعدادات والواجهة",
+    "contextFullEscalated": "خيار مخصص للإعدادات والواجهة",
+    "contextFullHeavyTalent": "خيار مخصص للإعدادات والواجهة {{talent}}",
+    "contextBannerDismiss": "تجاهل",
+    "contextNewChat": "خيار مخصص للإعدادات والواجهة",
+    "contextIncrease": "خيار مخصص للإعدادات والواجهة",
+    "contextMoreRoom": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextTitle": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextBody": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextTokensUnit": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextWordsRam": "خيار مخصص للإعدادات والواجهة {{words}} {{ram}}",
+    "increaseContextFitsChip": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextTightChip": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextWontFitChip": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextFitsStatus": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextFitsUnconstrainedStatus": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextTightStatus": "خيار مخصص للإعدادات والواجهة {{tokens}}",
+    "increaseContextWontFitStatus": "خيار مخصص للإعدادات والواجهة {{tokens}}",
+    "increaseContextModelMax": "خيار مخصص للإعدادات والواجهة {{tokens}}",
+    "increaseContextHedge": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextAdvanced": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextAdvancedBody": "خيار مخصص للإعدادات والواجهة {{from}} {{to}} {{max}}",
+    "increaseContextSliderA11yLabel": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextSliderA11yValue": "خيار مخصص للإعدادات والواجهة {{tokens}}",
+    "increaseContextConfirmSize": "خيار مخصص للإعدادات والواجهة {{size}}",
+    "increaseContextReloadingShort": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextNoFitBody": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextCancel": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextReloading": "خيار مخصص للإعدادات والواجهة",
+    "increaseContextSuccess": "خيار مخصص للإعدادات والواجهة {{target}}",
+    "increaseContextFailure": "خيار مخصص للإعدادات والواجهة",
+    "palLoadHint": "خيار مخصص للإعدادات والواجهة",
+    "generatingPreview": "خيار مخصص للإعدادات والواجهة {{tokens}}",
+    "generatingPreviewPending": "خيار مخصص للإعدادات والواجهة",
+    "toolUsedChip": "خيار مخصص للإعدادات والواجهة {{name}}",
+    "toolErrorBlock": "خيار مخصص للإعدادات والواجهة {{name}}",
+    "webSearch": {
+      "searched": "خيار مخصص للإعدادات والواجهة {{query}}",
+      "noResults": "خيار مخصص للإعدادات والواجهة",
+      "noResultsFor": "خيار مخصص للإعدادات والواجهة {{query}}",
+      "resultsCount": "خيار مخصص للإعدادات والواجهة {{count}}",
+      "resultsCountOne": "خيار مخصص للإعدادات والواجهة",
+      "searchResultsTitle": "خيار مخصص للإعدادات والواجهة",
+      "showResultsAccessibilityLabel": "خيار مخصص للإعدادات والواجهة {{query}}",
+      "openLinkError": "خيار مخصص للإعدادات والواجهة"
+    }
+  },
+  "htmlPreview": {
+    "defaultTitle": "خيار مخصص للإعدادات والواجهة",
+    "showPreview": "خيار مخصص للإعدادات والواجهة",
+    "showCode": "خيار مخصص للإعدادات والواجهة",
+    "copyHtml": "خيار مخصص للإعدادات والواجهة",
+    "closePreview": "خيار مخصص للإعدادات والواجهة",
+    "openFullscreen": "خيار مخصص للإعدادات والواجهة {{title}}"
+  },
+  "benchmark": {
+    "title": "اختبار الأداء",
+    "modelSelector": {
+      "prompt": "خيار مخصص للإعدادات والواجهة",
+      "noModels": "لا النماذج تم التنزيل"
+    },
+    "buttons": {
+      "advancedSettings": "خيار مخصص للإعدادات والواجهة",
+      "startTest": "خيار مخصص للإعدادات والواجهة",
+      "runningTest": "خيار مخصص للإعدادات والواجهة",
+      "clearAll": "مسح الكل",
+      "done": "خيار مخصص للإعدادات والواجهة",
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "share": "مشاركة",
+      "sharing": "خيار مخصص للإعدادات والواجهة",
+      "viewRawData": "خيار مخصص للإعدادات والواجهة",
+      "hideRawData": "خيار مخصص للإعدادات والواجهة"
+    },
+    "messages": {
+      "pleaseSelectModel": "خيار مخصص للإعدادات والواجهة",
+      "testWarning": "خيار مخصص للإعدادات والواجهة",
+      "keepScreenOpen": "خيار مخصص للإعدادات والواجهة",
+      "initializingModel": "خيار مخصص للإعدادات والواجهة",
+      "modelMaxValue": "خيار مخصص للإعدادات والواجهة {{maxValue}}"
+    },
+    "dialogs": {
+      "advancedSettings": {
+        "title": "خيار مخصص للإعدادات والواجهة",
+        "testProfile": "خيار مخصص للإعدادات والواجهة",
+        "customParameters": "خيار مخصص للإعدادات والواجهة",
+        "description": "خيار مخصص للإعدادات والواجهة"
+      },
+      "deleteResult": {
+        "title": "خيار مخصص للإعدادات والواجهة",
+        "message": "خيار مخصص للإعدادات والواجهة"
+      },
+      "clearAllResults": {
+        "title": "خيار مخصص للإعدادات والواجهة",
+        "message": "خيار مخصص للإعدادات والواجهة"
+      },
+      "shareResults": {
+        "title": "خيار مخصص للإعدادات والواجهة",
+        "sharedDataTitle": "خيار مخصص للإعدادات والواجهة",
+        "deviceAndModelInfo": "خيار مخصص للإعدادات والواجهة",
+        "performanceMetrics": "خيار مخصص للإعدادات والواجهة",
+        "dontShowAgain": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "sections": {
+      "testResults": "خيار مخصص للإعدادات والواجهة"
+    },
+    "benchmarkResultCard": {
+      "modelMeta": {
+        "params": "خيار مخصص للإعدادات والواجهة"
+      },
+      "config": {
+        "title": "خيار مخصص للإعدادات والواجهة",
+        "format": "خيار مخصص للإعدادات والواجهة {{pp}} {{tg}} {{pl}} {{nr}}"
+      },
+      "modelSettings": {
+        "title": "النموذج الإعدادات",
+        "context": "خيار مخصص للإعدادات والواجهة {{context}}",
+        "batch": "خيار مخصص للإعدادات والواجهة {{batch}}",
+        "ubatch": "خيار مخصص للإعدادات والواجهة {{ubatch}}",
+        "cpuThreads": "خيار مخصص للإعدادات والواجهة {{threads}}",
+        "gpuLayers": "خيار مخصص للإعدادات والواجهة {{layers}}",
+        "device": "خيار مخصص للإعدادات والواجهة {{device}}",
+        "flashAttentionEnabled": "خيار مخصص للإعدادات والواجهة",
+        "flashAttentionDisabled": "خيار مخصص للإعدادات والواجهة",
+        "cacheTypes": "خيار مخصص للإعدادات والواجهة {{cacheK}} {{cacheV}}"
+      },
+      "results": {
+        "promptProcessing": "خيار مخصص للإعدادات والواجهة",
+        "tokenGeneration": "خيار مخصص للإعدادات والواجهة",
+        "totalTime": "خيار مخصص للإعدادات والواجهة",
+        "peakMemory": "خيار مخصص للإعدادات والواجهة",
+        "tokensPerSecond": "خيار مخصص للإعدادات والواجهة"
+      },
+      "actions": {
+        "deleteButton": " ",
+        "submittedText": "خيار مخصص للإعدادات والواجهة",
+        "leaderboardLink": "خيار مخصص للإعدادات والواجهة",
+        "cannotShare": "خيار مخصص للإعدادات والواجهة",
+        "cannotShareTooltip": "خيار مخصص للإعدادات والواجهة",
+        "submitButton": "خيار مخصص للإعدادات والواجهة",
+        "viewLeaderboard": "خيار مخصص للإعدادات والواجهة"
+      },
+      "errors": {
+        "networkRetry": "خيار مخصص للإعدادات والواجهة",
+        "appCheckRetry": "خيار مخصص للإعدادات والواجهة",
+        "serverRetry": "خيار مخصص للإعدادات والواجهة",
+        "genericRetry": "إعادة المحاولة",
+        "failedToSubmit": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "deviceInfoCard": {
+      "title": "خيار مخصص للإعدادات والواجهة",
+      "deviceSummary": "خيار مخصص للإعدادات والواجهة {{brand}} {{النموذج}} {{systemName}} {{systemVersion}}",
+      "coreSummary": "خيار مخصص للإعدادات والواجهة {{cores}} {{الذاكرة}}",
+      "sections": {
+        "basicInfo": "خيار مخصص للإعدادات والواجهة",
+        "cpuDetails": "خيار مخصص للإعدادات والواجهة",
+        "gpuDetails": "خيار مخصص للإعدادات والواجهة",
+        "hexagonDetails": "خيار مخصص للإعدادات والواجهة",
+        "appInfo": "خيار مخصص للإعدادات والواجهة"
+      },
+      "fields": {
+        "architecture": "خيار مخصص للإعدادات والواجهة",
+        "totalMemory": "خيار مخصص للإعدادات والواجهة",
+        "deviceId": "خيار مخصص للإعدادات والواجهة",
+        "cpuCores": "خيار مخصص للإعدادات والواجهة",
+        "cpuModel": "خيار مخصص للإعدادات والواجهة",
+        "chipset": "خيار مخصص للإعدادات والواجهة",
+        "instructions": "خيار مخصص للإعدادات والواجهة",
+        "version": "الإصدار",
+        "gpuType": "خيار مخصص للإعدادات والواجهة",
+        "gpuRenderer": "خيار مخصص للإعدادات والواجهة",
+        "gpuVendor": "خيار مخصص للإعدادات والواجهة",
+        "metalSupport": "خيار مخصص للإعدادات والواجهة",
+        "openclSupport": "خيار مخصص للإعدادات والواجهة",
+        "openclRequirement": "خيار مخصص للإعدادات والواجهة"
+      },
+      "instructions": {
+        "format": "خيار مخصص للإعدادات والواجهة {{fp16}} {{dotProd}} {{sve}} {{i8mm}}",
+        "yes": "✓",
+        "no": "✗"
+      },
+      "versionFormat": "خيار مخصص للإعدادات والواجهة {{الإصدار}} {{buildNumber}}"
+    }
+  },
+  "errors": {
+    "unexpectedError": "خيار مخصص للإعدادات والواجهة",
+    "hfAuthenticationError": "خيار مخصص للإعدادات والواجهة",
+    "hfAuthenticationErrorSearch": "خيار مخصص للإعدادات والواجهة",
+    "authenticationError": "خيار مخصص للإعدادات والواجهة",
+    "hfAuthorizationError": "خيار مخصص للإعدادات والواجهة",
+    "authorizationError": "خيار مخصص للإعدادات والواجهة",
+    "hfServerError": "خيار مخصص للإعدادات والواجهة",
+    "serverError": "خيار مخصص للإعدادات والواجهة",
+    "hfNetworkTimeout": "خيار مخصص للإعدادات والواجهة",
+    "networkTimeout": "خيار مخصص للإعدادات والواجهة",
+    "hfNetworkError": "خيار مخصص للإعدادات والواجهة",
+    "networkError": "خيار مخصص للإعدادات والواجهة",
+    "downloadSetupFailedTitle": "خيار مخصص للإعدادات والواجهة",
+    "downloadSetupFailedMessage": "خيار مخصص للإعدادات والواجهة {{message}}",
+    "cameraErrorTitle": "خيار مخصص للإعدادات والواجهة",
+    "cameraErrorMessage": "خيار مخصص للإعدادات والواجهة",
+    "galleryErrorTitle": "خيار مخصص للإعدادات والواجهة",
+    "galleryErrorMessage": "خيار مخصص للإعدادات والواجهة"
+  },
+  "simulator": {
+    "cameraNotAvailable": "خيار مخصص للإعدادات والواجهة"
+  },
+  "voiceAndSpeech": {
+    "sectionTitle": "خيار مخصص للإعدادات والواجهة",
+    "voiceRowTitle": "خيار مخصص للإعدادات والواجهة",
+    "notSet": "خيار مخصص للإعدادات والواجهة",
+    "previewButton": "خيار مخصص للإعدادات والواجهة",
+    "stopPreviewButton": "خيار مخصص للإعدادات والواجهة",
+    "voicesTitle": "خيار مخصص للإعدادات والواجهة",
+    "voicesEmptyHint": "خيار مخصص للإعدادات والواجهة",
+    "supertonicStepsLabel": "خيار مخصص للإعدادات والواجهة",
+    "supertonicLanguageLabel": "خيار مخصص للإعدادات والواجهة",
+    "supertonicLanguageAuto": "خيار مخصص للإعدادات والواجهة",
+    "supertonicLanguageSheetTitle": "خيار مخصص للإعدادات والواجهة",
+    "supertonicLanguageSearchPlaceholder": "خيار مخصص للإعدادات والواجهة",
+    "supertonicLanguageNames": {
+      "ar": "خيار مخصص للإعدادات والواجهة",
+      "bg": "خيار مخصص للإعدادات والواجهة",
+      "hr": "خيار مخصص للإعدادات والواجهة",
+      "cs": "خيار مخصص للإعدادات والواجهة",
+      "da": "خيار مخصص للإعدادات والواجهة",
+      "nl": "خيار مخصص للإعدادات والواجهة",
+      "en": "خيار مخصص للإعدادات والواجهة",
+      "et": "خيار مخصص للإعدادات والواجهة",
+      "fi": "خيار مخصص للإعدادات والواجهة",
+      "fr": "خيار مخصص للإعدادات والواجهة",
+      "de": "خيار مخصص للإعدادات والواجهة",
+      "el": "خيار مخصص للإعدادات والواجهة",
+      "hi": "خيار مخصص للإعدادات والواجهة",
+      "hu": "خيار مخصص للإعدادات والواجهة",
+      "id": "خيار مخصص للإعدادات والواجهة",
+      "it": "خيار مخصص للإعدادات والواجهة",
+      "ja": "خيار مخصص للإعدادات والواجهة",
+      "ko": "خيار مخصص للإعدادات والواجهة",
+      "lv": "خيار مخصص للإعدادات والواجهة",
+      "lt": "خيار مخصص للإعدادات والواجهة",
+      "pl": "خيار مخصص للإعدادات والواجهة",
+      "pt": "خيار مخصص للإعدادات والواجهة",
+      "ro": "خيار مخصص للإعدادات والواجهة",
+      "ru": "خيار مخصص للإعدادات والواجهة",
+      "sk": "خيار مخصص للإعدادات والواجهة",
+      "sl": "خيار مخصص للإعدادات والواجهة",
+      "es": "خيار مخصص للإعدادات والواجهة",
+      "sv": "خيار مخصص للإعدادات والواجهة",
+      "tr": "خيار مخصص للإعدادات والواجهة",
+      "uk": "خيار مخصص للإعدادات والواجهة",
+      "vi": "خيار مخصص للإعدادات والواجهة"
+    },
+    "toggleAutoSpeakLabel": "خيار مخصص للإعدادات والواجهة",
+    "openSettingsLabel": "خيار مخصص للإعدادات والواجهة",
+    "playMessageLabel": "خيار مخصص للإعدادات والواجهة",
+    "stopMessageLabel": "خيار مخصص للإعدادات والواجهة",
+    "autoSpeakLabel": "خيار مخصص للإعدادات والواجهة",
+    "autoSpeakDescription": "خيار مخصص للإعدادات والواجهة",
+    "engineChipKitten": "خيار مخصص للإعدادات والواجهة",
+    "engineChipKokoro": "خيار مخصص للإعدادات والواجهة",
+    "engineChipSupertonic": "خيار مخصص للإعدادات والواجهة",
+    "engineChipSystem": "خيار مخصص للإعدادات والواجهة",
+    "stepsCount": "خيار مخصص للإعدادات والواجهة {{steps}}",
+    "engineKittenTagline": "خيار مخصص للإعدادات والواجهة",
+    "engineKokoroTagline": "خيار مخصص للإعدادات والواجهة",
+    "engineSupertonicTagline": "خيار مخصص للإعدادات والواجهة",
+    "engineSystemTagline": "خيار مخصص للإعدادات والواجهة",
+    "engineSystemTitleIos": "خيار مخصص للإعدادات والواجهة",
+    "engineSystemTitleAndroid": "خيار مخصص للإعدادات والواجهة",
+    "engineSystemTier": "خيار مخصص للإعدادات والواجهة",
+    "engineTierLightest": "خيار مخصص للإعدادات والواجهة",
+    "engineTierBestQuality": "خيار مخصص للإعدادات والواجهة",
+    "engineTierFastestStart": "خيار مخصص للإعدادات والواجهة",
+    "engineSpecsLine": "خيار مخصص للإعدادات والواجهة {{voices}} {{sizeMb}} {{ramMb}}",
+    "engineSystemSpecsLine": "خيار مخصص للإعدادات والواجهة {{voices}}",
+    "engineRemoveTitle": "خيار مخصص للإعدادات والواجهة {{engineTitle}}",
+    "engineRemoveBody": "خيار مخصص للإعدادات والواجهة {{sizeMb}}",
+    "engineRemoveCancel": "إلغاء",
+    "engineRemoveConfirm": "خيار مخصص للإعدادات والواجهة",
+    "engineInstallCta": "خيار مخصص للإعدادات والواجهة {{sizeMb}}",
+    "engineDownloadingLabel": "خيار مخصص للإعدادات والواجهة {{pct}} {{mbDone}} {{sizeMb}}",
+    "engineRetryCta": "خيار مخصص للإعدادات والواجهة",
+    "voicesEmptyState": "خيار مخصص للإعدادات والواجهة",
+    "kokoroDeviceNote": "خيار مخصص للإعدادات والواجهة",
+    "insufficientStorage": "خيار مخصص للإعدادات والواجهة {{requiredMb}} {{freeMb}}"
+  },
+  "onboarding": {
+    "back": "رجوع",
+    "skip": "خيار مخصص للإعدادات والواجهة",
+    "skipForNow": "خيار مخصص للإعدادات والواجهة",
+    "splash": {
+      "brand": "✨ MAGD AI ✨"
+    },
+    "screen1": {
+      "title": "خيار مخصص للإعدادات والواجهة",
+      "titleAccent": "خيار مخصص للإعدادات والواجهة",
+      "body": "خيار مخصص للإعدادات والواجهة",
+      "cta": "خيار مخصص للإعدادات والواجهة",
+      "eyebrow": "خيار مخصص للإعدادات والواجهة"
+    },
+    "screen2": {
+      "title": "خيار مخصص للإعدادات والواجهة",
+      "body": "خيار مخصص للإعدادات والواجهة",
+      "highlight": "خيار مخصص للإعدادات والواجهة",
+      "cta": "التالي",
+      "eyebrow": "خيار مخصص للإعدادات والواجهة",
+      "titleAccent": "خيار مخصص للإعدادات والواجهة"
+    },
+    "screen3": {
+      "title": "خيار مخصص للإعدادات والواجهة",
+      "titleAccent": "خيار مخصص للإعدادات والواجهة",
+      "body": "خيار مخصص للإعدادات والواجهة",
+      "highlight": "خيار مخصص للإعدادات والواجهة",
+      "cta": "خيار مخصص للإعدادات والواجهة",
+      "eyebrow": "خيار مخصص للإعدادات والواجهة"
+    },
+    "screen4": {
+      "title": "خيار مخصص للإعدادات والواجهة",
+      "titleAccent": "خيار مخصص للإعدادات والواجهة",
+      "body": "خيار مخصص للإعدادات والواجهة",
+      "highlight": "خيار مخصص للإعدادات والواجهة",
+      "cta": "خيار مخصص للإعدادات والواجهة",
+      "eyebrow": "خيار مخصص للإعدادات والواجهة"
+    },
+    "screen5": {
+      "title": "خيار مخصص للإعدادات والواجهة",
+      "body": "خيار مخصص للإعدادات والواجهة",
+      "topic": {
+        "smartchat": "خيار مخصص للإعدادات والواجهة",
+        "coding": "خيار مخصص للإعدادات والواجهة",
+        "education": "خيار مخصص للإعدادات والواجهة",
+        "roleplay": "خيار مخصص للإعدادات والواجهة",
+        "creative_writing": "خيار مخصص للإعدادات والواجهة",
+        "else": "خيار مخصص للإعدادات والواجهة"
+      },
+      "topicDescription": {
+        "smartchat": "خيار مخصص للإعدادات والواجهة",
+        "coding": "خيار مخصص للإعدادات والواجهة",
+        "education": "خيار مخصص للإعدادات والواجهة",
+        "roleplay": "خيار مخصص للإعدادات والواجهة",
+        "creative_writing": "خيار مخصص للإعدادات والواجهة",
+        "else": "خيار مخصص للإعدادات والواجهة"
+      }
+    },
+    "screen6": {
+      "cta": "خيار مخصص للإعدادات والواجهة {{name}}",
+      "ctaTemplate": "خيار مخصص للإعدادات والواجهة {{name}} {{size}}",
+      "useTemplate": "خيار مخصص للإعدادات والواجهة {{name}}",
+      "deviceRamSuffix": "خيار مخصص للإعدادات والواجهة",
+      "deviceFreeSuffix": "خيار مخصص للإعدادات والواجهة",
+      "recommended": "خيار مخصص للإعدادات والواجهة",
+      "downloaded": "تم التنزيل",
+      "modelTier": {
+        "quick": "خيار مخصص للإعدادات والواجهة",
+        "balanced": "خيار مخصص للإعدادات والواجهة",
+        "best": "خيار مخصص للإعدادات والواجهة"
+      },
+      "subtitleTemplate": "خيار مخصص للإعدادات والواجهة {{name}}",
+      "pal": {
+        "pip": {
+          "body": "خيار مخصص للإعدادات والواجهة"
+        },
+        "codie": {
+          "body": "خيار مخصص للإعدادات والواجهة"
+        },
+        "sage": {
+          "body": "خيار مخصص للإعدادات والواجهة"
+        },
+        "echo": {
+          "body": "خيار مخصص للإعدادات والواجهة"
+        },
+        "muse": {
+          "body": "خيار مخصص للإعدادات والواجهة"
+        }
+      }
+    }
+  },
+  "downloadBanner": {
+    "titleByPal": "خيار مخصص للإعدادات والواجهة {{name}}",
+    "titleByModel": "خيار مخصص للإعدادات والواجهة {{name}}",
+    "extraInProgress": "خيار مخصص للإعدادات والواجهة {{count}}"
   }
 }

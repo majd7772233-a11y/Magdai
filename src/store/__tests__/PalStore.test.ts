@@ -338,9 +338,7 @@ describe('PalStore', () => {
     it('seeds Pip when absent', async () => {
       await callInitializePipPal();
       const pip = palStore.pals.find(
-        p =>
-          (p.name === '✨ MAGD AI ✨' || p.name === 'Pip') &&
-          p.source === 'local',
+        p => (p.name === '✨ MAGD AI ✨' || p.name === 'Pip') && p.source === 'local',
       );
       expect(pip).toBeDefined();
       expect(pip?.type).toBe('local');
@@ -353,9 +351,7 @@ describe('PalStore', () => {
       (palRepository.createPal as jest.Mock).mockClear();
       await callInitializePipPal();
       const pipCount = palStore.pals.filter(
-        p =>
-          (p.name === '✨ MAGD AI ✨' || p.name === 'Pip') &&
-          p.source === 'local',
+        p => (p.name === '✨ MAGD AI ✨' || p.name === 'Pip') && p.source === 'local',
       ).length;
       expect(pipCount).toBeGreaterThanOrEqual(1);
       expect(palRepository.createPal).not.toHaveBeenCalled();
@@ -396,20 +392,13 @@ describe('PalStore', () => {
         type: 'local',
       } as any;
       runInAction(() => {
-        palStore.pals = [
-          existingPip,
-          existingProg,
-          existingElec,
-          existingTeach,
-        ];
+        palStore.pals = [existingPip, existingProg, existingElec, existingTeach];
       });
 
       await callInitializePipPal();
 
       const pip = palStore.pals.find(
-        p =>
-          (p.name === '✨ MAGD AI ✨' || p.name === 'Pip') &&
-          p.source === 'local',
+        p => (p.name === '✨ MAGD AI ✨' || p.name === 'Pip') && p.source === 'local',
       );
       expect(pip).toBeDefined();
       expect(pip?.id).toBe('pip-existing');

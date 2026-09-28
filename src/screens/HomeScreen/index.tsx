@@ -31,10 +31,8 @@ export const HomeScreen: React.FC = observer(() => {
 
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12)
-      return currentL10n.home?.greetingMorning || 'صباح الخير، مجد';
-    if (hour < 18)
-      return currentL10n.home?.greetingAfternoon || 'مساء الخير، مجد';
+    if (hour < 12) return currentL10n.home?.greetingMorning || 'صباح الخير، مجد';
+    if (hour < 18) return currentL10n.home?.greetingAfternoon || 'مساء الخير، مجد';
     return currentL10n.home?.greeting || 'مساء الخير، مجد';
   };
 
@@ -46,19 +44,11 @@ export const HomeScreen: React.FC = observer(() => {
       ]}
       contentContainerStyle={styles.contentContainer}>
       {/* Header Banner */}
-      <GlassCard
-        style={styles.headerCard}
-        glow
-        glowColor="rgba(99, 102, 241, 0.25)">
-        <Text
-          style={[styles.brandTitle, {color: isDark ? '#E0E7FF' : '#312E81'}]}>
+      <GlassCard style={styles.headerCard} glow glowColor="rgba(99, 102, 241, 0.25)">
+        <Text style={[styles.brandTitle, {color: isDark ? '#E0E7FF' : '#312E81'}]}>
           ✨ MAGD AI ✨
         </Text>
-        <Text
-          style={[
-            styles.greetingText,
-            {color: isDark ? '#FFFFFF' : '#1E1B4B'},
-          ]}>
+        <Text style={[styles.greetingText, {color: isDark ? '#FFFFFF' : '#1E1B4B'}]}>
           {getGreeting()}
         </Text>
         <Text style={[styles.subText, {color: isDark ? '#94A3B8' : '#475569'}]}>
@@ -67,8 +57,7 @@ export const HomeScreen: React.FC = observer(() => {
       </GlassCard>
 
       {/* Quick Action Grid */}
-      <Text
-        style={[styles.sectionTitle, {color: isDark ? '#E2E8F0' : '#1E293B'}]}>
+      <Text style={[styles.sectionTitle, {color: isDark ? '#E2E8F0' : '#1E293B'}]}>
         {currentL10n.home?.quickActions || 'إجراءات سريعة'}
       </Text>
       <View style={styles.actionGrid}>
@@ -77,11 +66,7 @@ export const HomeScreen: React.FC = observer(() => {
           onPress={() => navigateToChat()}>
           <GlassCard style={styles.actionCard}>
             <Text style={styles.actionIcon}>💬</Text>
-            <Text
-              style={[
-                styles.actionLabel,
-                {color: isDark ? '#F1F5F9' : '#0F172A'},
-              ]}>
+            <Text style={[styles.actionLabel, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
               {currentL10n.home?.chat || 'المحادثة'}
             </Text>
           </GlassCard>
@@ -92,11 +77,7 @@ export const HomeScreen: React.FC = observer(() => {
           onPress={() => navigateToChat({topic: 'code'})}>
           <GlassCard style={styles.actionCard}>
             <Text style={styles.actionIcon}>👨‍💻</Text>
-            <Text
-              style={[
-                styles.actionLabel,
-                {color: isDark ? '#F1F5F9' : '#0F172A'},
-              ]}>
+            <Text style={[styles.actionLabel, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
               {currentL10n.home?.code || 'البرمجة'}
             </Text>
           </GlassCard>
@@ -107,11 +88,7 @@ export const HomeScreen: React.FC = observer(() => {
           onPress={() => navigateToChat({topic: 'vision'})}>
           <GlassCard style={styles.actionCard}>
             <Text style={styles.actionIcon}>👁</Text>
-            <Text
-              style={[
-                styles.actionLabel,
-                {color: isDark ? '#F1F5F9' : '#0F172A'},
-              ]}>
+            <Text style={[styles.actionLabel, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
               {currentL10n.home?.vision || 'الرؤية'}
             </Text>
           </GlassCard>
@@ -122,11 +99,7 @@ export const HomeScreen: React.FC = observer(() => {
           onPress={() => navigation.navigate(ROUTES.PROJECTS)}>
           <GlassCard style={styles.actionCard}>
             <Text style={styles.actionIcon}>📁</Text>
-            <Text
-              style={[
-                styles.actionLabel,
-                {color: isDark ? '#F1F5F9' : '#0F172A'},
-              ]}>
+            <Text style={[styles.actionLabel, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
               {currentL10n.home?.files || 'الملفات والمشاريع'}
             </Text>
           </GlassCard>
@@ -137,11 +110,7 @@ export const HomeScreen: React.FC = observer(() => {
           onPress={() => navigateToChat({topic: 'electronics'})}>
           <GlassCard style={styles.actionCard}>
             <Text style={styles.actionIcon}>🔧</Text>
-            <Text
-              style={[
-                styles.actionLabel,
-                {color: isDark ? '#F1F5F9' : '#0F172A'},
-              ]}>
+            <Text style={[styles.actionLabel, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
               {currentL10n.home?.electronics || 'الإلكترونيات'}
             </Text>
           </GlassCard>
@@ -152,11 +121,7 @@ export const HomeScreen: React.FC = observer(() => {
           onPress={() => navigation.navigate(ROUTES.MEMORY)}>
           <GlassCard style={styles.actionCard}>
             <Text style={styles.actionIcon}>🧠</Text>
-            <Text
-              style={[
-                styles.actionLabel,
-                {color: isDark ? '#F1F5F9' : '#0F172A'},
-              ]}>
+            <Text style={[styles.actionLabel, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
               {currentL10n.home?.memoryCenter || 'مركز الذاكرة'}
             </Text>
           </GlassCard>
@@ -164,8 +129,7 @@ export const HomeScreen: React.FC = observer(() => {
       </View>
 
       {/* Active Model Status Card */}
-      <Text
-        style={[styles.sectionTitle, {color: isDark ? '#E2E8F0' : '#1E293B'}]}>
+      <Text style={[styles.sectionTitle, {color: isDark ? '#E2E8F0' : '#1E293B'}]}>
         {currentL10n.home?.activeModel || 'النموذج النشط'}
       </Text>
       <TouchableOpacity onPress={() => navigation.navigate(ROUTES.MODELS)}>
@@ -184,11 +148,8 @@ export const HomeScreen: React.FC = observer(() => {
             </View>
             <Text style={styles.arrowIcon}>➔</Text>
           </View>
-          <Text
-            style={[styles.modelName, {color: isDark ? '#FFFFFF' : '#0F172A'}]}>
-            {activeModel?.name ||
-              currentL10n.home?.noModelLoaded ||
-              'اضغط لاختيار أو تحميل نموذج GGUF'}
+          <Text style={[styles.modelName, {color: isDark ? '#FFFFFF' : '#0F172A'}]}>
+            {activeModel?.name || currentL10n.home?.noModelLoaded || 'اضغط لاختيار أو تحميل نموذج GGUF'}
           </Text>
         </GlassCard>
       </TouchableOpacity>
@@ -196,11 +157,7 @@ export const HomeScreen: React.FC = observer(() => {
       {/* Recent Chats */}
       {sessions.length > 0 && (
         <>
-          <Text
-            style={[
-              styles.sectionTitle,
-              {color: isDark ? '#E2E8F0' : '#1E293B'},
-            ]}>
+          <Text style={[styles.sectionTitle, {color: isDark ? '#E2E8F0' : '#1E293B'}]}>
             {currentL10n.home?.recentChats || 'المحادثات الأخيرة'}
           </Text>
           {sessions.map(session => (
@@ -213,10 +170,7 @@ export const HomeScreen: React.FC = observer(() => {
               <GlassCard style={styles.chatSessionCard}>
                 <Text
                   numberOfLines={1}
-                  style={[
-                    styles.chatTitle,
-                    {color: isDark ? '#F1F5F9' : '#0F172A'},
-                  ]}>
+                  style={[styles.chatTitle, {color: isDark ? '#F1F5F9' : '#0F172A'}]}>
                   💬 {session.title || 'محادثة جديدة'}
                 </Text>
               </GlassCard>
